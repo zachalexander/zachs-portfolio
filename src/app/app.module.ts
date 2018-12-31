@@ -1,20 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SenateVotesComponent } from './senate-votes/senate-votes.component';
+import { HttpModule } from '@angular/http';
+
+import { HomeComponent } from './components/home/home.component';
+import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
+
+import { PropubService } from './services/propub.service';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    SenateVotesComponent
+    SenateVotesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [PropubService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
