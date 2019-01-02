@@ -4,7 +4,8 @@ import { PropubService } from '../../services/propub.service';
 import * as senatorData from '../../../assets/us-senate.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { ResizedEvent } from 'angular-resize-event/resized-event';
+import {MatSliderModule} from '@angular/material/slider';
+// import { ResizedEvent } from 'angular-resize-event/resized-event';
 
 
 @Component({
@@ -26,22 +27,26 @@ export class SenateVotesComponent {
   senatorSup = [];
   dataset: Object;
   serverError = false;
+  showTicks;
+  autoTicks;
 
   constructor(
     private propubService: PropubService,
-    private spinnerService: Ng4LoadingSpinnerService
+    private spinnerService: Ng4LoadingSpinnerService,
+    private matSliderModule: MatSliderModule
   ){}
 
-  onResized(event: ResizedEvent): void {
-    this.width = event.newWidth;
+  // onResized(event: ResizedEvent): void {
+  //   this.width = event.newWidth;
 
-    console.log(this.width);
-    // this.getPropublica(this.width, 400);    
-  }
+  //   console.log(this.width);
+  //   // this.getPropublica(this.width, 400);    
+  // }
+
 
     // grab data from service
-    getPropublica(len, hei){
-      this.propubService.getPropublica().subscribe(
+    getPropublica(len, hei, input){
+      return this.propubService.getPropublica().subscribe(
         data => {
           this.members = data.results[0].members;
           let senatorPhotos = senatorData.default;
@@ -85,15 +90,30 @@ export class SenateVotesComponent {
           });
           
           // Data manipulation, separating into party datasets and sorting based on voting percentage
-          this.members_data.map((x) => {
-            if(x.party === "R"){
-              pushPartyData(x, this.republicanSenators)
-            } else if (x.party === "D"){
-              pushPartyData(x, this.democraticSenators)
-            } else if (x.party === "I"){
-              pushPartyData(x, this.democraticSenators)
-            }
-          });
+          if (input === 5){
+            this.members_data.map((x) => {
+              if (x.votes_w_prty_pct >= 90.0) {
+                if(x.party === "R"){
+                  pushPartyData(x, this.republicanSenators)
+                } else if (x.party === "D"){
+                  pushPartyData(x, this.democraticSenators)
+                } else if (x.party === "I"){
+                  pushPartyData(x, this.democraticSenators)
+                }
+              }
+            });
+          } else {
+            this.members_data.map((x) => {
+              if(x.party === "R"){
+                pushPartyData(x, this.republicanSenators)
+              } else if (x.party === "D"){
+                pushPartyData(x, this.democraticSenators)
+              } else if (x.party === "I"){
+                pushPartyData(x, this.democraticSenators)
+              }
+            });
+          }
+          
           
           sortVotes(this.republicanSenators, 1, -1);
           sortVotes(this.democraticSenators, -1, 1);
@@ -104,11 +124,25 @@ export class SenateVotesComponent {
           // add key property to datasets for bar coloring purposes
           makeKey(this.republicanSenators);
           makeKey(this.democraticSenators);
+
+
           
+          console.log(this.republicanSenators);
           d3.select("svg").remove();
           drawChart(this.republicanSenators, this.democraticSenators, len, hei);
+
           });
         // end of service pull
+    }
+
+    formatLabel(value: number | null) {
+      if (!value) {
+        return 0;
+      }
+      if (value === 5){
+        console.log('start here')
+      }
+      return value;
     }
 
     ngOnInit(){
@@ -116,7 +150,7 @@ export class SenateVotesComponent {
   
       let len = 1200;
       let hei = 400;
-      this.getPropublica(len, hei);
+      this.getPropublica(len, hei, 0);
 
       this.spinnerService.hide();
     }
