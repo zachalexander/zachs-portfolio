@@ -1,13 +1,14 @@
-.title-wrapper {
-    text-align: center;
+
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
-.visual-list-wrapper {
-    text-align: center;
+ul {
+    padding: 0;
 }
 
 li {
-    text-align: center;
-    list-style-type: none;
-    font-size: 13px;
+    list-style: none;
+    font-size: 0.75em;
 }

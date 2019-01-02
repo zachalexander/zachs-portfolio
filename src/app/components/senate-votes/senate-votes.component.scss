@@ -1,0 +1,152 @@
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.chart-title {
+  text-align: center;
+  padding-left: 40px;
+  width: 1200px;
+  font-family: 'Quicksand', sans-serif;
+  color: rgb(124, 124, 124);
+  font-size: 25px;
+  margin-bottom: 0;
+}
+
+svg {
+  padding-left: 20px;
+}
+
+svg text.axis-labels {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11px;
+  fill: white;
+  text-anchor: middle;
+}
+
+rect {
+ -moz-transition: all 0.3s;
+ -o-transition: all 0.3s;
+ -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+rect:hover {
+ stroke: #333;
+ stroke-width: 2;
+}
+
+img {
+  max-height: 80px;
+  max-width: 80px;
+  border: 3px solid #ddd;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-flow: row-wrap;
+  justify-content: space-around;
+}
+
+#tooltip {
+ position: absolute;
+ width: 250px;
+ height: auto;
+ padding: 10px;
+ background-color: white;
+ border: 1px solid #ddd;
+ -webkit-border-radius: 10px;
+ -moz-border-radius: 10px;
+ border-radius: 2px;
+ -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+ -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+ box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+ pointer-events: none;
+}
+#tooltip.hidden {
+ display: none;
+}
+#tooltip h4 {
+ margin: 0;
+ font-family: 'Quicksand', sans-serif;
+ font-size: 16px;
+ line-height: 20px;
+ text-align: center;
+ }
+
+ #tooltip p {
+ margin: 0;
+ font-family: 'Quicksand', sans-serif;
+ font-size: 14px;
+ line-height: 20px;
+ }
+
+ .voting-info {
+   text-align: center;
+ }
+
+ .vote-percent {
+   background-color: #ddd;
+   border: 1px solid #ddd;
+   color: #333;
+   padding: 4px;
+ }
+
+ svg text.bar-labels {
+   font-family: 'Quicksand', sans-serif;
+   font-weight: bolder;
+   font-size: 11px;
+   fill: #dddddd;
+   text-anchor: middle;
+ }
+
+.x-axis-dem path,
+.x-axis-dem line {
+ fill: none;
+ stroke: #ddd;
+ shape-rendering: crispEdges;
+}
+.x-axis-dem text {
+ font-family: 'Quicksand', sans-serif;
+ font-weight: bolder;
+ font-size: 11px;
+}
+
+.y-axis-dem path,
+.y-axis-dem line {
+ fill: none;
+ stroke: #ddd;
+ shape-rendering: crispEdges;
+}
+.y-axis-dem text {
+ font-family: 'Quicksand', sans-serif;
+ font-weight: bolder;
+ font-size: 11px;
+}
+
+.x-axis-rep path,
+.x-axis-rep line {
+ fill: none;
+ stroke: #ddd;
+ shape-rendering: crispEdges;
+}
+.x-axis-rep text {
+ font-family: 'Quicksand', sans-serif;
+ font-weight: bolder;
+ font-size: 11px;
+}
+
+.y-axis-rep path,
+.y-axis-rep line {
+ fill: none;
+ stroke: #ddd;
+ shape-rendering: crispEdges;
+}
+.y-axis-rep text {
+ font-family: 'Quicksand', sans-serif;
+ font-weight: bolder;
+ font-size: 11px;
+}

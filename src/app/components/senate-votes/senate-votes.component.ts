@@ -6,8 +6,8 @@ import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './../../app.component.html',
-  styleUrls: ['./../../app.component.scss'],
+  templateUrl: './senate-votes.component.html',
+  styleUrls: ['./senate-votes.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 
@@ -79,9 +79,7 @@ export class SenateVotesComponent {
       this.propubService.getPropublica().subscribe(
           data => {
             this.members = data.results[0].members;
-            console.log(this.members);
             let senatorPhotos = senatorData.default;
-            console.log(senatorPhotos);
             senatorPhotos.map((names) => {
               this.senatorSup.push({
                 "votesmart_id": names.votesmart,
@@ -116,7 +114,6 @@ export class SenateVotesComponent {
                 }
               });
 
-              console.log(this.members_data);
             // Data manipulation, separating into party datasets and sorting based on voting percentage
              this.members_data.map((x) => {
                 if(x.party === "R"){
@@ -134,32 +131,23 @@ export class SenateVotesComponent {
             let republicans = this.republicanSenators;
             let democrats = this.democraticSenators;
 
-            console.log(republicans);
-            console.log(democrats);
-
             // add key property to datasets for bar coloring purposes
             makeKey(republicans);
             makeKey(democrats);
 
-            photoReplace(republicans);
-            photoReplace(democrats);
-
             // set scales for bars
-            let repXScale = d3.scaleBand()
-                          .domain(d3.range(republicans.length))
-                          // .rangeRoundBands([5, republicans.length / 100 * len], 0.10)
+            let repXScale = d3.scaleBand().rangeRound([5, republicans.length / 100 * len]).padding(0.1)
+            repXScale.domain(d3.range(republicans.length))
 
-            let repYScale = d3.scaleLinear()
-                          .domain([40, d3.max(republicans, function(d){ return d.votes_w_prty_pct;})])
-                          .range([0, hei - padding_top])
+            let repYScale = d3.scaleLinear().range([0, hei - padding_top])
+            repYScale.domain([40, d3.max(republicans, function (d) { return d.votes_w_prty_pct; })])
 
-            let demXScale = d3.scaleBand()
-                          .domain(d3.range(democrats.length))
-                          // .rangeRoundBands([(republicans.length / 100 * len) + 20, len + 5], 0.10)
+            let demXScale = d3.scaleBand().rangeRound([(republicans.length / 100 * len) + 20, len + 5]).padding(0.1)
+            demXScale.domain(d3.range(democrats.length))
 
-            let demYScale = d3.scaleLinear()
-                          .domain([40, d3.max(republicans, function(d){ return d.votes_w_prty_pct;})])
-                          .range([0, hei - padding_top])
+            let demYScale = d3.scaleLinear().range([0, hei - padding_top])
+            demYScale.domain([40, d3.max(republicans, function(d){ return d.votes_w_prty_pct;})])
+                          
 
           // create main svg
           let svg = d3.select("body")
@@ -172,47 +160,29 @@ export class SenateVotesComponent {
           let demSenators = svg.append("g").classed("democratic-senators", true);
 
 
-          // create scales for axes
-          let demXScaleBottom = d3.scaleBand()
-            .domain(democrats.map(function (d) {return d.senator_name;}))
-            // .rangeRoundBands([(republicans.length / 100 * len) + 30, len - 5], 0.10)
+//        // create scales for axes
+          let demXScaleBottom = d3.scaleBand().rangeRound([(republicans.length / 100 * len) + 30, len - 5], 0.10)
+          demXScaleBottom.domain(democrats.map(function (d) {return d.senator_name;}))
 
-          let repXScaleBottom = d3.scaleBand()
-            .domain(republicans.map(function (d) {return d.senator_name;}))
-            // .rangeRoundBands([padding_top + 5, (republicans.length / 100 * len) - 20], 0.10)
+          let repXScaleBottom = d3.scaleBand().rangeRound([padding_top + 5, (republicans.length / 100 * len) - 20], 0.10)
+          repXScaleBottom.domain(republicans.map(function (d) {return d.senator_name;}))
 
           let demYScaleRight = d3.scaleLinear()
             .domain([40, 100])
             .range([hei, padding_top])
 
-          let repYScaleLeft = d3.scaleLinear()
-            .domain([40, d3.max(republicans, function (d) { return d.votes_w_prty_pct; })])
-            .range([hei, padding_top])
+            let repYScaleLeft = d3.scaleLinear()
+              .domain([40, d3.max(republicans, function (d) { return d.votes_w_prty_pct; })])
+              .range([hei, padding_top])
 
           // create axes
-          let xAxisDem = d3.axisBottom(demXScaleBottom)
-            // .scale(demXScaleBottom)
-            .ticks(democrats.length)
-            // .outerTickSize(0)
-            // .orient("bottom");
+          let xAxisDem = d3.axisBottom(demXScaleBottom).ticks(democrats.length).tickSizeOuter(0)
 
-          let yAxisDem = d3.axisRight(demYScaleRight)
-            // .scale(demYScaleRight)
-            // .outerTickSize(2)
-            .ticks(8)
-            // .orient("right");
+          let yAxisDem = d3.axisRight(demYScaleRight).ticks(8).tickSizeOuter(1)
 
-          let yAxisRep = d3.axisLeft(repYScaleLeft)
-            // .scale(repYScaleLeft)
-            // .outerTickSize(2)
-            .ticks(8)
-            // .orient("left");
+          let yAxisRep = d3.axisLeft(repYScaleLeft).ticks(8).tickSizeOuter(1)
 
-          let xAxisRep = d3.axisBottom(repXScaleBottom)
-            // .scale(repXScaleBottom)
-            .ticks(republicans.length)
-            // .outerTickSize(0)
-            // .orient("bottom");
+          let xAxisRep = d3.axisBottom(repXScaleBottom).ticks(republicans.length).tickSizeOuter(0)
 
           // append x-axis labels, senator names
           demSenators.append("g")
@@ -242,13 +212,13 @@ export class SenateVotesComponent {
           // append y-axis labels, vote percentage ranges
           demSenators.append("g")
             .attr("class", "y-axis-dem")
-            .attr("transform", "translate(" + (len - demXScale.rangeBand()) + ",0)")
+            .attr("transform", "translate(" + (len - demXScale.bandwidth()) + ",0)")
             .style("fill", "rgb(124,124,124")
             .call(yAxisDem)
 
           repSenators.append("g")
             .attr("class", "y-axis-rep")
-            .attr("transform", "translate(" + (5 + ((repXScale.rangeBand() * 2) + repXScale.rangeBand() / 2)) + ",0)")
+            .attr("transform", "translate(" + (((repXScale.bandwidth() * 2) + repXScale.bandwidth() / 2)) + ",0)")
             .style("fill", "rgb(124,124,124")
             .call(yAxisRep)
 
@@ -259,11 +229,11 @@ export class SenateVotesComponent {
                      .append("rect")
                      .attr("x", function(d, i){return repXScale(i);})
                      .attr("y", function(d){return hei - repYScale(d.votes_w_prty_pct);})
-                     .attr("width", repXScale.rangeBand())
+                     .attr("width", repXScale.bandwidth())
                      .attr("height", function(d){return repYScale(d.votes_w_prty_pct);})
                      .attr("fill", function(d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
                      .on("mouseover", function(d){
-                       let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.rangeBand() + 50;
+                       let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth() + 50;
                        let yPosition = parseFloat(d3.select(this).attr("y"));
                        repSenators.selectAll("rect")
                                   .attr("fill", function (d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100))* 0.4 + ")";})
@@ -293,47 +263,47 @@ export class SenateVotesComponent {
                                   .attr("fill", function(d, i){return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
                           });
 
-         // append the bars for democratic senators
-         demSenators.selectAll("rect")
-                    .data(this.democraticSenators)
-                    .enter()
-                    .append("rect")
-                    .attr("x", function(d, i){return demXScale(i);})
-                    .attr("y", function(d){return hei - demYScale(d.votes_w_prty_pct);})
-                    .attr("width", demXScale.rangeBand())
-                    .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
-                    .attr("fill", function(d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
-                    .on("mouseover", function(d){
-                      let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.rangeBand() - 290;
-                      let yPosition = parseFloat(d3.select(this).attr("y"));
+          // append the bars for democratic senators
+          demSenators.selectAll("rect")
+                      .data(this.democraticSenators)
+                      .enter()
+                      .append("rect")
+                      .attr("x", function(d, i){return demXScale(i);})
+                      .attr("y", function(d){return hei - demYScale(d.votes_w_prty_pct);})
+                      .attr("width", demXScale.bandwidth())
+                      .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
+                      .attr("fill", function(d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
+                      .on("mouseover", function(d){
+                        let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.bandwidth() - 290;
+                        let yPosition = parseFloat(d3.select(this).attr("y"));
 
-                      demSenators.selectAll("rect")
-                                 .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) * 0.4 + ")";})
-                      d3.select(this)
-                        .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
-                        .style("cursor", "crosshair");
+                        demSenators.selectAll("rect")
+                                  .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) * 0.4 + ")";})
+                        d3.select(this)
+                          .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
+                          .style("cursor", "crosshair");
 
-                      // Update the tooltip position and value
-                      d3.select("#tooltip")
-                       .style("left", xPosition + "px")
-                       .style("top", yPosition + "px")
-                       .select("#value")
-                       .html("<h4 class =" + "senator-name" + ">" + d.senator_name + " " + "(" + d.state + ")" + "</h4>" + "<hr>"
-                         + "<p class = " + "voting-info" + ">" + "Percent Vote With Party: " + "<span class =" + "vote-percent" + ">" + "<strong>" + d.votes_w_prty_pct.toFixed(1) + "%" + "<strong>" + "</span>" + "</p>" + "<hr>"
-                          + "<div class = wrapper>" + "<div>" + "<img src = " + d.photo_url + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Total Votes: " + "<strong>" + d.total_votes + "</strong>" + "</p>"
-                           + "<p class = " + "voting-info" + ">" + "Missed Votes: " + "<strong>" + d.missed_votes + "</strong>" + "</p>" + "</div>" + "</div>"
+                        // Update the tooltip position and value
+                        d3.select("#tooltip")
+                        .style("left", xPosition + "px")
+                        .style("top", yPosition + "px")
+                        .select("#value")
+                        .html("<h4 class =" + "senator-name" + ">" + d.senator_name + " " + "(" + d.state + ")" + "</h4>" + "<hr>"
+                          + "<p class = " + "voting-info" + ">" + "Percent Vote With Party: " + "<span class =" + "vote-percent" + ">" + "<strong>" + d.votes_w_prty_pct.toFixed(1) + "%" + "<strong>" + "</span>" + "</p>" + "<hr>"
+                            + "<div class = wrapper>" + "<div>" + "<img src = " + d.photo_url + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Total Votes: " + "<strong>" + d.total_votes + "</strong>" + "</p>"
+                            + "<p class = " + "voting-info" + ">" + "Missed Votes: " + "<strong>" + d.missed_votes + "</strong>" + "</p>" + "</div>" + "</div>"
 
-                        )
-                      // Show the tooltip
-                      d3.select("#tooltip").classed("hidden", false);
-                    })
-                    .on("mouseout", function() {
-                       d3.select("#tooltip").classed("hidden", true);
-                       demSenators.selectAll("rect")
-                                  .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
-                       d3.select(this)
-                         .attr("fill", function(d){return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
-                    });
+                          )
+                        // Show the tooltip
+                        d3.select("#tooltip").classed("hidden", false);
+                      })
+                      .on("mouseout", function() {
+                        d3.select("#tooltip").classed("hidden", true);
+                        demSenators.selectAll("rect")
+                                    .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
+                        d3.select(this)
+                          .attr("fill", function(d){return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
+                      });
               });
               // end of service pull
           }
