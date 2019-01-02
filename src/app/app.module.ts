@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { HomeComponent } from './components/home/home.component';
 import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
@@ -19,7 +20,8 @@ import { PropubService } from './services/propub.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [PropubService],
   bootstrap: [AppComponent]

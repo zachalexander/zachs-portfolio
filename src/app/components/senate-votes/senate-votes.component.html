@@ -1,6 +1,15 @@
 <h4 class="chart-title">After two years of votes in the Senate, who's most loyal to their party?</h4>
 <meta name="referrer" content="no-referrer" />
+
+<div *ngIf="!serverError">
   <div id="tooltip" class="hidden">
     <p><span id="value"></span></p>
     <p><span id="value2"></span></p>
   </div>
+</div>
+
+
+<div *ngIf="serverError" class = "error">
+  <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
+</div>
+   
