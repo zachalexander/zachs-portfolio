@@ -239,14 +239,14 @@ export class SenateVotesComponent {
                      .attr("y", function(d){return hei - repYScale(d.votes_w_prty_pct);})
                      .attr("width", repXScale.bandwidth())
                      .attr("height", function(d){return repYScale(d.votes_w_prty_pct);})
-                     .attr("fill", function(d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
+                     .attr("fill", function(d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
                      .on("mouseover", function(d){
                        let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth() + 50;
                        let yPosition = parseFloat(d3.select(this).attr("y"));
                        repSenators.selectAll("rect")
-                                  .attr("fill", function (d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100))* 0.4 + ")";})
+                                  .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100))* 0.4 + ")";})
                        d3.select(this)
-                         .attr("fill", function (d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
+                         .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
                          .style("cursor", "crosshair");
 
 
@@ -266,9 +266,9 @@ export class SenateVotesComponent {
                          .on("mouseout", function() {
                               d3.select("#tooltip").classed("hidden", true);
                               repSenators.selectAll("rect")
-                                         .attr("fill", function (d) {return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
+                                         .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
                                 d3.select(this)
-                                  .attr("fill", function(d, i){return "rgb(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
+                                  .attr("fill", function(d, i){return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
                           });
 
           // append the bars for democratic senators
@@ -280,15 +280,15 @@ export class SenateVotesComponent {
                       .attr("y", function(d){return hei - demYScale(d.votes_w_prty_pct);})
                       .attr("width", demXScale.bandwidth())
                       .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
-                      .attr("fill", function(d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
+                      .attr("fill", function(d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
                       .on("mouseover", function(d){
                         let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.bandwidth() - 290;
                         let yPosition = parseFloat(d3.select(this).attr("y"));
 
                         demSenators.selectAll("rect")
-                                  .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) * 0.4 + ")";})
+                                  .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) * 0.4 + ")";})
                         d3.select(this)
-                          .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
+                          .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
                           .style("cursor", "crosshair");
 
                         // Update the tooltip position and value
@@ -308,9 +308,9 @@ export class SenateVotesComponent {
                       .on("mouseout", function() {
                         d3.select("#tooltip").classed("hidden", true);
                         demSenators.selectAll("rect")
-                                    .attr("fill", function (d) {return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
+                                    .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
                         d3.select(this)
-                          .attr("fill", function(d){return "rgb(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
+                          .attr("fill", function(d){return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
                       });
               });
               // end of service pull
