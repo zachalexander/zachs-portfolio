@@ -58,9 +58,10 @@ export class SenateVotesComponent {
       })
     }
 
+    
     // insert key into dataset
     function makeKey(dataset) {dataset.map((x, index) => {x.key = index;})}
-
+    
     // push data to appropriate dataset
     function pushPartyData(senatorToken, dataset) {
       dataset.push({
@@ -74,66 +75,74 @@ export class SenateVotesComponent {
         "photo_url": senatorToken.photo_url
       })
     }
-
+    
     // grab data from service
-      this.propubService.getPropublica().subscribe(
-          data => {
-            this.members = data.results[0].members;
-            let senatorPhotos = senatorData.default;
-            senatorPhotos.map((names) => {
-              this.senatorSup.push({
-                "votesmart_id": names.votesmart,
-                "name": names.name,
-                "photo_url": names.photo_url,
-              })
-            })
-
-          this.senatorSup.map((supelement) => {
-            this.members.map((element) => {
-              if (element.votesmart_id === supelement.votesmart_id){
-                element.photo_url = supelement.photo_url;
-              }
-            })
+    this.propubService.getPropublica().subscribe(
+      data => {
+        this.members = data.results[0].members;
+        let senatorPhotos = senatorData.default;
+        senatorPhotos.map((names) => {
+          this.senatorSup.push({
+            "votesmart_id": names.votesmart,
+            "name": names.name,
+            "photo_url": names.photo_url,
           })
-          },
-          err => {
-            console.error(err)
-          },
-          () => {
-              this.members.map((names, index) => {
-                if(names.in_office === true){
-                    this.members_data.push({
-                        "senator_name": names.first_name + " " + names.last_name,
-                        "party": names.party,
-                        "state": names.state,
-                        "votes_w_prty_pct": names.votes_with_party_pct,
-                        "total_votes": names.total_votes,
-                        "missed_votes": names.missed_votes,
-                        "photo_url": names.photo_url
-                    })
-                }
-              });
+        })
 
-            // Data manipulation, separating into party datasets and sorting based on voting percentage
-             this.members_data.map((x) => {
-                if(x.party === "R"){
-                  pushPartyData(x, this.republicanSenators)
-                } else if (x.party === "D"){
-                  pushPartyData(x, this.democraticSenators)
-                } else if (x.party === "I"){
-                  pushPartyData(x, this.democraticSenators)
-                }
-              });
+        console.log(this.members);
+        console.log(senatorPhotos);
+        
+        this.senatorSup.map((supelement) => {
+          this.members.map((element) => {
+            if (element.votesmart_id === supelement.votesmart_id){
+              element.photo_url = supelement.photo_url;
+            }
+          })
+        })
+      },
+      err => {
+        console.error(err)
+      },
+      () => {
+        this.members.map((names, index) => {
+          if(names.in_office === true){
+            this.members_data.push({
+              "senator_name": names.first_name + " " + names.last_name,
+              "party": names.party,
+              "state": names.state,
+              "votes_w_prty_pct": names.votes_with_party_pct,
+              "total_votes": names.total_votes,
+              "missed_votes": names.missed_votes,
+              "photo_url": names.photo_url
+            })
+          }
+        });
+        
+        // Data manipulation, separating into party datasets and sorting based on voting percentage
+        this.members_data.map((x) => {
+          if(x.party === "R"){
+            pushPartyData(x, this.republicanSenators)
+          } else if (x.party === "D"){
+            pushPartyData(x, this.democraticSenators)
+          } else if (x.party === "I"){
+            pushPartyData(x, this.democraticSenators)
+          }
+        });
+        
+        sortVotes(this.republicanSenators, 1, -1);
+        sortVotes(this.democraticSenators, -1, 1);
+        
+        let republicans = this.republicanSenators;
+        let democrats = this.democraticSenators;
+        
+        photoReplace(republicans);
+        photoReplace(democrats);
 
-            sortVotes(this.republicanSenators, 1, -1);
-            sortVotes(this.democraticSenators, -1, 1);
+        // add key property to datasets for bar coloring purposes
+        makeKey(republicans);
+        makeKey(democrats);
 
-            let republicans = this.republicanSenators;
-            let democrats = this.democraticSenators;
-
-            // add key property to datasets for bar coloring purposes
-            makeKey(republicans);
-            makeKey(democrats);
+        console.log(republicans);
 
             // set scales for bars
             let repXScale = d3.scaleBand().rangeRound([5, republicans.length / 100 * len]).padding(0.1)
@@ -167,13 +176,12 @@ export class SenateVotesComponent {
           let repXScaleBottom = d3.scaleBand().rangeRound([padding_top + 5, (republicans.length / 100 * len) - 20], 0.10)
           repXScaleBottom.domain(republicans.map(function (d) {return d.senator_name;}))
 
-          let demYScaleRight = d3.scaleLinear()
-            .domain([40, 100])
-            .range([hei, padding_top])
-
-            let repYScaleLeft = d3.scaleLinear()
-              .domain([40, d3.max(republicans, function (d) { return d.votes_w_prty_pct; })])
-              .range([hei, padding_top])
+          let demYScaleRight = d3.scaleLinear().range([hei, padding_top])
+          demYScaleRight.domain([40, 100])
+            
+          let repYScaleLeft = d3.scaleLinear().range([hei, padding_top])
+          repYScaleLeft.domain([40, d3.max(republicans, function (d) { return d.votes_w_prty_pct; })])
+            
 
           // create axes
           let xAxisDem = d3.axisBottom(demXScaleBottom).ticks(democrats.length).tickSizeOuter(0)
