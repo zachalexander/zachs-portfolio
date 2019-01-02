@@ -26,8 +26,6 @@ export class SenateVotesComponent {
   senatorSup = [];
   dataset: Object;
   serverError = false;
-  republicans = [];
-  democrats = [];
 
   constructor(
     private propubService: PropubService,
@@ -116,14 +114,13 @@ export class SenateVotesComponent {
     ngOnInit(){
       this.spinnerService.show();
   
-      // svg dimensions
       let len = 1200;
       let hei = 400;
+      this.getPropublica(len, hei);
 
-      this.getPropublica(1200, 400);
       this.spinnerService.hide();
     }
-      // end of ngOnInit
+    // end of ngOnInit
   }
 // end of export class AppComponent
 
