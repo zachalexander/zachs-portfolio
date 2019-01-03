@@ -5,7 +5,7 @@ import * as senatorData from '../../../assets/us-senate.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import {MatSliderModule} from '@angular/material/slider';
-// import { ResizedEvent } from 'angular-resize-event/resized-event';
+import { ResizedEvent } from 'angular-resize-event/resized-event';
 
 
 @Component({
@@ -16,19 +16,18 @@ import {MatSliderModule} from '@angular/material/slider';
 })
 
 export class SenateVotesComponent {
-  width: number;
-  height: number;
-  members;
+  width;
+  initSrnSize;
+  members = [];
+  senatorPhotoUrls = [];
+  senatorPhotoData = [];
+  active_members: any;
   members_data = [];
   senators_data = [];
   republicanSenators = [];
   democraticSenators = [];
-  independentSenators = [];
-  senatorSup = [];
   dataset: Object;
   serverError = false;
-  showTicks;
-  autoTicks;
 
   constructor(
     private propubService: PropubService,
@@ -36,105 +35,99 @@ export class SenateVotesComponent {
     private matSliderModule: MatSliderModule
   ){}
 
-  // onResized(event: ResizedEvent): void {
-  //   this.width = event.newWidth;
+  onResized(event: ResizedEvent): void {
+    this.width = event.newWidth;
 
-  //   console.log(this.width);
-  //   // this.getPropublica(this.width, 400);    
-  // }
+    console.log(this.width);
+    this.massageDataAndDrawChart(this.width);
 
+  }
 
-    // grab data from service
-    getPropublica(len, hei, input){
-      return this.propubService.getPropublica().subscribe(
-        data => {
-          this.members = data.results[0].members;
-          let senatorPhotos = senatorData.default;
-          senatorPhotos.map((names) => {
-            this.senatorSup.push({
-              "votesmart_id": names.votesmart,
-              "name": names.name,
-              "photo_url": names.photo_url,
-            })
-          })
-  
-          // console.log("propublica:", this.members);
-          // console.log("senatorJson:", senatorPhotos);
-          
-          this.senatorSup.map((supelement) => {
-            this.members.map((element) => {
-              if (element.votesmart_id === supelement.votesmart_id){
-                element.photo_url = supelement.photo_url;
-              }
-            })
-          })
-        },
-        err => {
-          this.serverError = true;
-          console.error(err)
-          this.spinnerService.hide();
-        },
-        () => {
-          this.members.map((names, index) => {
-            if(names.in_office === true){
-              this.members_data.push({
-                "senator_name": names.first_name + " " + names.last_name,
-                "party": names.party,
-                "state": names.state,
-                "votes_w_prty_pct": names.votes_with_party_pct,
-                "total_votes": names.total_votes,
-                "missed_votes": names.missed_votes,
-                "photo_url": names.photo_url
-              })
+  massageDataAndDrawChart(len){
+    this.propubService.getPropublica().subscribe(
+      data => {this.members = data.results[0].members},
+      err => {
+        this.serverError = true;
+        console.error(err);
+      },
+      () => {
+        let senatePhotosData = this.createSenatePhotoData();
+        let active_members = [];
+        this.republicanSenators = [];
+        this.democraticSenators = [];
+
+        // massage data and merge two datasets
+        senatePhotosData.map((photos) => {
+          this.members.map((element) => {
+            if (element.last_name === "Kyl") {
+              element.photo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Jon_Kyl%2C_official_109th_Congress_photo.jpg/480px-Jon_Kyl%2C_official_109th_Congress_photo.jpg";
             }
-          });
-          
-          // Data manipulation, separating into party datasets and sorting based on voting percentage
-          if (input === 5){
-            this.members_data.map((x) => {
-              if (x.votes_w_prty_pct >= 90.0) {
-                if(x.party === "R"){
-                  pushPartyData(x, this.republicanSenators)
-                } else if (x.party === "D"){
-                  pushPartyData(x, this.democraticSenators)
-                } else if (x.party === "I"){
-                  pushPartyData(x, this.democraticSenators)
-                }
-              }
-            });
-          } else {
-            this.members_data.map((x) => {
-              if(x.party === "R"){
-                pushPartyData(x, this.republicanSenators)
-              } else if (x.party === "D"){
-                pushPartyData(x, this.democraticSenators)
-              } else if (x.party === "I"){
-                pushPartyData(x, this.democraticSenators)
-              }
-            });
+            if (element.last_name === "Hyde-Smith"){
+              element.photo_url = "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cindy_Hyde-Smith_official_photo.jpg";
+            }
+            if (element.votesmart_id === photos.votesmart_id){
+              element.photo_url = photos.photo_url;
+            }
+          })
+        })
+
+        this.members.map(members => {
+          if (members.in_office === true || members.last_name === "Kyl"){
+            active_members.push({
+              "senator_name": members.first_name + " " + members.last_name,
+              "party": members.party,
+              "state": members.state,
+              "votes_w_prty_pct": members.votes_with_party_pct,
+              "total_votes": members.total_votes,
+              "missed_votes": members.missed_votes,
+              "photo_url": members.photo_url
+            })
           }
-          
-          
-          sortVotes(this.republicanSenators, 1, -1);
-          sortVotes(this.democraticSenators, -1, 1);
-          
-          photoReplace(this.republicanSenators);
-          photoReplace(this.democraticSenators);
-  
-          // add key property to datasets for bar coloring purposes
-          makeKey(this.republicanSenators);
-          makeKey(this.democraticSenators);
+        })
 
+        active_members.map(members => {
+          if(members.party === "R"){
+              pushPartyData(members, this.republicanSenators)
+            } else if (members.party === "D"){
+              pushPartyData(members, this.democraticSenators)
+            } else if (members.party === "I"){
+              pushPartyData(members, this.democraticSenators)
+            }
+        })
 
-          
-          console.log(this.republicanSenators);
-          d3.select("svg").remove();
-          drawChart(this.republicanSenators, this.democraticSenators, len, hei);
+        sortVotes(this.republicanSenators, 1, -1);
+        sortVotes(this.democraticSenators, -1, 1);
 
-          });
-        // end of service pull
-    }
+        makeKey(this.republicanSenators);
+        makeKey(this.democraticSenators);
 
+        // remove existing chart if resize needed
+        d3.select("svg").remove();
+
+        // draw chart
+        drawChart(this.republicanSenators, this.democraticSenators, len);
+      }
+    )
+  }
+
+  getSenatePhotoUrls(){
+    this.senatorPhotoUrls = senatorData.default;
+    return this.senatorPhotoUrls;
+  }
+
+  createSenatePhotoData(){
+    let senatorPhotoUrls = this.getSenatePhotoUrls();
+    senatorPhotoUrls.map((members) => {
+      this.senatorPhotoData.push({
+        "votesmart_id": members.votesmart,
+        "name": members.name,
+        "photo_url": members.photo_url
+      })
+    })
+    return this.senatorPhotoData;
+  }
+
+   
     formatLabel(value: number | null) {
       if (!value) {
         return 0;
@@ -146,11 +139,13 @@ export class SenateVotesComponent {
     }
 
     ngOnInit(){
-      this.spinnerService.show();
-  
+
       let len = 1200;
-      let hei = 400;
-      this.getPropublica(len, hei, 0);
+      this.initSrnSize = window.innerWidth;
+      this.spinnerService.show();
+
+      this.getSenatePhotoUrls();
+      this.massageDataAndDrawChart(this.initSrnSize);
 
       this.spinnerService.hide();
     }
@@ -171,21 +166,7 @@ export class SenateVotesComponent {
         return 0;
       });
     }
-
-    // fix missing photos in dataset
-    function photoReplace (dataset) {
-      dataset.map((element) => {
-        if (element.photo_url == undefined && element.senator_name === "Cindy Hyde-Smith") {
-          element.photo_url = "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cindy_Hyde-Smith_official_photo.jpg"
-        } else if (element.photo_url == undefined && element.senator_name === "Jon Kyl") {
-          element.photo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Jon_Kyl%2C_official_109th_Congress_photo.jpg/480px-Jon_Kyl%2C_official_109th_Congress_photo.jpg"
-        } else {
-          element.photo_url = element.photo_url
-        }
-      })
-    }
-
-    
+   
     // insert key into dataset
     function makeKey(dataset) {dataset.map((x, index) => {x.key = index;})}
     
@@ -203,48 +184,46 @@ export class SenateVotesComponent {
       })
     }
 
-    function drawChart(dataset1, dataset2, len, hei){
+    function drawChart(dataset1, dataset2, len){
 
-      let padding_length = 20;
+      let padding_length = 60;
       let padding_height = 140;
       let padding_top = 20;
-    
+      
       // set scales for bars
-      let repXScale = d3.scaleBand().rangeRound([5, dataset1.length / 100 * len]).padding(0.1)
+      let repXScale = d3.scaleBand().rangeRound([10, dataset1.length / 100 * len]).padding(0.1)
       repXScale.domain(d3.range(dataset1.length))
 
-      let repYScale = d3.scaleLinear().range([0, hei - padding_top])
+      let repYScale = d3.scaleLinear().range([0, 400 - padding_top])
       repYScale.domain([40, d3.max(dataset1, function (d) { return d.votes_w_prty_pct; })])
 
-      let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len) + 20, len + 5]).padding(0.1)
+      let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len]).padding(0.1)
       demXScale.domain(d3.range(dataset2.length))
 
-      let demYScale = d3.scaleLinear().range([0, hei - padding_top])
+      let demYScale = d3.scaleLinear().range([0, 400 - padding_top])
       demYScale.domain([40, d3.max(dataset1, function(d){ return d.votes_w_prty_pct;})])
-                      
 
       // create main svg
       let svg = d3.select("body")
                   .append("svg")
-                  .attr("width", len + padding_length)
-                  .attr("height", hei + padding_height)
+                  .attr("width", len + padding_top)
+                  .attr("height", 400 + padding_height)
 
       // create svgs for both sides of bar graph
       let repSenators = svg.append("g").classed("republican-senators", true);
       let demSenators = svg.append("g").classed("democratic-senators", true);
 
-
       // create scales for axes
-      let demXScaleBottom = d3.scaleBand().rangeRound([(dataset1.length / 100 * len) + 30, len - 5], 0.10)
+      let demXScaleBottom = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len], 0.10)
       demXScaleBottom.domain(dataset2.map(function (d) {return d.senator_name;}))
 
-      let repXScaleBottom = d3.scaleBand().rangeRound([padding_top + 5, (dataset1.length / 100 * len) - 20], 0.10)
+      let repXScaleBottom = d3.scaleBand().rangeRound([padding_top, (dataset1.length / 100 * len)], 0.10)
       repXScaleBottom.domain(dataset1.map(function (d) {return d.senator_name;}))
 
-      let demYScaleRight = d3.scaleLinear().range([hei, padding_top])
+      let demYScaleRight = d3.scaleLinear().range([400, padding_top])
       demYScaleRight.domain([40, 100])
         
-      let repYScaleLeft = d3.scaleLinear().range([hei, padding_top])
+      let repYScaleLeft = d3.scaleLinear().range([400, padding_top])
       repYScaleLeft.domain([40, 100])
         
 
@@ -256,10 +235,10 @@ export class SenateVotesComponent {
       let yAxisRep = d3.axisLeft(repYScaleLeft).ticks(8).tickSizeOuter(2)
 
       let xAxisRep = d3.axisBottom(repXScaleBottom).ticks(dataset1.length).tickSizeOuter(0)
-          // append x-axis labels, senator names
+          // append x-axis labels, senator members
         demSenators.append("g")
         .attr("class", "x-axis-dem")
-        .attr("transform", "translate(0," + hei + ")")
+        .attr("transform", "translate(0," + 400 + ")")
         .call(xAxisDem)
         .selectAll("text")
         .attr("transform", "rotate(60)")
@@ -271,7 +250,7 @@ export class SenateVotesComponent {
 
       repSenators.append("g")
         .attr("class", "x-axis-rep")
-        .attr("transform", "translate(0," + hei + ")")
+        .attr("transform", "translate(0," + 400 + ")")
         .call(xAxisRep)
         .selectAll("text")
         .attr("transform", "rotate(-60)")
@@ -300,7 +279,7 @@ export class SenateVotesComponent {
                   .enter()
                   .append("rect")
                   .attr("x", function(d, i){return repXScale(i);})
-                  .attr("y", function(d){return hei - repYScale(d.votes_w_prty_pct);})
+                  .attr("y", function(d){return 400 - repYScale(d.votes_w_prty_pct);})
                   .attr("width", repXScale.bandwidth())
                   .attr("height", function(d){return repYScale(d.votes_w_prty_pct);})
                   .attr("fill", function(d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
@@ -341,7 +320,7 @@ export class SenateVotesComponent {
                   .enter()
                   .append("rect")
                   .attr("x", function(d, i){return demXScale(i);})
-                  .attr("y", function(d){return hei - demYScale(d.votes_w_prty_pct);})
+                  .attr("y", function(d){return 400 - demYScale(d.votes_w_prty_pct);})
                   .attr("width", demXScale.bandwidth())
                   .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
                   .attr("fill", function(d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
