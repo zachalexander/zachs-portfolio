@@ -21,6 +21,8 @@ text {
 
 svg {
   background-color: #ddd;
+  display: block;
+  margin: auto;
 }
 
 svg text.axis-labels {
@@ -68,6 +70,7 @@ img {
  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
  pointer-events: none;
+ font-size: 16px;
 }
 #tooltip.hidden {
  display: none;
@@ -75,7 +78,7 @@ img {
 #tooltip h4 {
  margin: 0;
  font-family: 'Quicksand', sans-serif;
- font-size: 16px;
+ font-size: 1em;
  line-height: 20px;
  text-align: center;
  }
@@ -83,7 +86,7 @@ img {
  #tooltip p {
  margin: 0;
  font-family: 'Quicksand', sans-serif;
- font-size: 14px;
+ font-size: 0.95em;
  line-height: 20px;
  }
 
@@ -161,12 +164,18 @@ img {
 }
 
 .chart-wrapper {
-  align-content: center;
+  display: block;
+  margin: auto;
 }
 
 @media screen and (max-width: 1024px) {
   text{
     font-size: 1em;
+  }
+
+  img {
+    max-width: 80px;
+    max-height: 80px;
   }
   
 }
@@ -174,6 +183,17 @@ img {
 @media screen and (max-width: 950px) {
   text{
     font-size: 0.75em;
+  }
+
+  #tooltip{
+    font-size: 0.65em;
+    width: 175px;
+    padding: 15px;
+  }
+
+  img {
+    max-width: 80px;
+    max-height: 80px;
   }
 
 }
@@ -184,11 +204,31 @@ img {
     font-size: 0.5em;
   }
 
+  #tooltip{
+    font-size: 0.35em;
+    width: 125px;
+    padding: 10px;
+  }
 
+  img {
+    max-width: 60px;
+    max-height: 60px;
+  }
 }
 
 @media screen and (max-width: 480px) {
   text{
     font-size: 0.25em;
+  }
+
+  #tooltip{
+    font-size: 0.25em;
+    width: 100px;
+    padding: 5px;
+  }
+
+  img {
+    max-width: 40px;
+    max-height: 40px;
   }
 }

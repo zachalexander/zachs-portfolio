@@ -4,7 +4,6 @@ import { PropubService } from '../../services/propub.service';
 import * as senatorData from '../../../assets/us-senate.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import {MatSliderModule} from '@angular/material/slider';
 import { ResizedEvent } from 'angular-resize-event/resized-event';
 
 
@@ -17,7 +16,9 @@ import { ResizedEvent } from 'angular-resize-event/resized-event';
 
 export class SenateVotesComponent {
   width;
+  height;
   initSrnSize;
+  initSrnHei;
   members = [];
   senatorPhotoUrls = [];
   senatorPhotoData = [];
@@ -31,19 +32,24 @@ export class SenateVotesComponent {
 
   constructor(
     private propubService: PropubService,
-    private spinnerService: Ng4LoadingSpinnerService,
-    private matSliderModule: MatSliderModule
+    private spinnerService: Ng4LoadingSpinnerService
   ){}
 
   onResized(event: ResizedEvent): void {
     this.width = event.newWidth;
+    this.height = event.newHeight;
 
-    console.log(this.width);
-    this.massageDataAndDrawChart(this.width);
-
+    if (this.height < 400){
+      let heightUpdate = 400;
+      console.log(heightUpdate);
+      this.massageDataAndDrawChart(this.width, heightUpdate);
+    } else {
+      let heightUpdate = this.height;
+      this.massageDataAndDrawChart(this.width, heightUpdate);
+    }
   }
 
-  massageDataAndDrawChart(len){
+  massageDataAndDrawChart(len, hei){
     this.propubService.getPropublica().subscribe(
       data => {this.members = data.results[0].members},
       err => {
@@ -105,7 +111,7 @@ export class SenateVotesComponent {
         d3.select("svg").remove();
 
         // draw chart
-        drawChart(this.republicanSenators, this.democraticSenators, len);
+        drawChart(this.republicanSenators, this.democraticSenators, len, hei);
       }
     )
   }
@@ -139,13 +145,12 @@ export class SenateVotesComponent {
     }
 
     ngOnInit(){
-
-      let len = 1200;
       this.initSrnSize = window.innerWidth;
+      this.initSrnHei = window.innerHeight;
       this.spinnerService.show();
 
       this.getSenatePhotoUrls();
-      this.massageDataAndDrawChart(this.initSrnSize);
+      this.massageDataAndDrawChart(this.initSrnSize, this.initSrnHei);
 
       this.spinnerService.hide();
     }
@@ -184,20 +189,22 @@ export class SenateVotesComponent {
       })
     }
 
-    function drawChart(dataset1, dataset2, len){
+    function drawChart(dataset1, dataset2, len, hei){
 
       let padding_length = 60;
       let padding_height = 140;
       let padding_top = 20;
+      let inner_padding = 0.01
+      let outer_padding = 1.5
       
       // set scales for bars
-      let repXScale = d3.scaleBand().rangeRound([10, dataset1.length / 100 * len]).padding(0.1)
+      let repXScale = d3.scaleBand().rangeRound([10, dataset1.length / 100 * len], inner_padding, outer_padding).padding(0.1)
       repXScale.domain(d3.range(dataset1.length))
 
       let repYScale = d3.scaleLinear().range([0, 400 - padding_top])
       repYScale.domain([40, d3.max(dataset1, function (d) { return d.votes_w_prty_pct; })])
 
-      let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len]).padding(0.1)
+      let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len], inner_padding, outer_padding).padding(0.1)
       demXScale.domain(d3.range(dataset2.length))
 
       let demYScale = d3.scaleLinear().range([0, 400 - padding_top])
@@ -206,8 +213,8 @@ export class SenateVotesComponent {
       // create main svg
       let svg = d3.select("body")
                   .append("svg")
-                  .attr("width", len + padding_top)
-                  .attr("height", 400 + padding_height)
+                  .attr("width", len)
+                  .attr("height", hei + padding_height)
 
       // create svgs for both sides of bar graph
       let repSenators = svg.append("g").classed("republican-senators", true);
@@ -230,11 +237,10 @@ export class SenateVotesComponent {
       // create axes
       let xAxisDem = d3.axisBottom(demXScaleBottom).ticks(dataset2.length).tickSizeOuter(0)
 
-      let yAxisDem = d3.axisRight(demYScaleRight).ticks(8).tickSizeOuter(2)
-
-      let yAxisRep = d3.axisLeft(repYScaleLeft).ticks(8).tickSizeOuter(2)
-
       let xAxisRep = d3.axisBottom(repXScaleBottom).ticks(dataset1.length).tickSizeOuter(0)
+
+
+      
           // append x-axis labels, senator members
         demSenators.append("g")
         .attr("class", "x-axis-dem")
@@ -260,18 +266,6 @@ export class SenateVotesComponent {
         .style("fill", "rgb(124,124,124")
         .style("text-anchor", "end")
 
-      // append y-axis labels, vote percentage ranges
-      demSenators.append("g")
-        .attr("class", "y-axis-dem")
-        .attr("transform", "translate(" + (len - demXScale.bandwidth()) + ",0)")
-        .style("fill", "rgb(124,124,124")
-        .call(yAxisDem)
-
-      repSenators.append("g")
-        .attr("class", "y-axis-rep")
-        .attr("transform", "translate(" + (((repXScale.bandwidth() * 2) + repXScale.bandwidth() / 2)) + ",0)")
-        .style("fill", "rgb(124,124,124")
-        .call(yAxisRep)
 
       // append the bars for republican senators
       repSenators.selectAll("rect")
@@ -284,7 +278,7 @@ export class SenateVotesComponent {
                   .attr("height", function(d){return repYScale(d.votes_w_prty_pct);})
                   .attr("fill", function(d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
                   .on("mouseover", function(d){
-                    let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth() + 50;
+                    let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth() + 30;
                     let yPosition = parseFloat(d3.select(this).attr("y"));
                     repSenators.selectAll("rect")
                               .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100))* 0.4 + ")";})
@@ -325,7 +319,7 @@ export class SenateVotesComponent {
                   .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
                   .attr("fill", function(d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
                   .on("mouseover", function(d){
-                    let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.bandwidth() - 290;
+                    let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.bandwidth() - 270;
                     let yPosition = parseFloat(d3.select(this).attr("y"));
 
                     demSenators.selectAll("rect")
