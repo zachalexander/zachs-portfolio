@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: #ccc;
+  background-color: #ddd;
 }
 
 text {
@@ -20,9 +20,10 @@ text {
 }
 
 svg {
-  background-color: #ddd;
+  background-color: #fff;
   display: block;
   margin: auto;
+  max-width: 1000px;
 }
 
 svg text.axis-labels {
@@ -32,6 +33,7 @@ svg text.axis-labels {
 }
 
 rect {
+  border: 1px solid #333;
  -moz-transition: all 0.3s;
  -o-transition: all 0.3s;
  -webkit-transition: all 0.3s;
@@ -61,7 +63,7 @@ img {
  width: 250px;
  height: auto;
  padding: 10px;
- background-color: white;
+ background-color: rgba(255, 255, 255, 1);
  border: 1px solid #ddd;
  -webkit-border-radius: 10px;
  -moz-border-radius: 10px;
@@ -111,7 +113,7 @@ img {
 .x-axis-dem path,
 .x-axis-dem line {
  fill: none;
- stroke: #ddd;
+ stroke: #333;
  shape-rendering: crispEdges;
 }
 .x-axis-dem text {
@@ -122,7 +124,7 @@ img {
 .y-axis-dem path,
 .y-axis-dem line {
  fill: none;
- stroke: #ddd;
+ stroke: #333;
  shape-rendering: crispEdges;
 }
 .y-axis-dem text {
@@ -133,7 +135,7 @@ img {
 .x-axis-rep path,
 .x-axis-rep line {
  fill: none;
- stroke: #ddd;
+ stroke: #333;
  shape-rendering: crispEdges;
 }
 .x-axis-rep text {
@@ -144,7 +146,7 @@ img {
 .y-axis-rep path,
 .y-axis-rep line {
  fill: none;
- stroke: #ddd;
+ stroke: #333;
  shape-rendering: crispEdges;
 }
 .y-axis-rep text {
@@ -165,7 +167,8 @@ img {
 
 .chart-wrapper {
   display: block;
-  margin: auto;
+  margin: 30px;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 1024px) {
