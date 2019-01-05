@@ -1,9 +1,7 @@
+@import url('../../../styles.scss');
 
-@import url('https://fonts.googleapis.com/css?family=Quicksand');
-
-body {
-  font-family: 'Quicksand', sans-serif;
-  background-color: #ddd;
+a:hover, a:focus{
+    color: #272727;
 }
 
 text {
@@ -13,7 +11,7 @@ text {
 .chart-title {
   justify-content: center;
   text-align: center;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Inconsolata', sans-serif;
   color: rgb(124, 124, 124);
   font-size: 25px;
   padding: 20px;
@@ -27,7 +25,7 @@ svg {
 }
 
 svg text.axis-labels {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Inconsolata', sans-serif;
   fill: white;
   text-anchor: middle;
 }
@@ -51,11 +49,27 @@ img {
   border: 3px solid #ddd;
 }
 
-.wrapper {
-  display: flex;
+.nav-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 100px;
+  grid-row-gap: 0;
+  grid-column-gap: 0;
   align-items: center;
-  flex-flow: row-wrap;
-  justify-content: space-around;
+  justify-items: center;
+  background-color: #272727;
+  color: #fff;
+  font-weight: 700;
+}
+
+.chart-canvas {
+    background-color: #E0E5E3;
+}
+
+.chart-wrapper {
+  display: block;
+  margin: 30px;
+  background-color: #ECE4E2;
 }
 
 #tooltip {
@@ -74,12 +88,14 @@ img {
  pointer-events: none;
  font-size: 16px;
 }
+
 #tooltip.hidden {
  display: none;
 }
+
 #tooltip h4 {
  margin: 0;
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-size: 1em;
  line-height: 20px;
  text-align: center;
@@ -87,7 +103,7 @@ img {
 
  #tooltip p {
  margin: 0;
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-size: 0.95em;
  line-height: 20px;
  }
@@ -104,7 +120,7 @@ img {
  }
 
  svg text.bar-labels {
-   font-family: 'Quicksand', sans-serif;
+   font-family: 'Inconsolata', sans-serif;
    font-weight: bolder;
    font-size: 11px;
    text-anchor: middle;
@@ -117,7 +133,7 @@ img {
  shape-rendering: crispEdges;
 }
 .x-axis-dem text {
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-weight: bolder;
 }
 
@@ -128,7 +144,7 @@ img {
  shape-rendering: crispEdges;
 }
 .y-axis-dem text {
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-weight: bolder;
 }
 
@@ -139,7 +155,7 @@ img {
  shape-rendering: crispEdges;
 }
 .x-axis-rep text {
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-weight: bolder;
 }
 
@@ -150,25 +166,13 @@ img {
  shape-rendering: crispEdges;
 }
 .y-axis-rep text {
- font-family: 'Quicksand', sans-serif;
+ font-family: 'Inconsolata', sans-serif;
  font-weight: bolder;
 }
 
 .error {
   text-align: center;
   background-color: #ddd;
-}
-
-.content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.chart-wrapper {
-  display: block;
-  margin: 30px;
-  background-color: #fff;
 }
 
 @media screen and (max-width: 1024px) {

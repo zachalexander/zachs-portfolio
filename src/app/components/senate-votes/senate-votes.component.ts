@@ -207,7 +207,7 @@ export class SenateVotesComponent {
       repXScale.domain(d3.range(dataset1.length))
 
       let repYScale = d3.scaleLinear().range([0, hei])
-      repYScale.domain([40, 100])
+      repYScale.domain([70, 100])
 
       // let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len]).padding(0.1)
       // demXScale.domain(d3.range(dataset2.length))
@@ -243,7 +243,7 @@ export class SenateVotesComponent {
       // demYScaleRight.domain([40, 100])
         
       let repYScaleLeft = d3.scaleLinear().range([hei, 0])
-      repYScaleLeft.domain([40, 100])
+      repYScaleLeft.domain([70, 100])
         
 
       // //create axes

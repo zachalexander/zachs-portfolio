@@ -1,10 +1,17 @@
 
 
     <div (resized)="onResized($event)">
-      <div class = "content-wrapper">
+      <div class = "nav-wrapper">
+        <div class = "child-wrapper">
+          <button class = "back-button"><a [routerLink] = "['/']">Back to Full List</a></button>
+        </div>
+        <div class="child-wrapper">115th Senate</div>
+      </div>
+
+      <div class = "chart-canvas">
         <div class="chart-title">Voting Records from the 115th Congress</div>
-        <meta name="referrer" content="no-referrer" />
-      
+      </div>
+
         
         <div *ngIf="!serverError">
             <div class = chart-wrapper>
@@ -18,8 +25,7 @@
               <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
             </div>
         </div>
-      </div>
-    </div>
+     </div>
 
 
 
