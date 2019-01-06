@@ -5,6 +5,7 @@ import * as senatorData from '../../../assets/us-senate.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ResizedEvent } from 'angular-resize-event/resized-event';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,7 +20,6 @@ export class SenateVotesComponent {
   height;
   initSrnSize;
   initSrnHei;
-  // drawChart;
   members = [];
   membersSixteen = [];
   senatorPhotoUrls = [];
@@ -32,6 +32,7 @@ export class SenateVotesComponent {
   dataset: Object;
   serverError = false;
   democraticChart = false;
+  milliseconds: number;
 
   constructor(
     private propubService: PropubService,
@@ -66,6 +67,11 @@ export class SenateVotesComponent {
     } 
   }
 
+  tellTime() {
+    this.milliseconds = Date.now();
+    console.log(this.milliseconds);
+  }
+
   propubServiceCall(){
     this.propubService.getPropublicaSixteen().subscribe(
       data => {this.membersSixteen = data.results[0].members},
@@ -75,7 +81,7 @@ export class SenateVotesComponent {
       },
       () => {
         let sixteenCongress = this.membersSixteen;
-        console.log(sixteenCongress);
+        // console.log(sixteenCongress);
       }
     )
   }
@@ -145,6 +151,7 @@ export class SenateVotesComponent {
         let barColor = "rgba(255, 39, 0, "
         // draw chart
         drawChart(this.republicanSenators, len, hei, barColor);
+        this.spinnerService.hide();
       }
     )
   }
@@ -197,11 +204,11 @@ export class SenateVotesComponent {
     }
   }
 
-    ngOnInit(){
-      let initSrnSize = window.innerWidth;
+  // =============On Init============= //
 
-      console.log("width:", initSrnSize);
+    ngOnInit(){
       this.spinnerService.show();
+      let initSrnSize = window.innerWidth;
 
       this.getSenatePhotoUrls();
       this.propubServiceCall();
@@ -218,9 +225,12 @@ export class SenateVotesComponent {
         this.massageDataAndDrawChart(updatedWidth, 500);
       } 
 
-      this.spinnerService.hide();
+      setInterval(() => {
+        this.milliseconds = Date.now();
+      }, 1000);
     }
     // end of ngOnInit
+    
   }
 // end of export class AppComponent
 
@@ -267,7 +277,7 @@ export class SenateVotesComponent {
       repXScale.domain(d3.range(dataset1.length))
 
       let repYScale = d3.scaleLinear().range([0, hei])
-      repYScale.domain([72, 100])
+      repYScale.domain([70, 100])
 
       // create main svg
       let svg = d3.select(".chart-wrapper")
@@ -286,7 +296,7 @@ export class SenateVotesComponent {
       repXScaleBottom.domain(dataset1.map(function (d) {return d.senator_name;}))
         
       let repYScaleLeft = d3.scaleLinear().range([hei, 0])
-      repYScaleLeft.domain([72, 100])
+      repYScaleLeft.domain([70, 100])
 
       let xAxisRep = d3.axisBottom(repXScaleBottom).ticks(repXScaleBottom).tickSizeOuter(0)
 
@@ -331,7 +341,6 @@ export class SenateVotesComponent {
                   .on("mouseover", function(d){
                     let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth();
                     let yPosition = parseFloat(d3.select(this).attr("y")) + 300;
-                    console.log(xPosition);
                     repSenators.selectAll("rect")
                               .attr("fill", function (d) {return barColor + (0.6 - (d.key / 100))* 0.4 + ")";})
                     d3.select(this)
