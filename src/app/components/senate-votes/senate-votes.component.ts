@@ -19,6 +19,7 @@ export class SenateVotesComponent {
   height;
   initSrnSize;
   initSrnHei;
+  // drawChart;
   members = [];
   membersSixteen = [];
   senatorPhotoUrls = [];
@@ -30,6 +31,7 @@ export class SenateVotesComponent {
   democraticSenators = [];
   dataset: Object;
   serverError = false;
+  democraticChart = false;
 
   constructor(
     private propubService: PropubService,
@@ -39,15 +41,29 @@ export class SenateVotesComponent {
   onResized(event: ResizedEvent): void {
     this.width = event.newWidth;
     
-    if (this.width >= 1000){
+    if (this.width >= 1000 && this.democraticChart == true){
       let updatedWidth = 1000;
-      this.massageDataAndDrawChart(updatedWidth, 400);
-    } else {
-      let updatedWidth = this.width
-      this.massageDataAndDrawChart(updatedWidth, 400);
-    }
+      d3.select("svg").remove();
+      drawChart(this.democraticSenators, updatedWidth, 500, "rgba(0, 143, 213, ")
+    } 
     
+    if (this.width < 1000 && this.democraticChart == true) {
+      let updatedWidth = this.width;
+      d3.select("svg").remove();
+      drawChart(this.democraticSenators, updatedWidth, 500, "rgba(0, 143, 213, ")
+    } 
     
+    if (this.width >= 1000 && this.democraticChart == false) {
+      let updatedWidth = 1000;
+      d3.select("svg").remove();
+      drawChart(this.republicanSenators, updatedWidth, 500, "rgba(255, 39, 0, ")
+    } 
+    
+    if (this.width < 1000 && this.democraticChart == false) {
+      let updatedWidth = this.width;
+      d3.select("svg").remove();
+      drawChart(this.republicanSenators, updatedWidth, 500, "rgba(255, 39, 0, ")
+    } 
   }
 
   propubServiceCall(){
@@ -118,7 +134,7 @@ export class SenateVotesComponent {
         })
 
         sortVotes(this.republicanSenators, 1, -1);
-        sortVotes(this.democraticSenators, -1, 1);
+        sortVotes(this.democraticSenators, 1, -1);
 
         makeKey(this.republicanSenators);
         makeKey(this.democraticSenators);
@@ -126,11 +142,13 @@ export class SenateVotesComponent {
         // remove existing chart if resize needed
         d3.select("svg").remove();
 
+        let barColor = "rgba(255, 39, 0, "
         // draw chart
-        drawChart(this.republicanSenators, this.democraticSenators, len, hei);
+        drawChart(this.republicanSenators, len, hei, barColor);
       }
     )
   }
+
 
   getSenatePhotoUrls(){
     this.senatorPhotoUrls = senatorData.default;
@@ -149,14 +167,56 @@ export class SenateVotesComponent {
     return this.senatorPhotoData;
   }
 
+  drawDemChart() {
+    this.democraticChart = false;
+    this.initSrnSize = window.innerWidth;
+    let barColor = "rgba(255, 39, 0, "
+    d3.select("svg").remove();
+
+    if (this.width >= 1000) {
+      let updatedWidth = 1000;
+      drawChart(this.republicanSenators, updatedWidth, 500, barColor)
+    } else {
+      let updatedWidth = this.width
+      drawChart(this.republicanSenators, updatedWidth, 500, barColor)
+    }
+  }
+
+  drawRepChart(){
+    this.democraticChart = true;
+    this.initSrnSize = window.innerWidth;
+    let barColor = "rgba(0, 143, 213, "
+    d3.select("svg").remove();
+
+    if (this.width >= 1000) {
+      let updatedWidth = 1000;
+      drawChart(this.democraticSenators, updatedWidth, 500, barColor)
+    } else {
+      let updatedWidth = this.width
+      drawChart(this.democraticSenators, updatedWidth, 500, barColor)
+    }
+  }
+
     ngOnInit(){
-      this.initSrnSize = window.innerWidth;
-      this.initSrnHei = window.innerHeight;
+      let initSrnSize = window.innerWidth;
+
+      console.log("width:", initSrnSize);
       this.spinnerService.show();
 
       this.getSenatePhotoUrls();
       this.propubServiceCall();
-      this.massageDataAndDrawChart(this.initSrnSize, this.initSrnHei);
+
+      if (initSrnSize >= 1000) {
+        let updatedWidth = 1000;
+        d3.select("svg").remove();
+        this.massageDataAndDrawChart(updatedWidth, 500);
+      }
+
+      if (initSrnSize < 1000) {
+        let updatedWidth = initSrnSize;
+        d3.select("svg").remove();
+        this.massageDataAndDrawChart(updatedWidth, 500);
+      } 
 
       this.spinnerService.hide();
     }
@@ -195,9 +255,9 @@ export class SenateVotesComponent {
       })
     }
 
-    function drawChart(dataset1, dataset2, len, hei){
+    function drawChart(dataset1, len, hei, barColor){
 
-      let margin = {top: 50, right: 20, bottom: 120, left: 20};
+      let margin = {top: 10, right: 20, bottom: 170, left: 20};
 
       len = len - margin.left - margin.right,
       hei = hei - margin.top - margin.bottom;
@@ -207,16 +267,10 @@ export class SenateVotesComponent {
       repXScale.domain(d3.range(dataset1.length))
 
       let repYScale = d3.scaleLinear().range([0, hei])
-      repYScale.domain([70, 100])
-
-      // let demXScale = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len]).padding(0.1)
-      // demXScale.domain(d3.range(dataset2.length))
-
-      // let demYScale = d3.scaleLinear().range([0, hei])
-      // demYScale.domain([40, d3.max(dataset1, function(d){ return d.votes_w_prty_pct;})])
+      repYScale.domain([72, 100])
 
       // create main svg
-      let svg = d3.select("body")
+      let svg = d3.select(".chart-wrapper")
                   .append("svg")
                   .attr("width", len + margin.left + margin.right)
                   .attr("height", hei + margin.top + margin.bottom)
@@ -227,46 +281,16 @@ export class SenateVotesComponent {
       let repSenators = svg.append("g")
                            .classed("republican-senators", true)
                            .attr("transform", "translate(0,0)");
-                           
-      // let demSenators = svg.append("g")
-      //                      .classed("democratic-senators", true)
-      //                      .attr("transform", "translate(0, 0)");
-
-      //create scales for axes
-      // let demXScaleBottom = d3.scaleBand().rangeRound([(dataset1.length / 100 * len), len], 0.10)
-      // demXScaleBottom.domain(dataset2.map(function (d) {return d.senator_name;}))
 
       let repXScaleBottom = d3.scaleBand().rangeRound([margin.right, len - margin.right], 0.10)
       repXScaleBottom.domain(dataset1.map(function (d) {return d.senator_name;}))
-
-      // let demYScaleRight = d3.scaleLinear().range([hei, 0])
-      // demYScaleRight.domain([40, 100])
         
       let repYScaleLeft = d3.scaleLinear().range([hei, 0])
-      repYScaleLeft.domain([70, 100])
-        
-
-      // //create axes
-      // let xAxisDem = d3.axisBottom(demXScaleBottom).ticks(demXScaleBottom).tickSizeOuter(0)
+      repYScaleLeft.domain([72, 100])
 
       let xAxisRep = d3.axisBottom(repXScaleBottom).ticks(repXScaleBottom).tickSizeOuter(0)
 
-      // let yAxisDem = d3.axisRight(demYScaleRight).ticks(8).tickSizeOuter(1)
-
       let yAxisRep = d3.axisLeft(repYScaleLeft).ticks(8).tickSizeOuter(1)
-      
-        // // append x-axis labels, senator members
-        // demSenators.append("g")
-        // .attr("class", "x-axis-dem")
-        // .attr("transform", "translate(0," + 400 + ")")
-        // .call(xAxisDem)
-        // .selectAll("text")
-        // .attr("transform", "rotate(60)")
-        // .attr("y", 5)
-        // .attr("x", 8)
-        // .attr("dy", ".35em")
-        // .style("fill", "rgb(124,124,124")
-        // .style("text-anchor", "start");
 
       repSenators.append("g")
         .attr("class", "x-axis-rep")
@@ -279,13 +303,6 @@ export class SenateVotesComponent {
         .attr("dy", ".35em")
         .style("fill", "rgb(124,124,124")
         .style("text-anchor", "end")
-
-      // // append y-axis labels, vote percentage ranges
-      // demSenators.append("g")
-      //   .attr("class", "y-axis-dem")
-      //   .attr("transform", "translate(" + len + ",0)")
-      //   .style("fill", "rgb(124,124,124")
-      //   .call(yAxisDem)
 
       repSenators.append("g")
         .attr("class", "y-axis-rep")
@@ -303,81 +320,48 @@ export class SenateVotesComponent {
                   .attr("y", function(d){return hei - repYScale(d.votes_w_prty_pct);})
                   .attr("width", repXScale.bandwidth())
                   .attr("height", function(d){return repYScale(d.votes_w_prty_pct);})
-                  .attr("fill", function(d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key/100)) + ")";})
+                  .attr("fill", function(d) {return barColor + (0.6 - (d.key/100)) + ")";})
+                  .call(function(){
+                    d3.select("#tooltip")
+                      .style("left", 20 + "px")
+                      .style("top", 0 + "px")
+                      .select("#value")
+                      .html("<h4 class = senator-name >" + "---" + "</h4>")
+                  })
                   .on("mouseover", function(d){
-                    let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth() + 30;
-                    let yPosition = parseFloat(d3.select(this).attr("y")) + 85;
+                    let xPosition = parseFloat(d3.select(this).attr("x")) + repXScale.bandwidth();
+                    let yPosition = parseFloat(d3.select(this).attr("y")) + 300;
+                    console.log(xPosition);
                     repSenators.selectAll("rect")
-                              .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100))* 0.4 + ")";})
+                              .attr("fill", function (d) {return barColor + (0.6 - (d.key / 100))* 0.4 + ")";})
                     d3.select(this)
-                      .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
+                      .attr("fill", function (d) {return barColor + (0.6 - (d.key / 100)) + ")";})
                       .style("cursor", "crosshair");
-
 
                     // Update the tooltip position and value
                     d3.select("#tooltip")
-                    .style("left", xPosition + "px")
-                    .style("top", yPosition + "px")
-                      .select("#value")
-                      .html("<h4 class =" + "senator-name" + ">" + d.senator_name + " " + "(" + d.state + ")" + "</h4>" + "<hr>"
-                        + "<p class = " + "voting-info" + ">" + "Percent Vote With Party: " + "<span class =" + "vote-percent" + ">" + "<strong>" + d.votes_w_prty_pct.toFixed(1) + "%" + "<strong>" + "</span>" + "</p>" + "<hr>"
+                    .style("left", 20 + "px")
+                    .style("top", 0 + "px")
+                    .select("#value")
+                    .html("<h4 class =" + "senator-name" + ">" + d.senator_name + " " + "(" + d.state + ")" + "</h4>" + "<hr>"
+                      + "<p class = " + "voting-info" + ">" + "Percent Vote With Party: " + "<span class =" + "vote-percent" + ">" + "<strong>" + d.votes_w_prty_pct.toFixed(1) + "%" + "<strong>" + "</span>" + "</p>" + "<hr>"
                       + "<div class = wrapper>" + "<div>" + "<img src = " + d.photo_url + " onerror" + "= No photo available" + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Total Votes: " + "<strong>" + d.total_votes + "</strong>" + "</p>"
-                          + "<p class = " + "voting-info" + ">" + "Missed Votes: " + "<strong>" + d.missed_votes + "</strong>" + "</p>" + "</div>" + "</div>"
-                      )
+                      + "<p class = " + "voting-info" + ">" + "Missed Votes: " + "<strong>" + d.missed_votes + "</strong>" + "</p>" + "</div>" + "</div>"
+                    )
 
                     // Show the tooltip
                     d3.select("#tooltip").classed("hidden", false);})
                       .on("mouseout", function() {
-                          d3.select("#tooltip").classed("hidden", true);
+                          d3.select("#tooltip")
                           repSenators.selectAll("rect")
-                                      .attr("fill", function (d) {return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
-                            d3.select(this)
-                              .attr("fill", function(d, i){return "rgba(255, 39, 0" + "," + (0.6 - (d.key / 100)) + ")";})
+                                      .attr("fill", function (d) {return barColor + (0.6 - (d.key / 100)) + ")";})
+                          d3.select(this)
+                            .attr("fill", function(d, i){return barColor + (0.6 - (d.key / 100)) + ")";})
                       });
 
-      // // append the bars for democratic senators
-      // demSenators.selectAll("rect")
-      //             .data(dataset2)
-      //             .enter()
-      //             .append("rect")
-      //             .attr("x", function(d, i){return demXScale(i);})
-      //             .attr("y", function(d){return hei - demYScale(d.votes_w_prty_pct);})
-      //             .attr("width", demXScale.bandwidth())
-      //             .attr("height", function(d){return demYScale(d.votes_w_prty_pct);})
-      //             .attr("fill", function(d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
-      //             .on("mouseover", function(d){
-      //               let xPosition = parseFloat(d3.select(this).attr("x")) + demXScale.bandwidth() - 325;
-      //               let yPosition = parseFloat(d3.select(this).attr("y"));
-
-      //               demSenators.selectAll("rect")
-      //                         .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) * 0.4 + ")";})
-      //               d3.select(this)
-      //                 .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")"})
-      //                 .style("cursor", "crosshair");
-
-      //               // Update the tooltip position and value
-      //               d3.select("#tooltip")
-      //               .style("left", xPosition + "px")
-      //               .style("top", yPosition + "px")
-      //               .select("#value")
-      //               .html("<h4 class =" + "senator-name" + ">" + d.senator_name + " " + "(" + d.state + ")" + "</h4>" + "<hr>"
-      //                 + "<p class = " + "voting-info" + ">" + "Percent Vote With Party: " + "<span class =" + "vote-percent" + ">" + "<strong>" + d.votes_w_prty_pct.toFixed(1) + "%" + "<strong>" + "</span>" + "</p>" + "<hr>"
-      //                   + "<div class = wrapper>" + "<div>" + "<img src = " + d.photo_url + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Total Votes: " + "<strong>" + d.total_votes + "</strong>" + "</p>"
-      //                   + "<p class = " + "voting-info" + ">" + "Missed Votes: " + "<strong>" + d.missed_votes + "</strong>" + "</p>" + "</div>" + "</div>"
-
-      //                 )
-      //               // Show the tooltip
-      //               d3.select("#tooltip").classed("hidden", false);
-      //             })
-      //             .on("mouseout", function() {
-      //               d3.select("#tooltip").classed("hidden", true);
-      //               demSenators.selectAll("rect")
-      //                           .attr("fill", function (d) {return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
-      //               d3.select(this)
-      //                 .attr("fill", function(d){return "rgba(0, 143, 213, " + (d.key / 100 + 0.25) + ")";})
-      //             });
-
       }
+
+
 
       
 

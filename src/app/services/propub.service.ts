@@ -21,7 +21,7 @@ computerRoot: string = "C:/Users/zalexander/Desktop"
   }
   
   getPropublicaSixteen() {
-    let url = `${this.apiRoot}/v1/116/senate/members.json`;
+    let url = `${this.apiRoot}/v1/116/house/members.json`;
     let headers = new Headers();
     headers.set('X-API-Key', '5buFoSrpgu70owCTEcp7Z3mjThGka24f5SW8EyJA');
     return this.http.get(url, { headers: headers })

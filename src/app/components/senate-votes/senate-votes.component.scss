@@ -4,8 +4,9 @@ a:hover, a:focus{
     color: #272727;
 }
 
+
 text {
-  font-size: 11px;
+  font-size: 16px;
 }
 
 .chart-title {
@@ -22,6 +23,9 @@ svg {
   display: block;
   margin: auto;
   max-width: 1000px;
+  overflow: visible;
+  z-index: 1;
+  margin-top: 10px;
 }
 
 svg text.axis-labels {
@@ -60,21 +64,78 @@ img {
   background-color: #272727;
   color: #fff;
   font-weight: 700;
+  text-align: center;
+}
+
+.btn-rep {
+  background-color:#fff;
+  border: 2px solid rgb(255, 39, 0);
+  color:rgb(255, 39, 0)
+}
+
+.btn-rep:hover,
+.btn-rep:focus {
+    background: rgb(255, 39, 0);
+    color: #fff;
+}
+
+.btn-dem {
+  background-color:#fff;
+  border: 2px solid rgb(0, 143, 213);
+  color: rgb(0, 143, 213);
+}
+
+.btn-dem:hover,
+.btn-dem:focus {
+    background: rgb(0, 143, 213);
+    color: #fff;
 }
 
 .chart-canvas {
     background-color: #E0E5E3;
 }
 
+.body-container {
+  display: grid;
+  justify-items: center;  
+  grid-template-columns: 1fr;
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.button-section {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 4fr 1fr 1fr;
+  grid-template-rows: 175px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  z-index: 100;
+}
+
+.button-interactive {
+  align-content: top;
+  text-align: center;
+  align-items: top;
+}
+
 .chart-wrapper {
-  display: block;
-  margin: 30px;
-  background-color: #ECE4E2;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-flow: row-wrap;
+  justify-content: space-around;
 }
 
 #tooltip {
- position: absolute;
- width: 250px;
+ display: grid;
+ min-width: 200px;
  height: auto;
  padding: 10px;
  background-color: rgba(255, 255, 255, 1);
@@ -82,16 +143,10 @@ img {
  -webkit-border-radius: 10px;
  -moz-border-radius: 10px;
  border-radius: 2px;
- -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
- -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
- box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
  pointer-events: none;
- font-size: 16px;
+ font-size: 18px;
 }
 
-#tooltip.hidden {
- display: none;
-}
 
 #tooltip h4 {
  margin: 0;
@@ -172,12 +227,21 @@ img {
 
 .error {
   text-align: center;
-  background-color: #ddd;
+  background: #d4998e;
+  margin-top: 50px;
+  margin-bottom: 120px; 
+  padding: 0px 20px 0px 20px
 }
 
 @media screen and (max-width: 1024px) {
   text{
-    font-size: 1em;
+    font-size: 1.35em;
+  }
+
+  #tooltip{
+    font-size: 0.85em;
+    width: 275px;
+    padding: 15px;
   }
 
   img {
@@ -189,12 +253,12 @@ img {
   
 @media screen and (max-width: 950px) {
   text{
-    font-size: 0.75em;
+    font-size: 1.25em;
   }
 
   #tooltip{
-    font-size: 0.65em;
-    width: 175px;
+    font-size: 0.85em;
+    width: 250px;
     padding: 15px;
   }
 
@@ -203,17 +267,21 @@ img {
     max-height: 80px;
   }
 
+  button {
+    padding: 0.75rem 1rem;
+  }
+
 }
 
 
 @media screen and (max-width: 650px) {
   text{
-    font-size: 0.5em;
+    font-size: .85em;
   }
 
   #tooltip{
-    font-size: 0.35em;
-    width: 125px;
+    font-size: 0.75em;
+    width: 250px;
     padding: 10px;
   }
 
@@ -221,21 +289,32 @@ img {
     max-width: 60px;
     max-height: 60px;
   }
+
+  button {
+    padding: 0.75rem 1rem;
+  }
 }
 
 @media screen and (max-width: 480px) {
+
   text{
-    font-size: 0.25em;
+    font-size: 0.75em;
   }
 
   #tooltip{
-    font-size: 0.25em;
-    width: 100px;
+    font-size: 0.55em;
+    width: 200px;
     padding: 5px;
+    margin-right: 10px;
+    margin-left: 10px;  
   }
 
   img {
     max-width: 40px;
     max-height: 40px;
+  }
+
+  button {
+    padding: 0.5rem 0.75rem;
   }
 }

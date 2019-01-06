@@ -3,29 +3,47 @@
     <div (resized)="onResized($event)">
       <div class = "nav-wrapper">
         <div class = "child-wrapper">
-          <button class = "back-button"><a [routerLink] = "['/']">Back to Full List</a></button>
+          <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
         </div>
-        <div class="child-wrapper">115th Senate</div>
+        <div class="child-wrapper">Zach Alexander | Visuals</div>
       </div>
 
-      <div class = "chart-canvas">
-        <div class="chart-title">Voting Records from the 115th Congress</div>
+      <div class="chart-canvas">
+        <div class="chart-title"><h4 class = "chart-header">115th Congress Voting Records</h4></div>
       </div>
+
+    <div class = "body-container">
+      <div class = "opening-statement">
+        <p class = "opening-paragraph">After two years of legislation, the 115th Congress may be most notably remembered for
+          their sweeping overhaul of our tax system, or their failure to come to terms on a revised version of the Affordable Care Act. 
+          However, amidst all of the political banter, <strong>who really was most loyal to their party?</strong>
+        </p>
+      </div>
+      <div class="button-section">
+        <div id="tooltip">
+          <p><span id="value"></span></p>
+          <p><span id="value2"></span></p>
+        </div>
+        <div class="button-interactive">
+          <p>Voting Percentages By Political Party:</p>
+          <button *ngIf="democraticChart" class="btn-dem" (click)="drawDemChart()">Democrats</button>
+          <button *ngIf="!democraticChart" class="btn-rep" (click)="drawRepChart()">Republicans</button>
+        </div>
+      </div>
+
+      <div class=chart-wrapper *ngIf="!serverError"></div>
+      
+      <div *ngIf="serverError" class="error">
+        <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
+      </div>
+
+    </div>
+      
+
 
         
-        <div *ngIf="!serverError">
-            <div class = chart-wrapper>
-              <div id="tooltip" class="hidden">
-                <p><span id="value"></span></p>
-                <p><span id="value2"></span></p>
-              </div>
-            </div>
-  
-            <div *ngIf="serverError" class = "error">
-              <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
-            </div>
-        </div>
-     </div>
+
+    </div>
 
 
 
