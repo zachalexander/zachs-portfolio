@@ -100,6 +100,8 @@ export class SenateVotesComponent {
         this.republicanSenators = [];
         this.democraticSenators = [];
 
+        // console.log(this.members);
+
         // massage data and merge two datasets
         senatePhotosData.map((photos) => {
           this.members.map((element) => {
