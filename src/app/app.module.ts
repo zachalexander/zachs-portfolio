@@ -11,13 +11,15 @@ import { HomeComponent } from './components/home/home.component';
 import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
 
 import { PropubService } from './services/propub.service';
+import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     SenateVotesComponent,
-    HomeComponent
+    HomeComponent,
+    PoliticsMapComponent
   ],
   imports: [
     BrowserModule,
