@@ -1,6 +1,5 @@
 h2 {
     text-align: center;
-
 }
 
 .chart-canvas {
@@ -8,10 +7,41 @@ h2 {
     border: 1px solid #ddd;
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 #tooltip {
+    position: absolute;
+    width: 250px;
+    height: auto;
+    padding: 10px;
+    background-color: rgba(250, 250, 250, 1);
+    border: 1px solid #ddd;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 2px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 10000;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip h4 {
+    margin: 0;
+}
+
+#tooltip p {
+    margin: 0;
+}
+
+#value h4 {
     text-align: center;
+    margin: 0;
 }
 
 path {
@@ -22,7 +52,22 @@ path {
     transition: all 0.3s;
   }
   
-  path:hover {
-   stroke: #333;
-   stroke-width: 2;
-  }
+path:hover {
+    stroke: #333;
+    stroke-width: 2;
+}
+
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
