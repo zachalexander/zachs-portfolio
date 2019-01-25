@@ -51,6 +51,18 @@ addValues() {
       }
     }
   })
+
+  stateDataset.features.map(data => {
+    stateFeatures.default.map(features => {
+      if (data.properties.name === features.state) {
+        data.properties.map_image_url = features.map_image_url;
+        data.properties.flag_image_url = features.state_flag_url;
+      }
+    })
+  });
+
+
+  console.log(stateDataset.features)
   return stateDataset.features;
 
 }
@@ -106,7 +118,14 @@ addValues() {
         .style("left", xPosition + "px")
         .style("top", yPosition + "px")
           .select("#value")
-          .html("<h4 class =" + "senator-name" + ">" + d.properties.name + "</h4>" + "<hr>"
+          .html("<div class = wrapper>" + 
+                    "<div>" + 
+                        "<img src = " + d.properties.flag_image_url + ">" + 
+                    "</div>" + 
+                    "<h4 class = " + "state-name" + ">" + "<strong>" + d.properties.name + "</strong>" + 
+                    "</h4>" + 
+                "</div>" + 
+                "<hr>"
           + "<p class = " + "senator-name" + ">" + "<strong>" + "Total Firearm Deaths: " + d.properties.deaths + "</strong>" + "</p>"
           + "<p class = " + "senator-name" + ">" + "<strong>" + "Mortality Rate: " + d.properties.value + "%" + "</strong>" + "</p>"
           )
