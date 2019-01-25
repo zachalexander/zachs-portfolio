@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as d3 from "d3";
 import * as stateData from '../../../assets/us-states.json';
+import * as stateFeatures from '../../../assets/us-state-features.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
@@ -24,7 +25,7 @@ export class PoliticsMapComponent implements OnInit {
     this.addValues();
 
     setTimeout(() => {
-      this.drawMap(1400, 600);
+      this.drawMap(1000, 600);
       this.spinnerService.hide();
     }, 1000);
 
@@ -35,7 +36,7 @@ export class PoliticsMapComponent implements OnInit {
 addValues() {
 
   let stateDataset = stateData.default;
-    
+      
   d3.csv("../../../assets/firearm-deaths-2017.csv", function(data) {
     let dataState = data.state;
     let dataRate = parseFloat(data.rate);
@@ -50,7 +51,6 @@ addValues() {
       }
     }
   })
-
   return stateDataset.features;
 
 }
@@ -68,12 +68,10 @@ addValues() {
                 .projection(projection)
 
     let svg = d3.select('.chart-canvas')
-                .append("div")
-                .classed("svg-container", true) //container class to make it responsive
                 .append('svg')
+                .classed("svg-container", true)
                 .attr("preserveAspectRatio", "xMinYMin meet")
-                .attr("viewBox", "0 0 1400 600")
-                .attr("transform", "translate(10, 0)")     
+                .attr("viewBox", "0 0 1000 600")
 
     svg.selectAll("path")
     .data(this.addValues())
@@ -129,7 +127,6 @@ addValues() {
         .attr("x", function() {
 
           let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
-          console.log(stringWidth);
           return ((len / 2) - (stringWidth / 2));
         })
         .attr("y", hei - 10)
@@ -141,7 +138,6 @@ addValues() {
       .attr("x", function() {
 
         let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
-        console.log(stringWidth);
         return ((len / 2) - (stringWidth / 2));
       })
       .attr("y", hei - (hei - 60))
