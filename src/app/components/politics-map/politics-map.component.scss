@@ -1,31 +1,30 @@
 @import '../../../styles.scss';
 
-.grid {
-  display: grid;
-  grid-template-columns: 250px repeat(1, 1fr);
-  grid-row-gap: 1em;
-  grid-column-gap: 1em;
-}
-
-header,
-aside,
-article,
-footer {
-  background: #eaeaea;
-  padding: 1em;
-}
-
 header, footer {
-  grid-column: 1 / 4;
+    grid-column: 1 / 4;
 }
-
 
 h2 {
     text-align: center;
 }
 
+.nav-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px;
+    grid-row-gap: 0;
+    grid-column-gap: 0;
+    align-items: center;
+    justify-items: top;
+    background-color: #272727;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+}
+
 div#tooltip-map {
     display: grid;
+    min-width: 300px;
     height: auto;
     padding: 10px;
     background-color: rgba(250, 250, 250, 0.8);
@@ -37,8 +36,23 @@ div#tooltip-map {
     z-index: 10000;
 }
 
-#tooltip-map.hidden {
-    display: none;
+.bottom-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px;
+    grid-row-gap: 0;
+    grid-column-gap: 0;
+    align-items: center;
+    justify-items: center;
+    background-color: #272727;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    bottom: 0;
+}
+
+.summary-content {
+    padding: 10px;
 }
 
 path {
@@ -53,17 +67,203 @@ path:hover {
     stroke-width: 2;
 }
 
-.svg-container {
-    display: inline-block;
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* aspect ratio */
-    vertical-align: top;
-    overflow: hidden;
+main {
+    display: grid;
+    align-items: center;
+    text-align: center;
+    grid-template-areas:
+        "top top top"
+        "left graphic right"
+        "left article right"
+        "bottom bottom bottom"
+    ;
+    grid-template: 
+        "top top top" 10rem
+        "left graphic right" 70rem
+        "left article right" 60rem
+        "bottom bottom bottom" 10rem
+        / 1fr 600px 1fr
+    ;
+    
 }
-.svg-content-responsive {
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 0;
+.top-content{
+    grid-area: top;
 }
+.graphic {
+    grid-area: graphic;
+}
+.article {
+    grid-area: article;
+}
+.left-content {
+    grid-area: left;
+}
+.right-content {
+    grid-area: right;
+}
+.bottom-content {
+    grid-area: bottom;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    main {
+        grid-template-areas:
+            "top"
+            "graphic"
+            "article"
+            "bottom"
+        ;
+
+        grid-template:
+        "top" 5rem
+        "graphic" 40rem
+        "article" 20rem
+        "bottom" 20rem
+        / 1fr
+    }
+
+    .right-content{
+        display: none;
+        margin: 0 !important;
+    }
+
+    .left-content{
+        display: none;
+        margin: 0 !important;
+    }
+
+    div#tooltip-map {display: none !important}
+
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    main {
+        grid-template-areas:
+            "top"
+            "graphic"
+            "article"
+            "bottom"
+        ;
+
+        grid-template:
+        "top" 5rem
+        "graphic" 50rem
+        "article" 20rem
+        "bottom" 20rem
+        / 1fr
+    }
+
+    .right-content{
+        display: none;
+        margin: 0 !important;
+    }
+
+    .left-content{
+        display: none;
+        margin: 0 !important;
+    }
+
+    div#tooltip-map {display: none !important}
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    main {
+        display: grid;
+        align-items: center;
+        text-align: center;
+        grid-template-areas:
+            "top top top"
+            "graphic graphic graphic"
+            "left article right"
+            "bottom bottom bottom"
+        ;
+        grid-template: 
+            "top top top" 5rem
+            "graphic graphic graphic" 55rem
+            "left article right" 60rem
+            "bottom bottom bottom" 10rem
+            / 1fr 600px 1fr
+        
+    }
+
+    .right-content{
+        display: unset;
+    }
+
+    .left-content{
+        display: unset;
+    }
+
+    div#tooltip-map {display: unset !important}
+
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    main {
+        display: grid;
+        align-items: center;
+        text-align: center;
+        grid-template-areas:
+            "top top top"
+            "graphic graphic graphic"
+            "left article right"
+            "bottom bottom bottom"
+        ;
+        grid-template: 
+            "top top top" 10rem
+            "graphic graphic graphic" 60rem
+            "left article right" 60rem
+            "bottom bottom bottom" 10rem
+            / 1fr 600px 1fr
+        
+    }
+
+    .right-content{
+        display: unset;
+    }
+
+    .left-content{
+        display: unset;
+    }
+
+    div#tooltip-map {display: unset !important}
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    main {
+        display: grid;
+        align-items: center;
+        text-align: center;
+        grid-template-areas:
+            "top top top"
+            "graphic graphic graphic"
+            "left article right"
+            "bottom bottom bottom"
+        ;
+        grid-template: 
+            "top top top" 10rem
+            "graphic graphic graphic" 60rem
+            "left article right" 60rem
+            "bottom bottom bottom" 10rem
+            / 1fr 600px 1fr
+        
+    }
+
+    .right-content{
+        display: unset;
+    }
+
+    .left-content{
+        display: unset;
+    }
+
+    div#tooltip-map {display: unset !important}
+}
+
+
+

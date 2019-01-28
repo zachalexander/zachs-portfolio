@@ -1,87 +1,35 @@
-<div class="grid">
-    <header>
-    <a [routerLink]="['/']"><button class="back-button">Back to Full List</button></a>
-    </header>
 
-        <aside class="sidebar-left">
-            Left Sidebar
-        </aside>
-        
-        <article>
-            <div class="chart-container">
-                <div class="chart-canvas">
-                    <div id="tooltip-map" class="hidden">
-                        <p><span id="value-map"></span></p>
-                    </div>
+<div (resized)="onResized($event)">
+    <div class = "nav-wrapper">
+        <div class = "child-wrapper">
+            <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
+        </div>
+        <div class="child-wrapper">Zach Alexander | Visuals</div>
+    </div>
+    
+    <main>
+        <section class = "top-content">
+            <h4 class = "content-title">Which state had the highest firearm mortality rate in 2017?</h4>
+        </section>
+        <article class = "graphic">
+            <div class="chart-canvas">
+                <div id="tooltip-map" class="hidden">
+                    <p><span id="value-map"></span></p>
                 </div>
             </div>
-
-            <div>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eros libero, blandit at ornare porta, aliquet aliquet
-                lectus. Pellentesque rutrum iaculis posuere. Quisque in enim purus. Nunc id luctus felis. Nulla bibendum iaculis
-                neque,
-                id consectetur neque varius in. Mauris sed diam non massa pellentesque hendrerit nec id eros. Praesent porttitor
-                ante
-                ac mattis blandit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id eros lobortis, ullamcorper
-                neque
-                id, ultricies lorem. Nam id lectus malesuada, condimentum dolor at, interdum purus. Nullam imperdiet est et
-                dignissim
-                elementum. Suspendisse leo massa, semper id velit in, maximus iaculis ipsum. Maecenas vitae metus viverra, bibendum
-                ex
-                sed, placerat purus. Nam interdum nulla at orci semper, non cursus nulla vehicula. Praesent scelerisque urna mi,
-                blandit semper nisi sollicitudin eu.<br /><br />
-            
-                Donec malesuada non eros quis condimentum. Nullam aliquam purus ac elit semper aliquam. Sed sed dignissim nulla.
-                Quisque cursus eleifend ex, id blandit lorem luctus eget. Nam orci leo, consectetur et leo in, finibus mollis leo.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce rhoncus orci in ligula vestibulum vulputate. Aenean
-                dui
-                lorem, luctus eget sollicitudin a, imperdiet a dui. Maecenas ut turpis laoreet, sollicitudin erat ac, euismod mi.
-                Nullam a ullamcorper sem. Suspendisse blandit suscipit mauris ut finibus. Donec porta massa vitae dolor maximus,
-                sed
-                fringilla nisi volutpat. Suspendisse laoreet velit libero, a mollis justo scelerisque ac. Proin in orci ut elit
-                feugiat
-                porta sit amet quis risus. Phasellus rhoncus, nunc quis rhoncus fermentum, tortor velit porta tellus, at congue
-                ligula
-                nulla eget nulla. Integer non purus vel felis euismod lobortis.<br /><br />
-            
-                Morbi consectetur mollis nibh, quis hendrerit eros rutrum et. Praesent accumsan dui sed turpis faucibus, sit amet
-                auctor odio commodo. Nullam vehicula nisi sit amet sapien congue tempor. Pellentesque at mauris eget quam suscipit
-                laoreet. Nam non justo ultricies, tempor ante eu, fermentum diam. Praesent at nisi eu enim viverra rutrum vitae sed
-                odio. Integer massa libero, fringilla sit amet molestie et, congue sed mi. Sed eget urna eu mauris pretium
-                scelerisque
-                a sodales lectus.<br /><br />
-            
-                Phasellus sit amet accumsan odio. Curabitur elementum mattis suscipit. Pellentesque habitant morbi tristique
-                senectus
-                et netus et malesuada fames ac turpis egestas. Maecenas scelerisque orci non diam sagittis, a dignissim erat
-                lobortis.
-                In sed pulvinar dolor, in porta nunc. Proin dignissim in diam dapibus elementum. In pretium ex nec malesuada
-                scelerisque. Proin laoreet nibh nec sodales facilisis. Integer pharetra pharetra dignissim. Nunc blandit felis et
-                arcu
-                posuere iaculis. Curabitur euismod rutrum tortor sed pharetra. Nulla venenatis ante felis, in ultrices purus
-                rhoncus
-                in. Maecenas tortor arcu, ullamcorper quis orci vitae, pretium tristique quam. <br /><br />
-            
-                Nam pulvinar mollis nulla, eget tristique eros bibendum a. Interdum et malesuada fames ac ante ipsum primis in
-                faucibus. Pellentesque egestas molestie fermentum. Etiam vitae nisl vel ipsum vestibulum sodales. Mauris vestibulum
-                porta nisi sed sagittis. Etiam sed ex justo. Sed pretium eget ligula ut condimentum. Sed tincidunt odio erat, eget
-                bibendum tortor malesuada et. Sed consectetur cursus pellentesque. Duis efficitur sagittis mauris, sed mollis
-                tellus
-                ornare a. Nulla facilisi. Nulla elementum lacus eu mauris feugiat cursus ut ac metus. Mauris cursus pretium sapien,
-                vel
-                elementum felis volutpat vel. Curabitur dapibus sapien erat, at tincidunt urna sodales nec. In blandit molestie
-                lorem
-                ut pharetra. Nunc eu finibus sapien. <br />
-            </p>
-
-            </div>
         </article>
+        <article class = "article">
+            <p class = "summary-content">
+                States are categorized from highest rate to lowest rate. Although adjusted for differences in age-distribution and population size, rankings by state do not take into account other state specific population characteristics that may affect the level of mortality. When the number of deaths is small, rankings by state may be unreliable due to instability in death rates.
+            </p>
+        </article>
+        <section class = "left-content">Left side</section>
+        <section class = "right-content">Right side</section>   
+    </main>
     
-    <footer>
-        Footer
-    </footer>
+    <footer class = "bottom-content">Bottom div</footer>
 </div>
+
 
 
 

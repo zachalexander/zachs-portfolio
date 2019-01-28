@@ -4,7 +4,8 @@ import * as stateData from '../../../assets/us-states.json';
 import * as stateFeatures from '../../../assets/us-state-features.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-
+import { ResizedEvent } from 'angular-resize-event/resized-event';
+import { EventManagerPlugin } from '@angular/platform-browser/src/dom/events/event_manager';
 
 
 @Component({
@@ -13,25 +14,70 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
   styleUrls: ['./politics-map.component.scss']
 })
 export class PoliticsMapComponent implements OnInit {
+  width;
+  innerWidth;
+  projection;
+  height = 700;
   
   constructor(
     private spinnerService: Ng4LoadingSpinnerService
   ) { }
 
+
+  onResized(event: ResizedEvent): void {
+    this.spinnerService.show();
+    this.width = event.newWidth; 
+
+    if (this.width <= 600) {
+      this.height = 400;
+      this.projection = 0.85;
+      this.innerWidth = window.innerWidth - 40
+      setTimeout(() => {
+        this.drawMap(this.width, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 1000);
+    } else {
+      this.height = 600;
+      this.projection = 1.50;
+      this.innerWidth = window.innerWidth - 40
+      setTimeout(() => {
+        this.drawMap(this.width, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 1000);
+    }
+
+  }
+
   ngOnInit() {
 
     this.spinnerService.show();
-    let canvasWid = window.innerWidth;
-    this.addValues();
 
-    setTimeout(() => {
-      this.drawMap(1000, 600);
-      this.spinnerService.hide();
-    }, 2000);
+    this.innerWidth = window.innerWidth;
+    console.log(this.innerWidth);
 
-    
+    if (this.innerWidth <= 600){
+      this.height = 400;
+      this.projection = 0.85;
+      this.innerWidth = window.innerWidth - 40
+      this.addValues();
+      console.log(this.height);
+      setTimeout(() => {
+        this.drawMap(this.innerWidth, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 2000);
+    } else {
+      this.innerWidth = window.innerWidth - 40
+      this.height = 600;
+      this.projection = 1.50;
+      this.addValues();
+      setTimeout(() => {
+        console.log(this.height);
+        this.drawMap(this.innerWidth, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 2000);
+    } 
 
-}
+  }
 
 addValues() {
 
@@ -61,17 +107,20 @@ addValues() {
     })
   });
 
-
-  console.log(stateDataset.features)
   return stateDataset.features;
 
 }
 
-  drawMap(len, hei) {
+  drawMap(len, hei, proj) {
+
+    d3.select("svg").remove();
+
+    let margin = {top: 0, right: 10, bottom: 0, left: 10}
 
     let projection = d3.geoAlbersUsa()
+                      .scale(len/proj, hei/proj)
                       .translate([len/2, hei/2]);
-    
+       
     let color = d3.scaleQuantize()
                   .range(['#f1eef6','#d0d1e6','#a6bddb','#74a9cf','#2b8cbe','#045a8d'])
                   .domain([2.5, 24.5])
@@ -82,8 +131,8 @@ addValues() {
     let svg = d3.select('.chart-canvas')
                 .append('svg')
                 .classed("svg-container", true)
-                .attr("preserveAspectRatio", "xMinYMin meet")
-                .attr("viewBox", "0 0 1000 600")
+                .attr("width", len - margin.right - margin.left)
+                .attr("height", hei)
 
     svg.selectAll("path")
     .data(this.addValues())
@@ -100,13 +149,10 @@ addValues() {
     })
     .style('stroke', '#333')
     .style('stroke-width', '1')                 
-    .attr("width", len)
-    .attr("height", hei)
-    .attr("transform", "translate(20, 0)")
     .classed("svg-content-responsive", true) 
     .on("mouseover", function(d){
-      let xPosition = d3.mouse(this)[0] + 100;
-      let yPosition = d3.mouse(this)[1] - 100;
+      let xPosition = d3.mouse(this)[0] + 50;
+      let yPosition = d3.mouse(this)[1] - 50;
      
       d3.select(this)
         .style("cursor", "crosshair")
@@ -116,8 +162,6 @@ addValues() {
         // Update the tooltip position and value
         d3.select("#tooltip-map")
         .style("position", "absolute")
-        .style("display", "grid")
-        .style("width", "350px")
         .style("left", xPosition + "px")
         .style("top", yPosition + "px")
         .select("#value-map")
@@ -131,7 +175,6 @@ addValues() {
           .style("fill", function (d) {
             var value = d.properties.value;
             if (value) {
-              console.log(d.properties.value);
               return color(d.properties.value);
             } else {
               return "#333";
@@ -150,27 +193,16 @@ addValues() {
             .style("stroke", "#333")
       });
 
-      svg.append("g")
-        .append("text")
-        .text("*Mortality rate = firearm deaths per 100,000 individuals")
-        .attr("x", function() {
+      // svg.append("g")
+      //   .append("text")
+      //   .text("*Mortality rate = firearm deaths per 100,000 individuals")
+      //   .attr("x", function() {
 
-          let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
-          return ((len / 2) - (stringWidth / 2));
-        })
-        .attr("y", hei - 10)
-        .attr("id", "captionText")
-
-      svg.append("g")
-      .append("text")
-      .text("Firearm Mortality by State in 2017")
-      .attr("x", function() {
-
-        let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
-        return ((len / 2) - (stringWidth / 2));
-      })
-      .attr("y", hei - (hei - 60))
-      .attr("id", "mapTitle")
+      //     let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
+      //     return ((len / 2) - (stringWidth / 2));
+      //   })
+      //   .attr("y", hei - 5)
+      //   .attr("id", "captionText")
 
   }
 
