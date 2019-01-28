@@ -1,4 +1,4 @@
-@import url('../../../styles.scss');
+@import '../../../styles.scss';
 
 a:hover, a:focus{
     color: #272727;
@@ -7,7 +7,7 @@ a:hover, a:focus{
 .chart-title {
   justify-content: center;
   text-align: center;
-  font-family: 'Inconsolata', sans-serif;
+  font-family: $font-stack;
   color: rgb(124, 124, 124);
   padding: 20px;
 }
@@ -23,7 +23,7 @@ svg {
 }
 
 svg text.axis-labels {
-  font-family: 'Inconsolata', sans-serif;
+  font-family: $font-stack;
   fill: white;
   text-anchor: middle;
 }
@@ -153,7 +153,7 @@ img {
 
 #tooltip h4 {
  margin: 0;
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-size: 1em;
  line-height: 20px;
  text-align: center;
@@ -161,7 +161,7 @@ img {
 
  #tooltip p {
  margin: 0;
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-size: 0.95em;
  line-height: 20px;
  }
@@ -178,7 +178,7 @@ img {
  }
 
  svg text.bar-labels {
-   font-family: 'Inconsolata', sans-serif;
+   font-family: $font-stack;
    font-weight: bolder;
    font-size: 1.1em;
    text-anchor: middle;
@@ -191,7 +191,7 @@ img {
  shape-rendering: crispEdges;
 }
 .x-axis-dem text {
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-weight: bolder;
 }
 
@@ -202,7 +202,7 @@ img {
  shape-rendering: crispEdges;
 }
 .y-axis-dem text {
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-weight: bolder;
 }
 
@@ -213,7 +213,7 @@ img {
  shape-rendering: crispEdges;
 }
 .x-axis-rep text {
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-weight: bolder;
 }
 
@@ -224,7 +224,7 @@ img {
  shape-rendering: crispEdges;
 }
 .y-axis-rep text {
- font-family: 'Inconsolata', sans-serif;
+ font-family: $font-stack;
  font-weight: bolder;
 }
 

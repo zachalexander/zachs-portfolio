@@ -1,51 +1,47 @@
+@import '../../../styles.scss';
+
+.grid {
+  display: grid;
+  grid-template-columns: 250px repeat(1, 1fr);
+  grid-row-gap: 1em;
+  grid-column-gap: 1em;
+}
+
+header,
+aside,
+article,
+footer {
+  background: #eaeaea;
+  padding: 1em;
+}
+
+header, footer {
+  grid-column: 1 / 4;
+}
+
+
 h2 {
     text-align: center;
 }
 
-.chart-canvas {
+div#tooltip-map {
     display: grid;
-    border: 1px solid #ddd;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-}
-
-#tooltip {
-    position: absolute;
-    width: 400px;
     height: auto;
     padding: 10px;
-    background-color: rgba(250, 250, 250, 1);
-    border: 1px solid #ddd;
+    background-color: rgba(250, 250, 250, 0.8);
+    border: 1px solid $button-primary;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 2px;
-    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     pointer-events: none;
     z-index: 10000;
 }
 
-#tooltip.hidden {
+#tooltip-map.hidden {
     display: none;
 }
 
-#tooltip h4 {
-    margin: 0;
-}
-
-#tooltip p {
-    margin: 0;
-}
-
-#value h4 {
-    text-align: center;
-    margin: 0;
-}
-
 path {
-    stroke: orange;
    -moz-transition: all 0.3s;
    -o-transition: all 0.3s;
    -webkit-transition: all 0.3s;
@@ -71,15 +67,3 @@ path:hover {
     top: 10px;
     left: 0;
 }
-
-.wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    flex-flow: row-wrap;
-    justify-content: space-around;
-  }
-
-  .voting-info {
-    text-align: center;
-  }

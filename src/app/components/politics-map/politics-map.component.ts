@@ -27,7 +27,7 @@ export class PoliticsMapComponent implements OnInit {
     setTimeout(() => {
       this.drawMap(1000, 600);
       this.spinnerService.hide();
-    }, 1000);
+    }, 2000);
 
     
 
@@ -114,27 +114,37 @@ addValues() {
         .style("stroke-width", "3");
       
         // Update the tooltip position and value
-        d3.select("#tooltip")
+        d3.select("#tooltip-map")
+        .style("position", "absolute")
+        .style("display", "grid")
+        .style("width", "350px")
         .style("left", xPosition + "px")
         .style("top", yPosition + "px")
-          .select("#value")
-          .html("<div class = wrapper>" + 
-                    "<div>" + 
-                        "<img src = " + d.properties.flag_image_url + ">" + 
-                    "</div>" + 
-                    "<h4 class = " + "state-name" + ">" + "<strong>" + d.properties.name + "</strong>" + 
-                    "</h4>" + 
-                "</div>" + 
-                "<hr>"
-          + "<p class = " + "senator-name" + ">" + "<strong>" + "Total Firearm Deaths: " + d.properties.deaths + "</strong>" + "</p>"
-          + "<p class = " + "senator-name" + ">" + "<strong>" + "Mortality Rate: " + d.properties.value + "%" + "</strong>" + "</p>"
-          )
+        .select("#value-map")
+        .html("<h4 class =" + "senator-name" + ">" + d.properties.name + "</h4>" + "<hr>"
+          + "<div class = wrapper>" + "<div>" + "<img src = " + d.properties.flag_image_url + " onerror" + "= No photo available" + "class = " + "flag" + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Mortality Rate: " + "<strong>" + d.properties.value + "%" + "</strong>" + "</p>"
+          + "<p class = " + "voting-info" + ">" + "Total Deaths in 2017: " + "<strong>" + d.properties.deaths + "</strong>" + "</p>" + "</div>" + "</div>"
+        )
+
+        svg.select("path")
+          .attr("d", path)
+          .style("fill", function (d) {
+            var value = d.properties.value;
+            if (value) {
+              console.log(d.properties.value);
+              return color(d.properties.value);
+            } else {
+              return "#333";
+            }
+          })
+        
+
 
         // Show the tooltip
-        d3.select("#tooltip").classed("hidden", false);
+        d3.select("#tooltip-map").classed("hidden", false);
       })
       .on("mouseout", function() {
-          d3.select("#tooltip").classed("hidden", true);
+          d3.select("#tooltip-map").classed("hidden", true);
           d3.select(this)
             .style("stroke-width", "1")
             .style("stroke", "#333")
