@@ -36,9 +36,17 @@ export class PoliticsMapComponent implements OnInit {
         this.drawMap(this.width, this.height, this.projection);
         this.spinnerService.hide();
       }, 1000);
+    } else if (this.width > 1000 && this.width <= 1200) {
+      this.height = 600;
+      this.projection = 0.83;
+      this.innerWidth = window.innerWidth - 40
+      setTimeout(() => {
+        this.drawMap(this.width, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 1000);
     } else {
       this.height = 600;
-      this.projection = 1.50;
+      this.projection = 1;
       this.innerWidth = window.innerWidth - 40
       setTimeout(() => {
         this.drawMap(this.width, this.height, this.projection);
@@ -65,17 +73,37 @@ export class PoliticsMapComponent implements OnInit {
         this.drawMap(this.innerWidth, this.height, this.projection);
         this.spinnerService.hide();
       }, 2000);
-    } else {
+    } else if (this.innerWidth > 1000 && this.innerWidth <= 1200) {
       this.innerWidth = window.innerWidth - 40
       this.height = 600;
-      this.projection = 1.50;
+      this.projection = 0.83;
       this.addValues();
       setTimeout(() => {
         console.log(this.height);
         this.drawMap(this.innerWidth, this.height, this.projection);
         this.spinnerService.hide();
       }, 2000);
-    } 
+    } else if (this.innerWidth > 1200) {
+      this.innerWidth = window.innerWidth - 40
+      this.height = 600;
+      this.projection = 2.5;
+      this.addValues();
+      setTimeout(() => {
+        console.log(this.height);
+        this.drawMap(this.innerWidth, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 2000);
+    } else {
+      this.innerWidth = window.innerWidth - 40
+      this.height = 600;
+      this.projection = 1;
+      this.addValues();
+      setTimeout(() => {
+        console.log(this.height);
+        this.drawMap(this.innerWidth, this.height, this.projection);
+        this.spinnerService.hide();
+      }, 2000);
+    }
 
   }
 

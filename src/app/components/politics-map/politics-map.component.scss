@@ -117,9 +117,9 @@ main {
 
         grid-template:
         "top" 5rem
-        "graphic" 40rem
+        "graphic" 30rem
         "article" 20rem
-        "bottom" 20rem
+        "bottom" 10rem
         / 1fr
     }
 
@@ -148,10 +148,10 @@ main {
         ;
 
         grid-template:
-        "top" 5rem
-        "graphic" 50rem
+        "top" 8rem
+        "graphic" 35rem
         "article" 20rem
-        "bottom" 20rem
+        "bottom" 5rem
         / 1fr
     }
 
@@ -182,8 +182,8 @@ main {
         ;
         grid-template: 
             "top top top" 5rem
-            "graphic graphic graphic" 55rem
-            "left article right" 60rem
+            "graphic graphic graphic" 45rem
+            "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
         
@@ -215,8 +215,8 @@ main {
         ;
         grid-template: 
             "top top top" 10rem
-            "graphic graphic graphic" 60rem
-            "left article right" 60rem
+            "graphic graphic graphic" 57rem
+            "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
         
@@ -248,7 +248,7 @@ main {
         grid-template: 
             "top top top" 10rem
             "graphic graphic graphic" 60rem
-            "left article right" 60rem
+            "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
         

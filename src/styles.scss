@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-$font-stack: "Work Sans", sans-serif;
+$font-stack: "PT Sans", sans-serif;
 $button-primary: #272727;
 $button-white: #ffffff;
 
@@ -15,6 +15,7 @@ html {
     margin: 0;
     font-size: 10px;
     height: 100%;
+    line-height: 3em;
 }
 
 body {
@@ -142,7 +143,7 @@ button:active {
   
   @media screen and (max-width: 650px) {
     body {
-      font-size: 1.25em;
+      font-size: 1.4em;
     }
   
     text {
@@ -167,7 +168,7 @@ button:active {
   @media screen and (max-width: 480px) {
   
     body {
-      font-size: 1.2em;
+      font-size: 1.4em;
     }
   
     text {
@@ -183,10 +184,5 @@ button:active {
       font-size: 1em;
     }
   
-    .back-button {
-      margin-left: 5px;
-    }
-  
- 
   }
   
