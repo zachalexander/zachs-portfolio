@@ -6,7 +6,7 @@ import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ResizedEvent } from 'angular-resize-event/resized-event';
 import { Observable } from 'rxjs';
-
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +33,7 @@ export class SenateVotesComponent {
   serverError = false;
   democraticChart = false;
   milliseconds: number;
+  faCoffee = faCoffee;
 
   constructor(
     private propubService: PropubService,

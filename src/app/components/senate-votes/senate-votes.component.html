@@ -14,7 +14,7 @@
 
     <div class = "body-container">
       <div class = "opening-statement">
-        <p class = "opening-paragraph">After two years of legislation, the 115th Senate may be most notably remembered for
+        <p class = "opening-paragraph">After two years of legislative activity, the 115th Senate may be most notably remembered for
           their sweeping overhaul of our tax system, or their failure to come to terms on a revised version of the Affordable Care Act. 
           However, amidst all of the political banter, <strong>who really was most loyal to their party?</strong>
         </p>
@@ -33,6 +33,20 @@
       </div>
 
       <div class=chart-wrapper *ngIf="!serverError"></div>
+
+      <div class = "summary-content">
+        <p class = "paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the two-year period. 
+          As an ardent member of the Freedom caucus, he has been proud of his record to buck party trends.
+        </p>
+        <p class = "paragraph-content">For democrats, Joe Manchin of West Virginia has historically voted moderately. Being in a state that has shifted
+          red over the last few decades, he's been concious of his electorate.
+        </p>
+        <p class = "paragraph-content">It's quite interesting to see that of the 51 Republicans in the Senate, 
+          all but three -- Rand Paul (KY), Mike Lee (UT), and Susan Collins (ME) -- voted with the party at least
+          90 percent of the time. In an era of strong partisanship among the two parties, this is an indication that
+          Senate Majority Leader, Mitch McConnell, and his party's agenda were kept close in hand.
+        </p>
+      </div>
       
       <div *ngIf="serverError" class="error">
         <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
@@ -40,7 +54,19 @@
 
     </div>
 
-    <footer class = "bottom-content">Bottom div</footer>
+    <footer class = "bottom-content">
+      <div class = "child-wrapper">
+          <a href = "mailto:alexander.d.zachary@gmail.com">Email Zach</a>
+          <div style="text-align:center">
+              <fa-icon [icon]="faCoffee"></fa-icon>
+          </div>
+      </div>
+
+
+
+      
+      
+    </footer>
 
     </div>
 

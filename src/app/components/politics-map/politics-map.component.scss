@@ -16,10 +16,11 @@ h2 {
     grid-column-gap: 0;
     align-items: center;
     justify-items: top;
-    background-color: #272727;
-    color: #fff;
-    font-weight: 700;
+    background-image: $white-nav;
+    color: #333;
+    font-weight: 400;
     text-align: center;
+    border-bottom: 1px solid #333;
 }
 
 div#tooltip-map {
@@ -116,7 +117,7 @@ main {
         ;
 
         grid-template:
-        "top" 5rem
+        "top" 8rem
         "graphic" 30rem
         "article" 20rem
         "bottom" 10rem
