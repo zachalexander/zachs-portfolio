@@ -27,8 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "../node_modules/font-awesome/css/font-awesome.scss"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -89,8 +88,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.scss",
-              "../node_modules/font-awesome/css/font-awesome.scss"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [

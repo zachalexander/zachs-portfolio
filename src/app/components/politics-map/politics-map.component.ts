@@ -5,8 +5,8 @@ import * as stateFeatures from '../../../assets/us-state-features.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ResizedEvent } from 'angular-resize-event/resized-event';
-import { EventManagerPlugin } from '@angular/platform-browser/src/dom/events/event_manager';
-
+// import { EventManagerPlugin } from '@angular/platform-browser/src/dom/events/event_manager';
+import * as topojson from "topojson-client";
 
 @Component({
   selector: 'app-politics-map',
@@ -14,10 +14,8 @@ import { EventManagerPlugin } from '@angular/platform-browser/src/dom/events/eve
   styleUrls: ['./politics-map.component.scss']
 })
 export class PoliticsMapComponent implements OnInit {
-  width;
   innerWidth;
-  projection;
-  height = 700;
+  width;
   
   constructor(
     private spinnerService: Ng4LoadingSpinnerService
@@ -28,82 +26,24 @@ export class PoliticsMapComponent implements OnInit {
     this.spinnerService.show();
     this.width = event.newWidth; 
 
-    if (this.width <= 600) {
-      this.height = 400;
-      this.projection = 0.85;
-      this.innerWidth = window.innerWidth - 40
-      setTimeout(() => {
-        this.drawMap(this.width, this.height, this.projection);
+    setTimeout(() => {
+        this.drawMap(this.width, 500);
         this.spinnerService.hide();
       }, 1000);
-    } else if (this.width > 1000 && this.width <= 1200) {
-      this.height = 600;
-      this.projection = 0.83;
-      this.innerWidth = window.innerWidth - 40
-      setTimeout(() => {
-        this.drawMap(this.width, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 1000);
-    } else {
-      this.height = 600;
-      this.projection = 1;
-      this.innerWidth = window.innerWidth - 40
-      setTimeout(() => {
-        this.drawMap(this.width, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 1000);
-    }
-
   }
+
+
 
   ngOnInit() {
 
     this.spinnerService.show();
 
     this.innerWidth = window.innerWidth;
-    console.log(this.innerWidth);
-
-    if (this.innerWidth <= 600){
-      this.height = 400;
-      this.projection = 0.85;
-      this.innerWidth = window.innerWidth - 40
-      this.addValues();
-      console.log(this.height);
-      setTimeout(() => {
-        this.drawMap(this.innerWidth, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 2000);
-    } else if (this.innerWidth > 1000 && this.innerWidth <= 1200) {
-      this.innerWidth = window.innerWidth - 40
-      this.height = 600;
-      this.projection = 0.83;
-      this.addValues();
-      setTimeout(() => {
-        console.log(this.height);
-        this.drawMap(this.innerWidth, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 2000);
-    } else if (this.innerWidth > 1200) {
-      this.innerWidth = window.innerWidth - 40
-      this.height = 600;
-      this.projection = 2.5;
-      this.addValues();
-      setTimeout(() => {
-        console.log(this.height);
-        this.drawMap(this.innerWidth, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 2000);
-    } else {
-      this.innerWidth = window.innerWidth - 40
-      this.height = 600;
-      this.projection = 1;
-      this.addValues();
-      setTimeout(() => {
-        console.log(this.height);
-        this.drawMap(this.innerWidth, this.height, this.projection);
-        this.spinnerService.hide();
-      }, 2000);
-    }
+    setTimeout(() => {
+      this.drawMap(this.innerWidth, 500)
+      this.spinnerService.hide();
+    }, 2000);
+    
 
   }
 
@@ -135,32 +75,54 @@ addValues() {
     })
   });
 
+  console.log(stateDataset.features);
   return stateDataset.features;
 
 }
 
-  drawMap(len, hei, proj) {
+  drawMap(width, height) {
 
     d3.select("svg").remove();
 
-    let margin = {top: 0, right: 10, bottom: 0, left: 10}
-
-    let projection = d3.geoAlbersUsa()
-                      .scale(len/proj, hei/proj)
-                      .translate([len/2, hei/2]);
-       
-    let color = d3.scaleQuantize()
-                  .range(['#f1eef6','#d0d1e6','#a6bddb','#74a9cf','#2b8cbe','#045a8d'])
-                  .domain([2.5, 24.5])
+    let projection = d3.geoAlbersUsa();
 
     let path = d3.geoPath()
-                .projection(projection)
+              .projection(projection)
 
-    let svg = d3.select('.chart-canvas')
-                .append('svg')
-                .classed("svg-container", true)
-                .attr("width", len - margin.right - margin.left)
-                .attr("height", hei)
+    let svg = d3.select(".graphic")
+                .append("svg")
+                .attr("class", "map")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("viewBox", "0 0 1000 500")
+                .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("width", width)
+                .attr("height", height)
+
+    
+  //   let path = d3.geoPath();
+   
+  //   d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us){
+      
+  //     console.log(us);
+    
+  //     svg.append("path")
+  //        .attr("stroke", "#aaa")
+  //        .attr("stroke-width", 0.5)
+  //        .attr("d", path(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && (a.id / 1000 | 0) === (b.id / 1000 | 0); })))
+
+  //     svg.append("path")
+  //       .attr("stroke-width", 0.5)
+  //       .attr("d", path(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; })))
+      
+  //     svg.append("path")
+  //       .attr("d", path(topojson.feature(us, us.objects.nation)))
+
+  // });
+    
+  let color = d3.scaleQuantize()
+              .range(['#f1eef6','#d0d1e6','#a6bddb','#74a9cf','#2b8cbe','#045a8d'])
+              .domain([2.5, 24.5])
 
     svg.selectAll("path")
     .data(this.addValues())
@@ -209,8 +171,6 @@ addValues() {
             }
           })
         
-
-
         // Show the tooltip
         d3.select("#tooltip-map").classed("hidden", false);
       })
@@ -220,17 +180,6 @@ addValues() {
             .style("stroke-width", "1")
             .style("stroke", "#333")
       });
-
-      // svg.append("g")
-      //   .append("text")
-      //   .text("*Mortality rate = firearm deaths per 100,000 individuals")
-      //   .attr("x", function() {
-
-      //     let stringWidth = d3.select(this)._groups["0"]["0"].clientWidth;
-      //     return ((len / 2) - (stringWidth / 2));
-      //   })
-      //   .attr("y", hei - 5)
-      //   .attr("id", "captionText")
 
   }
 

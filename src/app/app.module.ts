@@ -6,7 +6,6 @@ import { HttpModule } from '@angular/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { HomeComponent } from './components/home/home.component';
 import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
@@ -28,8 +27,7 @@ import { PoliticsMapComponent } from './components/politics-map/politics-map.com
     HttpModule,
     Ng4LoadingSpinnerModule.forRoot(),
     AngularResizedEventModule,
-    BrowserAnimationsModule,
-    FontAwesomeModule
+    BrowserAnimationsModule
    ],
   providers: [PropubService],
   bootstrap: [AppComponent]

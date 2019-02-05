@@ -8,6 +8,23 @@ h2 {
     text-align: center;
 }
 
+.feature {
+    fill: #ccc;
+  }
+  
+.mesh {
+    fill: none;
+    stroke: #fff;
+    stroke-width: .5px;
+    stroke-linejoin: round;
+}
+
+.outline {
+    fill: #ddd;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
 .nav-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -74,13 +91,13 @@ main {
     text-align: center;
     grid-template-areas:
         "top top top"
-        "left graphic right"
+        "graphic graphic graphic"
         "left article right"
         "bottom bottom bottom"
     ;
     grid-template: 
         "top top top" 10rem
-        "left graphic right" 70rem
+        "graphic graphic graphic" 70rem
         "left article right" 60rem
         "bottom bottom bottom" 10rem
         / 1fr 600px 1fr
@@ -265,6 +282,7 @@ main {
 
     div#tooltip-map {display: unset !important}
 }
+
 
 
 

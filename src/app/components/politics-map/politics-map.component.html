@@ -1,4 +1,3 @@
-
 <div (resized)="onResized($event)">
     <div class = "nav-wrapper">
         <div class = "child-wrapper">
@@ -11,13 +10,12 @@
         <section class = "top-content">
             <h4 class = "content-title">Which state had the highest firearm mortality rate in 2017?</h4>
         </section>
-        <article class = "graphic">
-            <div class="chart-canvas">
-                <div id="tooltip-map" class="hidden">
-                    <p><span id="value-map"></span></p>
-                </div>
+        <div class = "graphic">
+            <div id="tooltip-map" class="hidden">
+                <p><span id="value-map"></span></p>
             </div>
-        </article>
+            <svg></svg>
+        </div>
         <article class = "article">
             <p class = "summary-content">
                 States are categorized from highest rate to lowest rate. Although adjusted for differences in age-distribution and population size, rankings by state do not take into account other state specific population characteristics that may affect the level of mortality. When the number of deaths is small, rankings by state may be unreliable due to instability in death rates.
@@ -29,7 +27,6 @@
     
     <footer class = "bottom-content">Bottom div</footer>
 </div>
-
 
 
 
