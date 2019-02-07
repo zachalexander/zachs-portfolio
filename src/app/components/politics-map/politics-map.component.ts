@@ -27,7 +27,7 @@ export class PoliticsMapComponent implements OnInit {
     this.width = event.newWidth; 
 
     setTimeout(() => {
-        this.drawMap(this.width, 500);
+        this.drawMap(this.width, 550);
         this.spinnerService.hide();
       }, 1000);
   }
@@ -75,7 +75,6 @@ addValues() {
     })
   });
 
-  console.log(stateDataset.features);
   return stateDataset.features;
 
 }
@@ -88,98 +87,118 @@ addValues() {
 
     let path = d3.geoPath()
               .projection(projection)
+    
+    let ext_color_domain = [2.5, 5.5, 11.5, 20.5, 24.5];
+
+    let color_domain = [2.5, 5.5, 11.5, 20.5, 24.5]
+
+    let legend_labels = ["2.5% - 5.1%", "5.2% - 13.5%", "13.6% - 16.9%", "17.0% - 20.9%", ">21.0%"];
+
+    let color_legend = d3.scaleThreshold()
+      .range(['#f1eef6', '#d0d1e6', '#a6bddb', '#74a9cf', '#2b8cbe', '#045a8d'])
+      .domain(color_domain)
+
 
     let svg = d3.select(".graphic")
                 .append("svg")
                 .attr("class", "map")
                 .attr("x", 0)
                 .attr("y", 0)
-                .attr("viewBox", "0 0 1000 500")
-                .attr("preserveAspectRatio", "xMidYMid meet")
+                .attr("viewBox", "-30 -20 1000 550")
+                .attr("preserveAspectRatio", "xMidYMid")
                 .attr("width", width)
                 .attr("height", height)
 
-    
-  //   let path = d3.geoPath();
-   
-  //   d3.json("https://unpkg.com/us-atlas@1/us/10m.json").then(function(us){
-      
-  //     console.log(us);
-    
-  //     svg.append("path")
-  //        .attr("stroke", "#aaa")
-  //        .attr("stroke-width", 0.5)
-  //        .attr("d", path(topojson.mesh(us, us.objects.counties, function(a, b) { return a !== b && (a.id / 1000 | 0) === (b.id / 1000 | 0); })))
+    let legend = svg.selectAll("g")
+      .data(ext_color_domain)
+      .classed("legend", true)
+      .enter().append("g")
+      .attr("class", "legend");
 
-  //     svg.append("path")
-  //       .attr("stroke-width", 0.5)
-  //       .attr("d", path(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; })))
-      
-  //     svg.append("path")
-  //       .attr("d", path(topojson.feature(us, us.objects.nation)))
+    var ls_w = 20, ls_h = 20;
 
-  // });
+    legend.append("rect")
+      .attr("x", 820)
+      .attr("y", function (d, i) { return (height - (i * ls_h) - 2 * ls_h) - 40; })
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("stroke", "#333")
+      .style("stroke-width", "1")
+      .style("fill", function (d, i) { return color_legend(d); })
+      .style("opacity", 0.8);
+
+    legend.append("text")
+      .attr("x", 850)
+      .attr("y", function (d, i) { return (height - (i * ls_h) - ls_h - 4) - 40; })
+      .text(function (d, i) { return legend_labels[i]; });
+
+
+    legend.append("text")
+      .attr("x", 835)
+      .attr("y", (height - (5.5 * ls_h) - ls_h - 4) - 40)
+      .text("Mortality Rate");
     
-  let color = d3.scaleQuantize()
-              .range(['#f1eef6','#d0d1e6','#a6bddb','#74a9cf','#2b8cbe','#045a8d'])
-              .domain([2.5, 24.5])
+    let color = d3.scaleQuantize()
+                .range(['#f1eef6','#d0d1e6','#a6bddb','#74a9cf','#2b8cbe','#045a8d'])
+                .domain([2.5, 24.5])                    
 
     svg.selectAll("path")
-    .data(this.addValues())
-    .enter()
-    .append("path")
-    .attr("d", path)
-    .style("fill", function(d){
-      var value = d.properties.value;
-        if(value) {
-          return color(d.properties.value);
-        } else {
-          return "#333";
-        }
-    })
-    .style('stroke', '#333')
-    .style('stroke-width', '1')                 
-    .classed("svg-content-responsive", true) 
-    .on("mouseover", function(d){
-      let xPosition = d3.mouse(this)[0] + 50;
-      let yPosition = d3.mouse(this)[1] - 50;
-     
-      d3.select(this)
-        .style("cursor", "crosshair")
-        .style("stroke", "#333")
-        .style("stroke-width", "3");
+      .data(this.addValues())
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .style("fill", function(d){
+        var value = d.properties.value;
+          if(value) {
+            return color(d.properties.value);
+          } else {
+            return "#333";
+          }
+      })
+      .style('stroke', '#333')
+      .style('stroke-width', '1')                 
+      .classed("svg-content-responsive", true) 
+      .on("mouseover", function(d){
+        let xPosition = d3.mouse(this)[0] + 50;
+        let yPosition = d3.mouse(this)[1] - 50;
       
-        // Update the tooltip position and value
-        d3.select("#tooltip-map")
-        .style("position", "absolute")
-        .style("left", xPosition + "px")
-        .style("top", yPosition + "px")
-        .select("#value-map")
-        .html("<h4 class =" + "senator-name" + ">" + d.properties.name + "</h4>" + "<hr>"
-          + "<div class = wrapper>" + "<div>" + "<img src = " + d.properties.flag_image_url + " onerror" + "= No photo available" + "class = " + "flag" + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Mortality Rate: " + "<strong>" + d.properties.value + "%" + "</strong>" + "</p>"
-          + "<p class = " + "voting-info" + ">" + "Total Deaths in 2017: " + "<strong>" + d.properties.deaths + "</strong>" + "</p>" + "</div>" + "</div>"
-        )
-
-        svg.select("path")
-          .attr("d", path)
-          .style("fill", function (d) {
-            var value = d.properties.value;
-            if (value) {
-              return color(d.properties.value);
+        d3.select(this)
+          .style("cursor", "crosshair")
+          .style("stroke", "#333")
+          .style("stroke-width", "3");
+        
+          // Update the tooltip position and value
+          d3.select("#tooltip-map")
+          .style("position", "absolute")
+          .style("left", function(){
+              if (xPosition < 500){
+                return xPosition + 250 + "px";
+              } else {
+                return xPosition - 250 + "px";
+              }
+          })
+          .style("top", function(){
+            if (yPosition < 250) {
+              return yPosition + 100 + "px";
             } else {
-              return "#333";
+              return yPosition - 100 + "px";
             }
           })
-        
-        // Show the tooltip
-        d3.select("#tooltip-map").classed("hidden", false);
-      })
-      .on("mouseout", function() {
-          d3.select("#tooltip-map").classed("hidden", true);
-          d3.select(this)
-            .style("stroke-width", "1")
-            .style("stroke", "#333")
-      });
+          .select("#value-map")
+          .html("<h4 class =" + "senator-name" + ">" + d.properties.name + "</h4>" + "<hr>"
+            + "<div class = wrapper>" + "<div>" + "<img src = " + d.properties.flag_image_url + " onerror" + "= No photo available" + "class = " + "flag" + ">" + "</div>" + "<div>" + "<p class = " + "voting-info" + ">" + "Mortality Rate: " + "<strong>" + d.properties.value + "%" + "</strong>" + "</p>"
+            + "<p class = " + "voting-info" + ">" + "Total Deaths in 2017: " + "<strong>" + d.properties.deaths + "</strong>" + "</p>" + "</div>" + "</div>"
+          )
+          
+          // Show the tooltip
+          d3.select("#tooltip-map").classed("hidden", false);
+        })
+        .on("mouseout", function() {
+            d3.select("#tooltip-map").classed("hidden", true);
+            d3.select(this)
+              .style("stroke-width", "1")
+              .style("stroke", "#333")
+        });
 
   }
 
