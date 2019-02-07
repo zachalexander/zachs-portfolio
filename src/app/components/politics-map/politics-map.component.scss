@@ -42,7 +42,7 @@ h2 {
 
 div#tooltip-map {
     display: grid;
-    min-width: 300px;
+    min-width: 350px;
     height: auto;
     padding: 10px;
     background-color: rgba(250, 250, 250, 0.8);
@@ -80,10 +80,10 @@ path {
     transition: all 0.3s;
 }
   
-path:hover {
-    stroke: #333;
-    stroke-width: 2;
-}
+// path:hover {
+//     stroke: #333;
+//     stroke-width: 2;
+// }
 
 main {
     display: grid;

@@ -5,7 +5,6 @@ import * as stateFeatures from '../../../assets/us-state-features.json';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { ResizedEvent } from 'angular-resize-event/resized-event';
-// import { EventManagerPlugin } from '@angular/platform-browser/src/dom/events/event_manager';
 import * as topojson from "topojson-client";
 
 @Component({
@@ -161,27 +160,45 @@ addValues() {
       .on("mouseover", function(d){
         let xPosition = d3.mouse(this)[0] + 50;
         let yPosition = d3.mouse(this)[1] - 50;
-      
+     
         d3.select(this)
           .style("cursor", "crosshair")
           .style("stroke", "#333")
-          .style("stroke-width", "3");
+          .style("stroke-width", "5");
+          
+        svg.selectAll("path")
+        .attr("d", path)
+        .style("fill", function(d){
+          var value = d.properties.value;
+            if(value) {
+              return color(d.properties.value);
+            } else if (this) {
+              return color(value);
+            } else {
+              return "#333";
+            }
+        })
+        .style("opacity", "0.2")
         
           // Update the tooltip position and value
           d3.select("#tooltip-map")
           .style("position", "absolute")
           .style("left", function(){
-              if (xPosition < 500){
-                return xPosition + 250 + "px";
-              } else {
-                return xPosition - 250 + "px";
-              }
+            if (width > 1000 && xPosition < 500){
+              return xPosition + 400 + "px";
+            } else if (width > 1000 && xPosition > 500){
+              return xPosition + 100 + "px";
+            } else {
+              return xPosition + "px";
+            }
           })
           .style("top", function(){
-            if (yPosition < 250) {
-              return yPosition + 100 + "px";
-            } else {
+            if (yPosition > 175){
               return yPosition - 100 + "px";
+            } else if (yPosition < 175) {
+              return yPosition + 300 + "px";
+            } else {
+              return yPosition + "px";
             }
           })
           .select("#value-map")
@@ -195,6 +212,19 @@ addValues() {
         })
         .on("mouseout", function() {
             d3.select("#tooltip-map").classed("hidden", true);
+
+            svg.selectAll("path")
+            .attr("d", path)
+            .style("fill", function(d){
+              var value = d.properties.value;
+                if(value) {
+                  return color(d.properties.value);
+                } else {
+                  return "#333";
+                }
+            })
+            .style("opacity", "1")
+
             d3.select(this)
               .style("stroke-width", "1")
               .style("stroke", "#333")
