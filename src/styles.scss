@@ -52,7 +52,7 @@ button {
     font-weight: 300;
     cursor: pointer;
     text-align: center;
-    transition: background 250ms ease-in-out, 
+    transition: background 250ms ease-in-out,
                 transform 150ms ease;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -92,8 +92,8 @@ button:active {
   img {
     max-width: 80px;
     max-height: 80px;
-  } 
-  
+  }
+
   button {
     font-size: 1em;
     padding: 1em;
@@ -104,89 +104,89 @@ button:active {
     body {
       font-size: 1.8em;
     }
-  
+
     text {
       font-size: 1em;
     }
-  
- 
+
+
     img {
       max-width: 80px;
       max-height: 80px;
-    } 
-    
+    }
+
     button {
       font-size: 1em;
       padding: 1em;
     }
-  
-  
+
+
   }
-    
+
   @media screen and (max-width: 950px) {
     body {
       font-size: 1.65em;
     }
-  
+
     text {
       font-size: 1em;
     }
-  
+
     img {
       max-width: 80px;
       max-height: 80px;
     }
-  
+
     button {
       font-size: 1em;
       padding: 1em;
     }
-   
+
   }
-  
-  
+
+
   @media screen and (max-width: 650px) {
     body {
       font-size: 1.4em;
     }
-  
+
     text {
       font-size: 1em;
     }
-   
+
     img {
       max-width: 60px;
       max-height: 60px;
     }
-  
+
     h4 {
       font-size: 1em;
     }
-  
+
     button {
       font-size: 1em;
       padding: 1em;
     }
   }
-  
+
   @media screen and (max-width: 480px) {
-  
+
     body {
       font-size: 1.4em;
     }
-  
+
     text {
       font-size: 1em;
     }
-    
+
     img {
       max-width: 40px;
       max-height: 40px;
     }
-  
+
     h4 {
       font-size: 1em;
     }
-  
+
   }
-  
+

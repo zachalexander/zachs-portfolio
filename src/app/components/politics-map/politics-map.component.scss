@@ -8,22 +8,57 @@ h2 {
     text-align: center;
 }
 
-.feature {
-    fill: #ccc;
-  }
-  
-.mesh {
-    fill: none;
-    stroke: #fff;
-    stroke-width: .5px;
-    stroke-linejoin: round;
+img {
+  max-height: 80px;
+  max-width: 80px;
+  border: 3px solid #ddd;
 }
 
-.outline {
-    fill: #ddd;
-    stroke: #000;
-    stroke-width: 1.5px;
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
+
+#tooltip-map {
+ display: grid;
+ width: 350px;
+ height: auto;
+ padding: 15px;
+ background-color: rgba(255, 255, 255, 1);
+ border: 1px solid #ccc;
+ border-radius: 4px;
+ -webkit-border-radius: 10px;
+ -moz-border-radius: 10px;
+ border-radius: 2px;
+ pointer-events: none;
+ font-size: 0.85em;
+}
+
+#tooltip-map h4 {
+ margin: 0;
+ font-family: $font-stack;
+ line-height: 20px;
+ text-align: center;
+ }
+
+ #tooltip-map p {
+ margin: 0;
+ font-family: $font-stack;
+ line-height: 20px;
+ }
+
+ .voting-info {
+   text-align: center;
+ }
+
+ .vote-percent {
+   background-color: #ddd;
+   border: 1px solid #ddd;
+   color: #333;
+   padding: 4px;
+ }
 
 .nav-wrapper {
     display: grid;
@@ -40,19 +75,19 @@ h2 {
     border-bottom: 1px solid #333;
 }
 
-div#tooltip-map {
-    display: grid;
-    min-width: 350px;
-    height: auto;
-    padding: 10px;
-    background-color: rgba(250, 250, 250, 0.8);
-    border: 1px solid $button-primary;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 2px;
-    pointer-events: none;
-    z-index: 10000;
-}
+// div#tooltip-map {
+//     display: grid;
+//     min-width: 350px;
+//     height: auto;
+//     padding: 10px;
+//     background-color: rgba(250, 250, 250, 0.8);
+//     border: 1px solid $button-primary;
+//     -webkit-border-radius: 10px;
+//     -moz-border-radius: 10px;
+//     border-radius: 2px;
+//     pointer-events: none;
+//     z-index: 10000;
+// }
 
 .bottom-content {
     display: grid;
@@ -79,7 +114,7 @@ path {
    -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
-  
+
 // path:hover {
 //     stroke: #333;
 //     stroke-width: 2;
@@ -95,14 +130,14 @@ main {
         "left article right"
         "bottom bottom bottom"
     ;
-    grid-template: 
+    grid-template:
         "top top top" 10rem
         "graphic graphic graphic" 70rem
         "left article right" 60rem
         "bottom bottom bottom" 10rem
         / 1fr 600px 1fr
     ;
-    
+
 }
 .top-content{
     grid-area: top;
@@ -153,7 +188,7 @@ main {
 
     div#tooltip-map {display: none !important}
 
-} 
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
@@ -184,7 +219,7 @@ main {
     }
 
     div#tooltip-map {display: none !important}
-} 
+}
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -198,13 +233,13 @@ main {
             "left article right"
             "bottom bottom bottom"
         ;
-        grid-template: 
+        grid-template:
             "top top top" 5rem
             "graphic graphic graphic" 50rem
             "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
-        
+
     }
 
     .right-content{
@@ -215,9 +250,9 @@ main {
         display: unset;
     }
 
-    div#tooltip-map {display: unset !important}
+    div#tooltip-map {display: none !important}
 
-} 
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
@@ -231,13 +266,13 @@ main {
             "left article right"
             "bottom bottom bottom"
         ;
-        grid-template: 
+        grid-template:
             "top top top" 10rem
             "graphic graphic graphic" 50rem
             "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
-        
+
     }
 
     .right-content{
@@ -249,7 +284,7 @@ main {
     }
 
     div#tooltip-map {display: unset !important}
-} 
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
@@ -263,13 +298,13 @@ main {
             "left article right"
             "bottom bottom bottom"
         ;
-        grid-template: 
+        grid-template:
             "top top top" 10rem
             "graphic graphic graphic" 50rem
             "left article right" 20rem
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
-        
+
     }
 
     .right-content{
