@@ -261,10 +261,6 @@ addValues() {
               .style('stroke-width', '1')
               .style('stroke', '#333');
 
-              d3.select('.tooltip-alt')
-              .html('<div class =' + 'child' + '>' + '<p class = ' + 'voting-info' + '>' + '<strong>' + '---' + '</strong>'
-              + '</p>' + '</div>'
-              + '<div class =' + 'child' + '>' + '<strong>' + 'Mortality Rate: ' + '</strong>' + '---' + '%' + '</div>');
         });
 
         d3.select('.tooltip-alt')
