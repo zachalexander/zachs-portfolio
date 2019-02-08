@@ -21,6 +21,21 @@ img {
   justify-content: space-around;
 }
 
+.tooltip-alt {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 70px;
+  border-top: 1px solid #333;
+  text-align: center;
+  align-items: center;
+}
+
+div.child {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #tooltip-map {
  display: grid;
  width: 350px;
@@ -75,20 +90,6 @@ img {
     border-bottom: 1px solid #333;
 }
 
-// div#tooltip-map {
-//     display: grid;
-//     min-width: 350px;
-//     height: auto;
-//     padding: 10px;
-//     background-color: rgba(250, 250, 250, 0.8);
-//     border: 1px solid $button-primary;
-//     -webkit-border-radius: 10px;
-//     -moz-border-radius: 10px;
-//     border-radius: 2px;
-//     pointer-events: none;
-//     z-index: 10000;
-// }
-
 .bottom-content {
     display: grid;
     grid-template-columns: 1fr;
@@ -114,11 +115,6 @@ path {
    -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
-
-// path:hover {
-//     stroke: #333;
-//     stroke-width: 2;
-// }
 
 main {
     display: grid;
@@ -283,7 +279,7 @@ main {
         display: unset;
     }
 
-    div#tooltip-map {display: unset !important}
+    div#tooltip-map {display: none !important}
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */

@@ -15,6 +15,7 @@ import { ResizedEvent } from 'angular-resize-event/resized-event';
 export class PoliticsMapComponent implements OnInit {
   innerWidth;
   width;
+  mobile = false;
 
   constructor(
     private spinnerService: Ng4LoadingSpinnerService
@@ -29,6 +30,13 @@ export class PoliticsMapComponent implements OnInit {
         this.drawMap(this.width, 550);
         this.spinnerService.hide();
       }, 1000);
+
+      if (this.width < 1300) {
+        this.mobile = true;
+      } else {
+        this.mobile = false;
+      }
+
   }
 
   ngOnInit() {
@@ -36,10 +44,14 @@ export class PoliticsMapComponent implements OnInit {
     this.spinnerService.show();
 
     this.innerWidth = window.innerWidth;
-    setInterval(() => {
+    setTimeout(() => {
       this.drawMap(this.innerWidth, 500);
       this.spinnerService.hide();
     }, 2000);
+
+    if (this.innerWidth < 1200) {
+      this.mobile = true;
+    }
 
 
   }
@@ -221,6 +233,12 @@ addValues() {
           + '</strong>' + '</p>' + '<p class = ' + 'voting-info' + '>' + 'Total Deaths: ' + '<strong>' + d['properties'].deaths
           + '</strong>' + '</p>' + '</div>' + '</div>'
           );
+
+          d3.select('.tooltip-alt')
+          .html('<div class =' + 'child' + '>' + '<p class = ' + 'voting-info' + '>' + '<strong>' + d['properties'].name + '</strong>'
+          + '</p>' + '</div>'
+          + '<div class =' + 'child' + '>' + '<strong>' + 'Mortality Rate: ' + '</strong>' + d['properties'].value + '%' + '</div>');
+
           // Show the tooltip
           d3.select('#tooltip-map').classed('hidden', false);
         })
@@ -242,7 +260,17 @@ addValues() {
             d3.select(this)
               .style('stroke-width', '1')
               .style('stroke', '#333');
+
+              d3.select('.tooltip-alt')
+              .html('<div class =' + 'child' + '>' + '<p class = ' + 'voting-info' + '>' + '<strong>' + '---' + '</strong>'
+              + '</p>' + '</div>'
+              + '<div class =' + 'child' + '>' + '<strong>' + 'Mortality Rate: ' + '</strong>' + '---' + '%' + '</div>');
         });
+
+        d3.select('.tooltip-alt')
+        .html('<div class =' + 'child' + '>' + '<p class = ' + 'voting-info' + '>' + '<strong>' + '---' + '</strong>'
+        + '</p>' + '</div>'
+        + '<div class =' + 'child' + '>' + '<strong>' + 'Mortality Rate: ' + '</strong>' + '---' + '%' + '</div>');
 
   }
 
