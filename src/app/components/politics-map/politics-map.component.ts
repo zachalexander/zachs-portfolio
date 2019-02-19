@@ -26,7 +26,7 @@ export class PoliticsMapComponent implements OnInit {
     this.spinnerService.show();
     this.width = event.newWidth;
 
-    setInterval(() => {
+    setTimeout(() => {
         this.drawMap(this.width, 550);
         this.spinnerService.hide();
       }, 1000);

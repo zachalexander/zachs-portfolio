@@ -1,40 +1,43 @@
 @import url('../../../styles.scss');
 
-body {
-    font-size: 2.2em;
+.body {
+    display: grid;
+    align-items: left;
+    text-align: left;
+    min-height: 100%;
+    grid-template-areas:
+        "content"
+    ;
+    grid-template:
+        "content"
+        / 1fr
+    ;
+
 }
 
-h4 {
-    font-size: 1.2em;
-}
-
-h5 {
-    font-size: 0.85em;
-}
-
-.body-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.title-wrapper {
+.body-wrapper{
+    grid-area: content;
     padding: 15px;
 }
 
-.visual-list-wrapper {
-    padding: 15px;
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+     body {
+         font-size: 1.5em;
+     }
+
 }
 
-ul {
-    padding: 0;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+     body {
+         font-size: 1.75em;
+     }
 }
 
-li {
-    list-style: none;
-    font-size: 0.85em;
-}
-
-a {
-    color: #272727;
-    text-decoration: inherit;
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+     body {
+         font-size: 2em;
+     }
 }

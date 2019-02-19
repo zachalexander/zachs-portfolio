@@ -1,29 +1,29 @@
+<div (resized)="onResized($event)">
+  <div *ngIf="!mobile" class = "nav-wrapper">
+      <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
+    <h6>Zach Alexander | Visuals</h6>
+  </div>
 
+  <div *ngIf="mobile" class = "nav-wrapper-mobile">
+    <a [routerLink]="['/']"><h6>Zach Alexander | Visuals</h6></a>
+  </div>
 
-    <div (resized)="onResized($event)">
-      <div class = "nav-wrapper">
-        <div class = "child-wrapper">
-          <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
-        </div>
-        <div class="child-wrapper">Zach Alexander | Visuals</div>
-      </div>
-
-      <div class="chart-canvas">
-        <div class="chart-title"><h4 class = "chart-header">115th Senate Voting Records</h4></div>
-      </div>
-
-    <div class = "body-container">
-      <div class = "opening-statement">
-        <p class = "opening-paragraph">After two years of legislative activity, the 115th Senate may be most notably remembered for
-          their sweeping overhaul of our tax system, or their failure to come to terms on a revised version of the Affordable Care Act.
+  <div class = "wrapper">
+    
+    <h4 class="chart-header">115th United States Senate: Voting Records</h4>
+      <article class = "opening-paragraph">
+        <p>After two years of legislative activity, the 115th Senate may be most notably
+          remembered for
+          their sweeping overhaul of our tax system, or their failure to come to terms on a revised version of the
+          Affordable Care Act.
           However, amidst all of the political banter, <strong>who really was most loyal to their party?</strong>
         </p>
-        <!-- <h5 class = "data-timer">Updated: {{milliseconds | date:'medium'}}</h5> -->
-      </div>
-      <div class="button-section">
+      </article>
+      <section class="left-content"></section>
+      <section class="right-content"></section>
+      <div *ngIf="!mobile" class="button-section">
         <div id="tooltip">
-          <p><span id="value"></span></p>
-          <p><span id="value2"></span></p>
+          <span id="value"></span>
         </div>
         <div class="button-interactive">
           <p>Voting Percentages By Political Party:</p>
@@ -32,42 +32,42 @@
         </div>
       </div>
 
-      <div class=chart-wrapper *ngIf="!serverError"></div>
-
-      <div class = "summary-content">
-        <p class = "paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the two-year period.
+      <div *ngIf="mobile" class="button-section-mobile">
+        <p>Voting Percentages By Political Party:</p>
+        <div class="button-interactive-mobile">
+          <button *ngIf="democraticChart" class="btn-dem" (click)="drawDemChart()">Democrats</button>
+          <button *ngIf="!democraticChart" class="btn-rep" (click)="drawRepChart()">Republicans</button>
+        </div>
+        <div id="tooltip-mobile">
+          <span id="value"></span>
+        </div>
+      </div>
+  
+      <div class="chart-wrapper" *ngIf="!serverError"></div>
+  
+      <div class="summary-content">
+        <p class="paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the
+          two-year period.
           As an ardent member of the Freedom caucus, he has been proud of his record to buck party trends.
         </p>
-        <p class = "paragraph-content">For democrats, Joe Manchin of West Virginia has historically voted moderately. Being in a state that has shifted
+        <p class="paragraph-content">For democrats, Joe Manchin of West Virginia has historically voted moderately. Being in
+          a state that has shifted
           red over the last few decades, he's been concious of his electorate.
         </p>
-        <p class = "paragraph-content">It's quite interesting to see that of the 51 Republicans in the Senate,
+        <p class="paragraph-content">It's quite interesting to see that of the 51 Republicans in the Senate,
           all but three -- Rand Paul (KY), Mike Lee (UT), and Susan Collins (ME) -- voted with the party at least
           90 percent of the time. In an era of strong partisanship among the two parties, this is an indication that
           Senate Majority Leader, Mitch McConnell, and his party's agenda were kept close in hand.
         </p>
       </div>
-
-      <div *ngIf="serverError" class="error">
+      <section class="left-article"></section>
+      <section class="right-article"></section>
+  
+      <!-- <div *ngIf="serverError" class="error">
         <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
-      </div>
-
-    </div>
-
-    <footer class = "bottom-content">
-      <div class = "child-wrapper">
-          <a href = "mailto:alexander.d.zachary@gmail.com">Email Zach</a>
-          <div style="text-align:center">
-          </div>
-      </div>
-
-
-
-
-
-    </footer>
-
-    </div>
+      </div> -->
+  </div>
+</div>
 
 
 
