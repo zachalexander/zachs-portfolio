@@ -11,14 +11,14 @@ import { CongressData } from '../shared/interfaces/congressdata';
   providedIn: 'root'
 })
 export class PropubService {
-apiRoot: string = "https://api.propublica.org/congress";
-computerRoot: string = "C:/Users/zalexander/Desktop"
+apiRoot = 'https://api.propublica.org/congress';
+computerRoot = 'C:/Users/zalexander/Desktop';
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) { }
 
   getPropublicaFifteen() {
-      let url = `${this.apiRoot}/v1/115/senate/members.json`;
-      let headers = new Headers();
+      const url = `${this.apiRoot}/v1/115/senate/members.json`;
+      const headers = new Headers();
       headers.set('X-API-Key', '5buFoSrpgu70owCTEcp7Z3mjThGka24f5SW8EyJA');
       return this.http.get(url, { headers: headers })
           .map(res => res.json());
@@ -37,9 +37,9 @@ computerRoot: string = "C:/Users/zalexander/Desktop"
   // }
 
   // private transformCongressData(data: CongressData): SenatorData {
-    
+
   //   console.log(data);
-    
+
   //   return {
   //     senator_name: data.first_name + " " + data.last_name,
   //     party: data.party,
@@ -50,10 +50,10 @@ computerRoot: string = "C:/Users/zalexander/Desktop"
   //     photo_url: data.photo_url
   //   }
   // }
-  
+
   getPropublicaSixteen() {
-    let url = `${this.apiRoot}/v1/116/house/members.json`;
-    let headers = new Headers();
+    const url = `${this.apiRoot}/v1/116/house/members.json`;
+    const headers = new Headers();
     headers.set('X-API-Key', '5buFoSrpgu70owCTEcp7Z3mjThGka24f5SW8EyJA');
     return this.http.get(url, { headers: headers })
         .map(res => res.json());

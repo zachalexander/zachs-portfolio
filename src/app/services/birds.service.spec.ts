@@ -1,12 +1,12 @@
 // import { TestBed } from '@angular/core/testing';
 
-// import { PropubService } from './propub.service';
+// import { BirdsService } from './birds.service';
 
-// describe('PropubService', () => {
+// describe('BirdsService', () => {
 //   beforeEach(() => TestBed.configureTestingModule({}));
 
 //   it('should be created', () => {
-//     const service: PropubService = TestBed.get(PropubService);
+//     const service: BirdsService = TestBed.get(BirdsService);
 //     expect(service).toBeTruthy();
 //   });
 // });

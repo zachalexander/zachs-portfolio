@@ -12,6 +12,7 @@ import { SenateVotesComponent } from './components/senate-votes/senate-votes.com
 
 import { PropubService } from './services/propub.service';
 import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
+import { BirdvizComponent } from './components/birdviz/birdviz.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PoliticsMapComponent } from './components/politics-map/politics-map.com
     AppComponent,
     SenateVotesComponent,
     HomeComponent,
-    PoliticsMapComponent
+    PoliticsMapComponent,
+    BirdvizComponent
   ],
   imports: [
     BrowserModule,

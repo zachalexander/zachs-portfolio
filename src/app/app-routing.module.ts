@@ -5,11 +5,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
 import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
+import { BirdvizComponent } from './components/birdviz/birdviz.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'senate-votes', component: SenateVotesComponent },
-  { path: 'politics-map', component: PoliticsMapComponent }
+  { path: 'politics-map', component: PoliticsMapComponent },
+  { path: 'birds', component: BirdvizComponent}
 ];
 
 @NgModule({
