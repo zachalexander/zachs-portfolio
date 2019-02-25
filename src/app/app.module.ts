@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { AngularResizedEventModule } from 'angular-resize-event';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -26,7 +26,7 @@ import { BirdvizComponent } from './components/birdviz/birdviz.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule,
+    HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     AngularResizedEventModule,
     BrowserAnimationsModule

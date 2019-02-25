@@ -9,8 +9,8 @@
   </div>
 
   <div class = "wrapper">
-    
-    <h4 class="chart-header">115th United States Senate: Voting Records</h4>
+
+    <h3 class="chart-header">115th United States Senate: Voting Records</h3>
       <article class = "opening-paragraph">
         <p>After two years of legislative activity, the 115th Senate may be most notably
           remembered for
@@ -22,14 +22,17 @@
       <section class="left-content"></section>
       <section class="right-content"></section>
       <div *ngIf="!mobile" class="button-section">
+        <div></div>
         <div id="tooltip">
           <span id="value"></span>
         </div>
+        <div></div>
         <div class="button-interactive">
           <p>Voting Percentages By Political Party:</p>
           <button *ngIf="democraticChart" class="btn-dem" (click)="drawDemChart()">Democrats</button>
           <button *ngIf="!democraticChart" class="btn-rep" (click)="drawRepChart()">Republicans</button>
         </div>
+        <div></div>
       </div>
 
       <div *ngIf="mobile" class="button-section-mobile">
@@ -38,13 +41,13 @@
           <button *ngIf="democraticChart" class="btn-dem" (click)="drawDemChart()">Democrats</button>
           <button *ngIf="!democraticChart" class="btn-rep" (click)="drawRepChart()">Republicans</button>
         </div>
-        <div id="tooltip-mobile">
+        <div id="tooltip-mobile" *ngIf="!serverError">
           <span id="value"></span>
         </div>
       </div>
-  
+
       <div class="chart-wrapper" *ngIf="!serverError"></div>
-  
+
       <div class="summary-content">
         <p class="paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the
           two-year period.
@@ -62,10 +65,10 @@
       </div>
       <section class="left-article"></section>
       <section class="right-article"></section>
-  
-      <!-- <div *ngIf="serverError" class="error">
+
+      <div *ngIf="serverError" class="error">
         <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
-      </div> -->
+      </div>
   </div>
 </div>
 
