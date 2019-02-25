@@ -22,7 +22,7 @@ export class SenateVotesComponent {
   senators_data = [];
   republicanSenators = [];
   democraticSenators = [];
-  photoData;
+  photoData = [];
   senatorPhotosData;
   active_members: any;
   dataset: Object;
