@@ -50,6 +50,10 @@ export class PoliticsMapComponent implements OnInit {
 
   // }
 
+  shiftDown(){
+    console.log('this works.');
+  }
+
   ngOnInit() {
 
     // this.source = new OlXYZ({
@@ -86,7 +90,6 @@ export class PoliticsMapComponent implements OnInit {
   }
 
 
-
     // this.spinnerService.show();
 
     // this.innerWidth = window.innerWidth;
@@ -100,6 +103,9 @@ export class PoliticsMapComponent implements OnInit {
     // }
 
   }
+
+
+
 
 // addValues() {
 
