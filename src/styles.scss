@@ -10,6 +10,7 @@ $white-nav: #ffffff;
 
 * {
   font-family: $font-stack;
+  text-rendering:optimizeLegibility;
 }
 
 html {

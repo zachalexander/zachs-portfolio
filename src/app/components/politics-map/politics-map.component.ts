@@ -50,7 +50,7 @@ export class PoliticsMapComponent implements OnInit {
 
   // }
 
-  shiftDown(){
+  shiftDown() {
     console.log('this works.');
   }
 
