@@ -1,4 +1,4 @@
-<div (resized)="onResized($event)">
+<!-- <div (resized)="onResized($event)">
     <div class = "nav-wrapper">
         <div class = "child-wrapper">
             <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
@@ -25,11 +25,18 @@
         <section class = "right-content">Right side</section>
     </main>
 
-    <div *ngIf = "mobile" class = "tooltip-alt"></div>
-
-
-    <footer class = "bottom-content"></footer>
-</div>
+    <div *ngIf = "mobile" class = "tooltip-alt"></div> -->
+    <div id="map-background">
+      <div id="map-container">
+      </div>
+      <div id="map-overlay">
+      </div>
+    </div>
+    <div id="content">
+      <h4 class = "content-title">Constitution Marsh Audubon Center and Sanctuary.</h4>
+    </div>
+    <div id="fade"></div>
+<!-- </div> -->
 
 
 
