@@ -19,6 +19,14 @@ html {
   height: 100%;
 }
 
+img {
+  max-height: 80px;
+  max-width: 80px;
+  -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+}
+
 body {
   margin: 0;
   height: 100%;
@@ -87,3 +95,133 @@ button:active {
     padding: 0.4rem 0.7rem;
 }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  main {
+      grid-template-areas:
+          "top"
+          "graphic"
+          "article"
+          "bottom"
+      ;
+
+      grid-template:
+      "top" 8rem
+      "graphic" 30rem
+      "article" 20rem
+      "bottom" 10rem
+      / 1fr
+  }
+
+  body {
+    font-size: 1.35em;
+  }
+
+  text {
+    font-size: 0.75em;
+  }
+
+  .right-content{
+      display: none;
+      margin: 0 !important;
+  }
+
+  .left-content{
+      display: none;
+      margin: 0 !important;
+  }
+
+  div#tooltip-map {display: none !important}
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  body {
+    font-size: 1.45em;
+  }
+
+  text {
+    font-size: 0.90em;
+  }
+
+  .right-content{
+      display: none;
+      margin: 0 !important;
+  }
+
+  .left-content{
+      display: none;
+      margin: 0 !important;
+  }
+
+  div#tooltip-map {display: none !important}
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+body {
+    font-size: 1.75em;
+}
+
+text {
+    font-size: 1em;
+}
+
+  .right-content{
+      display: unset;
+  }
+
+  .left-content{
+      display: unset;
+  }
+
+  div#tooltip-map {display: unset !important}
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+   body {
+    font-size: 1.75em;
+  }
+
+  text {
+    font-size: 1em;
+  }
+
+  .right-content{
+      display: unset;
+  }
+
+  .left-content{
+      display: unset;
+  }
+
+  div#tooltip-map {display: unset !important}
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  body {
+    font-size: 2em;
+  }
+
+  text {
+    font-size: 1em;
+  }
+
+  .right-content{
+      display: unset;
+  }
+
+  .left-content{
+      display: unset;
+  }
+
+  div#tooltip-map {display: unset !important}
+
+}

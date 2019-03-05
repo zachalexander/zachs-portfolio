@@ -110,3 +110,4 @@ process.on('uncaughtException', err => {
 });
 
 process.env.UV_THREADPOOL_SIZE = dbConfig.hrPool.poolMax + defaultThreadPoolSize;
+
