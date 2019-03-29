@@ -11,6 +11,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
 
 import { PropubService } from './services/propub.service';
+import { BirdsService } from './services/birds.service';
 import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
 import { BirdvizComponent } from './components/birdviz/birdviz.component';
 
@@ -31,7 +32,7 @@ import { BirdvizComponent } from './components/birdviz/birdviz.component';
     AngularResizedEventModule,
     BrowserAnimationsModule
    ],
-  providers: [PropubService],
+  providers: [PropubService, BirdsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
