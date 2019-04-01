@@ -8,10 +8,13 @@ import { CongressData } from '../shared/interfaces/congressdata';
 
 const httpOptions = {
   headers: new HttpHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': 'true',
     'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
   })
 };
+
 
 const members: Members = {} as any;
 
@@ -25,7 +28,6 @@ export class PropubService {
   searchPropubData(): Observable<Members> {
     const url = `${this.URL}/v1/115/senate/members.json`;
     httpOptions.headers = httpOptions.headers.set('X-API-Key', '5buFoSrpgu70owCTEcp7Z3mjThGka24f5SW8EyJA');
-
     return this.http.get<Members>(url, httpOptions)
           .pipe(tap(resp => resp)
     );

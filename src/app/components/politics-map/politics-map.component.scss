@@ -31,6 +31,7 @@ button {
 
 article {
   margin-top: 20px;
+  padding-top: 2em;
 }
 
 .nav-wrapper {
@@ -51,7 +52,7 @@ article {
 div#tooltip-map {
     display: grid;
     width: 350px;
-    font-size: 0.8em;
+    font-size: 1em;
     height: auto;
     padding: 10px;
     background-color: rgba(250, 250, 250, 0.9);
@@ -75,7 +76,7 @@ div#tooltip-map {
 #tooltip-map h4 {
  margin: 0;
  font-family: $font-stack;
- font-size: 0.75em;
+ font-size: 1.25em;
  line-height: 20px;
  text-align: center;
  }
@@ -108,7 +109,6 @@ div#tooltip-map {
 }
 
 .summary-content {
-    margin-top: 20em;
     font-size: 1em;
 }
 
@@ -150,7 +150,6 @@ main {
 }
 .article {
     grid-area: article;
-    padding: 3em;
 }
 .left-content {
     grid-area: left;
@@ -179,10 +178,6 @@ main {
         "bottom" 10rem
         / 1fr
     }
-
-    .graphic {
-      margin-top: 200px;
-    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -201,10 +196,6 @@ main {
         "article" 20rem
         "bottom" 5rem
         / 1fr
-    }
-
-    .graphic {
-      margin-top: 200px;
     }
 }
 
@@ -228,10 +219,6 @@ main {
             / 1fr 600px 1fr
 
     }
-
-    .graphic {
-      margin-top: 200px;
-    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -254,10 +241,6 @@ main {
             / 1fr 600px 1fr
 
     }
-
-    .graphic {
-      margin-top: 400px;
-    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -279,9 +262,5 @@ main {
             "bottom bottom bottom" 10rem
             / 1fr 600px 1fr
 
-    }
-
-    .graphic {
-      margin-top: 1000px;
     }
 }

@@ -13,7 +13,8 @@ import { SenateVotesComponent } from './components/senate-votes/senate-votes.com
 import { PropubService } from './services/propub.service';
 import { BirdsService } from './services/birds.service';
 import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
-import { BirdvizComponent } from './components/birdviz/birdviz.component';
+import { NyStateElevationMapComponent } from './components/ny-state-elevation-map/ny-state-elevation-map.component';
+import { ParksVisualComponent } from './components/parks-visual/parks-visual.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BirdvizComponent } from './components/birdviz/birdviz.component';
     SenateVotesComponent,
     HomeComponent,
     PoliticsMapComponent,
-    BirdvizComponent
+    NyStateElevationMapComponent,
+    ParksVisualComponent
   ],
   imports: [
     BrowserModule,

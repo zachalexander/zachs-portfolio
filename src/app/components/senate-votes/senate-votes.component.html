@@ -48,6 +48,10 @@
 
       <div class="chart-wrapper" *ngIf="!serverError"></div>
 
+      <div *ngIf="serverError" class="error">
+        <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
+      </div>
+
       <div class="summary-content">
         <p class="paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the
           two-year period.
@@ -66,14 +70,11 @@
       <section class="left-article"></section>
       <section class="right-article"></section>
 
-      <div *ngIf="serverError" class="error">
-        <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
-      </div>
 
       <svg>
         <path></path>
       </svg>
-  </div>
+    </div>
 </div>
 
 
