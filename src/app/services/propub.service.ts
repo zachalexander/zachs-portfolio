@@ -8,8 +8,6 @@ import { CongressData } from '../shared/interfaces/congressdata';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': 'true',
     'Content-Type': 'application/json',
     'Authorization': 'my-auth-token'
   })
@@ -28,15 +26,16 @@ export class PropubService {
   searchPropubData(): Observable<Members> {
     const url = `${this.URL}/v1/115/senate/members.json`;
     httpOptions.headers = httpOptions.headers.set('X-API-Key', '5buFoSrpgu70owCTEcp7Z3mjThGka24f5SW8EyJA');
+
     return this.http.get<Members>(url, httpOptions)
-          .pipe(tap(resp => resp)
-    );
+      .pipe(tap(resp => resp)
+      );
   }
 
   searchSenatorPhotos(): Observable<CongressData> {
     return this.http.get<CongressData>('../../assets/us-senate.json')
-            .pipe(tap(resp => resp)
-    );
+      .pipe(tap(resp => resp)
+      );
   }
 
 }
