@@ -15,6 +15,8 @@ import { BirdsService } from './services/birds.service';
 import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
 import { NyStateElevationMapComponent } from './components/ny-state-elevation-map/ny-state-elevation-map.component';
 import { ParksVisualComponent } from './components/parks-visual/parks-visual.component';
+import { HomeLayoutComponent } from './components/home-layout/home-layout.component';
+import { UiModule } from './ui/ui.module';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { ParksVisualComponent } from './components/parks-visual/parks-visual.com
     HomeComponent,
     PoliticsMapComponent,
     NyStateElevationMapComponent,
-    ParksVisualComponent
+    ParksVisualComponent,
+    HomeLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { ParksVisualComponent } from './components/parks-visual/parks-visual.com
     HttpClientModule,
     Ng4LoadingSpinnerModule.forRoot(),
     AngularResizedEventModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    UiModule
    ],
   providers: [PropubService, BirdsService],
   bootstrap: [AppComponent]

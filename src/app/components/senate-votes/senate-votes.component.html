@@ -1,13 +1,4 @@
 <div (resized)="onResized($event)">
-  <div *ngIf="!mobile" class = "nav-wrapper">
-      <a [routerLink]="['/']"><button class = "back-button">Back to Full List</button></a>
-    <h6>Zach Alexander | Visuals</h6>
-  </div>
-
-  <div *ngIf="mobile" class = "nav-wrapper-mobile">
-    <a [routerLink]="['/']"><h6>Zach Alexander | Visuals</h6></a>
-  </div>
-
   <div class = "wrapper">
 
     <h3 class="chart-header">115th United States Senate: Voting Records</h3>

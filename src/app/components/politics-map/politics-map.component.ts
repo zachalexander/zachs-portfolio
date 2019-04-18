@@ -105,10 +105,10 @@ addValues() {
 
     const color_domain = [2.5, 5.5, 11.5, 20.5, 24.5];
 
-    const legend_labels = ['2.5% - 5.1%', '5.2% - 13.5%', '13.6% - 16.9%', '17.0% - 20.9%', '>21.0%'];
+    const legend_labels = ['2.5% - 5.3%', '5.4% - 13.5%', '13.6% - 16.9%', '17.0% - 20.9%', '>21.0%'];
 
     const color_legend = d3.scaleLinear<string>()
-      .range(['#f1eef6', '#d0d1e6', '#a6bddb', '#74a9cf', '#2b8cbe', '#045a8d'])
+      .range(['#d0d1e6', '#a6bddb', '#74a9cf', '#2b8cbe', '#045a8d'])
       .domain(color_domain);
 
     const svg = d3.select('.graphic')
@@ -116,7 +116,7 @@ addValues() {
                 .attr('class', 'map')
                 .attr('x', 0)
                 .attr('y', 0)
-                .attr('viewBox', '-30 -20 1000 600')
+                .attr('viewBox', '0 0 1000 600')
                 .attr('preserveAspectRatio', 'xMidYMid')
                 .attr('width', width)
                 .attr('height', height);
@@ -151,7 +151,7 @@ addValues() {
       .text('Mortality Rate');
 
     const color = d3.scaleQuantize<string>()
-                .range(['#f1eef6', '#d0d1e6', '#a6bddb', '#74a9cf', '#2b8cbe', '#045a8d'])
+                .range(['#d0d1e6', '#a6bddb', '#74a9cf', '#2b8cbe', '#045a8d'])
                 .domain([2.5, 24.5]);
 
     svg.selectAll('path')
@@ -209,18 +209,18 @@ addValues() {
           .style('position', 'absolute')
           .style('left', function() {
             if (width > 1000 && xPosition < 400) {
-              return xPosition + 250 + 'px';
+              return xPosition + 'px';
             } else if (width > 1000 && xPosition > 400) {
-              return xPosition + 100 + 'px';
+              return xPosition + 'px';
             } else {
               return xPosition + 'px';
             }
           })
           .style('top', function() {
             if (yPosition > 200) {
-              return yPosition - 200 + 'px';
+              return yPosition + 'px';
             } else if (yPosition < 200) {
-              return yPosition + 300 + 'px';
+              return yPosition + 'px';
             } else {
               return yPosition + 'px';
             }

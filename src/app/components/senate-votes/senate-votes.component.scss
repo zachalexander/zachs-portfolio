@@ -9,10 +9,6 @@ img {
   box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
 }
 
-button {
-    font-size: 1em;
-}
-
 .photo {
   height: 95%;
 }
@@ -197,7 +193,6 @@ display: grid;
  -moz-border-radius: 10px;
  border-radius: 2px;
  pointer-events: none;
- font-size: 1.8em;
 }
 
 .tooltip-wrapper {
@@ -210,7 +205,6 @@ display: grid;
 #tooltip h4 {
  margin: 0;
  font-family: $font-stack;
- font-size: 1em;
  line-height: 20px;
  text-align: center;
  }
@@ -218,7 +212,6 @@ display: grid;
  #tooltip-mobile h4 {
  margin: 0;
  font-family: $font-stack;
- font-size: 1em;
  line-height: 20px;
  text-align: center;
  }
@@ -226,20 +219,27 @@ display: grid;
  #tooltip-mobile p {
  margin: 0;
  font-family: $font-stack;
- font-size: 0.95em;
  line-height: 20px;
  }
 
  #tooltip p {
  margin: 0;
  font-family: $font-stack;
- font-size: 0.95em;
  line-height: 20px;
  }
 
  #tooltip img {
      height: 100%;
  }
+
+
+img {
+  max-height: 80px;
+  max-width: 80px;
+  -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+}
 
  #tooltip-mobile img {
    height: 100%;
@@ -259,7 +259,6 @@ display: grid;
  svg text.bar-labels {
    font-family: $font-stack;
    font-weight: bolder;
-   font-size: 1.1em;
    text-anchor: middle;
  }
 
@@ -340,16 +339,7 @@ display: grid;
         / 1fr
     }
 
-  body {
-    font-size: 1.35em;
-  }
-
-  text {
-    font-size: 0.75em;
-  }
-
    #tooltip-mobile{
-    font-size: 1em;
     width: 240px;
     padding: 10px;
     margin-top: 50px;
@@ -358,10 +348,6 @@ display: grid;
   img {
     max-width: 60px;
     max-height: 60px;
-  }
-
-  h4 {
-    font-size: 1.45em;
   }
 
   .button-section {
@@ -398,16 +384,7 @@ display: grid;
     / 1fr
 }
 
-  body {
-    font-size: 1.45em;
-  }
-
-  text {
-    font-size: 1em;
-  }
-
   #tooltip{
-    font-size: 1em;
     width: 240px;
     padding: 10px;
     min-height: 190px;
@@ -416,10 +393,6 @@ display: grid;
   img {
     max-width: 60px;
     max-height: 60px;
-  }
-
-  h4 {
-    font-size: 1.5em;
   }
 
   .button-section {
@@ -454,16 +427,7 @@ display: grid;
         ;
     }
 
-    body {
-        font-size: 1.75em;
-    }
-
-    text {
-        font-size: 1.25em;
-    }
-
     #tooltip{
-        font-size: 1em;
         width: 325px;
         padding: 15px;
         min-height: 180px;
@@ -472,10 +436,6 @@ display: grid;
     img {
         max-width: 80px;
         max-height: 80px;
-    }
-
-    h4 {
-        font-size: 1.45em;
     }
 
     .button-section{
@@ -509,16 +469,7 @@ display: grid;
         ;
     }
 
-  body {
-    font-size: 1.75em;
-  }
-
-  text {
-    font-size: 1.25em;
-  }
-
   #tooltip{
-    font-size: 1em;
     width: 325px;
     padding: 15px;
     min-height: 180px;
@@ -527,10 +478,6 @@ display: grid;
   img {
     max-width: 80px;
     max-height: 80px;
-  }
-
-  h4 {
-    font-size: 1.45em;
   }
 
   .button-section{
@@ -564,16 +511,7 @@ display: grid;
         ;
     }
 
-body {
-  font-size: 2em;
-}
-
-text {
-  font-size: 1.45em;
-}
-
 #tooltip{
-  font-size: 0.85em;
   width: 350px;
   padding: 15px;
   min-height: 180px;
@@ -582,10 +520,6 @@ text {
 img {
   max-width: 80px;
   max-height: 80px;
-}
-
-h4 {
-  font-size: 1.45em;
 }
 
 .button-section {

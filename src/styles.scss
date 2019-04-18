@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
 
 $font-stack: "Work Sans", "Helvetica-Neue", "Helvetica", "Arial", sans-serif;
 $button-primary: #272727;
@@ -15,30 +17,12 @@ $white-nav: #ffffff;
 
 html {
   margin: 0;
-  font-size: 10px;
-  height: 100%;
-}
-
-img {
-  max-height: 80px;
-  max-width: 80px;
-  -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
-  -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
-  box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
 }
 
 body {
   margin: 0;
-  height: 100%;
-  line-height: 2em;
+  height: 100vh;
 }
-
-h1 {font-size: 3.2em; }
-h2 {font-size: 2.4em;}
-h3 {font-size: 1.872em;}
-h4 {font-size: 1.6em;}
-h5 {font-size: 1.328em;}
-h6 {font-size: 1.2em;}
 
 ul {padding: 0;}
 li {list-style: none;}
@@ -60,7 +44,6 @@ button {
     background: $button-white;
     color: $button-primary;
     font-family: $font-stack;
-    font-size: 1rem;
     font-weight: 300;
     cursor: pointer;
     text-align: center;
@@ -113,14 +96,6 @@ button:active {
       / 1fr
   }
 
-  body {
-    font-size: 1.35em;
-  }
-
-  text {
-    font-size: 0.75em;
-  }
-
   .right-content{
       display: none;
       margin: 0 !important;
@@ -137,13 +112,6 @@ button:active {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  body {
-    font-size: 1.45em;
-  }
-
-  text {
-    font-size: 0.90em;
-  }
 
   .right-content{
       display: none;
@@ -162,14 +130,6 @@ button:active {
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 
-body {
-    font-size: 1.75em;
-}
-
-text {
-    font-size: 1em;
-}
-
   .right-content{
       display: unset;
   }
@@ -184,13 +144,6 @@ text {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-   body {
-    font-size: 1.75em;
-  }
-
-  text {
-    font-size: 1em;
-  }
 
   .right-content{
       display: unset;
@@ -206,13 +159,6 @@ text {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  body {
-    font-size: 2em;
-  }
-
-  text {
-    font-size: 1em;
-  }
 
   .right-content{
       display: unset;

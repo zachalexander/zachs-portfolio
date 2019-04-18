@@ -12,10 +12,6 @@ h2 {
     fill: #ccc;
 }
 
-button {
-  font-size: 1em;
-}
-
 .mesh {
     fill: none;
     stroke: #fff;
@@ -27,6 +23,15 @@ button {
     fill: #ddd;
     stroke: #000;
     stroke-width: 1.5px;
+}
+
+img {
+  max-height: 80px;
+  max-width: 80px;
+  height: 90%;
+  -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
 }
 
 article {
@@ -52,7 +57,6 @@ article {
 div#tooltip-map {
     display: grid;
     width: 350px;
-    font-size: 1em;
     height: auto;
     padding: 10px;
     background-color: rgba(250, 250, 250, 0.9);
@@ -76,7 +80,6 @@ div#tooltip-map {
 #tooltip-map h4 {
  margin: 0;
  font-family: $font-stack;
- font-size: 1.25em;
  line-height: 20px;
  text-align: center;
  }
@@ -85,12 +88,12 @@ div#tooltip-map {
  #tooltip-map p {
  margin: 0;
  font-family: $font-stack;
- font-size: 0.95em;
  line-height: 20px;
  }
 
  #tooltip-map img {
      height: 100%;
+     width: 100%;
  }
 
 .bottom-content {
@@ -108,19 +111,11 @@ div#tooltip-map {
     bottom: 0;
 }
 
-.summary-content {
-    font-size: 1em;
-}
-
 path {
    -moz-transition: all 0.3s;
    -o-transition: all 0.3s;
    -webkit-transition: all 0.3s;
     transition: all 0.3s;
-}
-
-h4.content-title {
-  font-size: 1em;
 }
 
 main {
