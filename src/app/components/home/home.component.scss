@@ -1,35 +1,199 @@
-@import url('../../../styles.scss');
-
-.body {
-    display: grid;
-    align-items: left;
-    text-align: left;
-    min-height: 100%;
-    grid-template-areas:
-        "content"
-    ;
-    grid-template:
-        "content"
-        / 1fr
-    ;
-
+.wrapper {
+  min-height: 100vh;
 }
 
-.body-wrapper{
-    grid-area: content;
-    padding: 15px;
+.content-top {
+  background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('../../../assets/home-background-top.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+.content-middle {
+  background-image: linear-gradient(to right, #434343 0%, black 100%);
+  -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+  background-repeat: no-repeat;
+}
+
+._name {
+  grid-area: left;
+  align-self: center;
+  justify-self: center;
+  border: 3px dashed #111;
+  padding: 8rem;
+  text-align: center;
+
+  ._name-self {
+    font-weight: bolder;
+  }
+
+  ._name-position {
+    font-weight: lighter;
+  }
+
+  ._name-ccilink {
+    font-weight: lighter;
+  }
+}
+
+._graphic-1 {
+  grid-area: right;
+  color: #ddd;
+}
+
+
+._graphic-1,
+._graphic-2 {
+  align-self: center;
+  justify-self: center;
+}
+
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 
+  html, body {
+    width: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .content-top,
+  .content-middle {
+    display: grid;
+    grid-template-areas:
+    "left"
+    "right"
+    ;
+    grid-template:
+    "left" auto
+    "right" auto
+    / 1fr
+    ;
+    grid-row-gap: 2rem;
+  }
+
+  ._name {
+    padding: 3rem;
+    margin: 2rem 0 2rem 0;
+  }
+
+  ._visuals-list {
+    grid-area: right;
+    align-self: center;
+    justify-self: center;
+    text-align: left;
+    margin: 2rem 0 2rem 0;
+  }
+
+  ._graphic-1 {
+    grid-area: right;
+    text-align: center;
+    color: #ddd;
+    margin: 2rem 0 2rem 0;
+  }
+
+  ._graphic-2 {
+    grid-area: left;
+    text-align: center;
+    color: #ddd;
+    margin: 2rem 0 2rem 0;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+  .content-top,
+  .content-middle {
+    display: grid;
+    grid-template-areas:
+    "left"
+    "right"
+    ;
+    grid-template:
+    "left" auto
+    "right" auto
+    / 1fr
+    ;
+    padding: 3rem;
+  }
+
+  ._visuals-list {
+    grid-area: right;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem;
+    text-align: left;
+  }
+
+  ._graphic-2 {
+    grid-area: left;
+    padding: 2rem;
+    text-align: center;
+    color: #ddd;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
+  .content-top,
+  .content-middle {
+    display: grid;
+    grid-template-areas:
+    "left right"
+    ;
+    grid-template:
+    "left right" auto
+    / 1fr 1fr
+    ;
+    padding: 8rem;
+  }
 
+  ._visuals-list {
+    grid-area: right;
+    align-self: center;
+    justify-self: center;
+    padding: 3rem;
+    text-align: left;
+  }
+
+  ._graphic-2 {
+    grid-area: left;
+    padding: 3rem;
+    text-align: center;
+    color: #ddd;
+  }
 }
+
+/* XLarge devices (larger screens, 992px and up) */
+@media only screen and (min-width: 1280px) {
+  .content-top,
+  .content-middle {
+    display: grid;
+    grid-template-areas:
+    "left right"
+    ;
+    grid-template:
+    "left right" auto
+    / 1fr 1fr
+    ;
+    padding: 8rem;
+  }
+
+  ._visuals-list {
+    grid-area: right;
+    align-self: center;
+    justify-self: center;
+    padding: 8rem;
+    text-align: left;
+  }
+
+  ._graphic-2 {
+    grid-area: left;
+    padding: 8rem;
+    text-align: center;
+    color: #ddd;
+  }
+}
+
