@@ -32,51 +32,56 @@ a {
     text-decoration: inherit;
 }
 
+button {
+  text-transform: unset !important;
+  border-radius: 0 !important;
+}
+
 // BUTTON STYLINGS //
 
-button {
-    display: inline-block;
-    border: 1px solid $button-primary;
-    border-radius: 6px;
-    padding: 1em;
-    margin: 0;
-    text-decoration: none;
-    background: $button-white;
-    color: $button-primary;
-    font-family: $font-stack;
-    font-weight: 300;
-    cursor: pointer;
-    text-align: center;
-    transition: background 250ms ease-in-out,
-                transform 150ms ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
-    -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
-    box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
-}
+// button {
+//     display: inline-block;
+//     border: 1px solid $button-primary;
+//     border-radius: 6px;
+//     padding: 1em;
+//     margin: 0;
+//     text-decoration: none;
+//     background: $button-white;
+//     color: $button-primary;
+//     font-family: $font-stack;
+//     font-weight: 300;
+//     cursor: pointer;
+//     text-align: center;
+//     transition: background 250ms ease-in-out,
+//                 transform 150ms ease;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     -webkit-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+//     -moz-box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+//     box-shadow: 0px 4px 18px -8px rgba(0,0,0,0.44);
+// }
 
-button:hover,
-button:focus {
-    background-image: $black-gradient;
-    color: $button-white;
-}
+// button:hover,
+// button:focus {
+//     background-image: $black-gradient;
+//     color: $button-white;
+// }
 
-button:focus {
-    outline: 1px solid $button-primary;
-    outline-offset: -4px;
-}
+// button:focus {
+//     outline: 1px solid $button-primary;
+//     outline-offset: -4px;
+// }
 
-button:active {
-    transform: scale(0.99);
-}
+// button:active {
+//     transform: scale(0.99);
+// }
 
-.chart-button {
-    background: $button-white;
-    border: 2px solid $button-primary;
-    color: $button-primary;
-    padding: 0.4rem 0.7rem;
-}
+// .chart-button {
+//     background: $button-white;
+//     border: 2px solid $button-primary;
+//     color: $button-primary;
+//     padding: 0.4rem 0.7rem;
+// }
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
