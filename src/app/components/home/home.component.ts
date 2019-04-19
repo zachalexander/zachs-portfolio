@@ -90,11 +90,11 @@ export class HomeComponent implements OnInit {
     const y = d3.scaleLinear().range([hei - margin.top - margin.bottom, 0]);
 
       // Scale the range of the data
-      x.domain(d3.extent(data, function (d) {
-              return d.xVal;
+      x.domain(d3.extent(data, function (d: ChartData) {
+              return d['xVal'];
           }));
-      y.domain([0, d3.max(data, function (d) {
-                  return d.yVal;
+      y.domain([0, d3.max(data, function (d: ChartData) {
+                  return d['yVal'];
               })
       ]);
 
