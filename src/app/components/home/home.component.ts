@@ -2,6 +2,60 @@ import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
 
+interface ChartData {
+  xVal: number;
+  yVal: number;
+}
+
+// Get the data
+const data = [
+  {
+    'xVal': 0,
+    'yVal': 2
+  },
+  {
+    'xVal': 1,
+    'yVal': 18
+  },
+  {
+    'xVal': 2,
+    'yVal': 45
+  },
+  {
+    'xVal': 3,
+    'yVal': 37
+  },
+  {
+    'xVal': 4,
+    'yVal': 23
+  },
+  {
+    'xVal': 5,
+    'yVal': 46
+  },
+  {
+    'xVal': 6,
+    'yVal': 15
+  },
+  {
+    'xVal': 7,
+    'yVal': 8
+  },
+  {
+    'xVal': 8,
+    'yVal': 31
+  },
+  {
+    'xVal': 9,
+    'yVal': 13
+  },
+  {
+    'xVal': 10,
+    'yVal': 41
+  }
+];
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,68 +67,86 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.drawLineChart();
+    setInterval(() => {
+      const newData = this.transformData(data);
+      this.drawLineChart(newData);
+    }, 1000);
+    this.drawLineChart(data);
   }
 
-  drawLineChart() {
+  drawLineChart(data) {
 
-    const dataset = [
-      [ 5, 20 ],
-      [ 480, 90 ],
-      [ 250, 50 ],
-      [ 100, 33 ],
-      [ 330, 95 ],
-      [ 410, 12 ],
-      [ 475, 44 ],
-      [ 25, 67 ],
-      [ 85, 21 ],
-      [ 220, 88 ]
-      ];
+    d3.select('svg').remove();
 
-     let len = 500;
-     let hei = 100;
+    let len = 600;
+    let hei = 600;
 
-     const margin = {top: 10, right: 20, bottom: 10, left: 20};
+    const margin = {top: 120, right: 50, bottom: 80, left: 50};
 
-     len = len - margin.left - margin.right,
-     hei = hei - margin.top - margin.bottom;
+    len = len - margin.left - margin.right,
+    hei = hei - margin.top - margin.bottom;
 
-     const svg = d3.select('._graphic-1')
-      .append('svg')
-      .attr('width', len)
-      .attr('height', hei);
+    const x = d3.scaleLinear().range([margin.left, len - margin.left]);
+    const y = d3.scaleLinear().range([hei - margin.top - margin.bottom, 0]);
 
-      svg.selectAll('circle')
-         .data(dataset)
-         .enter()
-         .append('circle')
-         .attr('cx', function(d) {
-           return d[0];
-         })
-         .attr('cy', function(d) {
-           return d[1];
-         })
-         .attr('r', function(d) {
-           return Math.sqrt(hei - d[1]);
-         })
-         .attr('stroke', '#fff');
+      // Scale the range of the data
+      x.domain(d3.extent(data, function (d) {
+              return d.xVal;
+          }));
+      y.domain([0, d3.max(data, function (d) {
+                  return d.yVal;
+              })
+      ]);
 
-       svg.selectAll('text')
-          .data(dataset)
-          .enter()
-          .append('text')
-          .text(function(d) {
-            return d[0] + ',' + d[1];
-          })
-          .attr('x', function(d) {
-            return d[0];
-          })
-          .attr('y', function(d) {
-            return d[1];
-          })
-          .attr('font-family', 'sans-serif')
-          .attr('font-size', '11px')
-          .attr('fill', '#fff')
-          .attr('font-weight', 'bolder');
+    const xAxis = d3.axisBottom(x)
+                    .scale(x)
+                    .tickSizeOuter(1);
+
+    const yAxis = d3.axisLeft(y)
+                    .scale(y)
+                    .tickSizeOuter(1);
+
+    const valueline = d3.line<ChartData>()
+        .x((d: ChartData) => {
+            return x(d['xVal']);
+        })
+        .y((d: ChartData) => {
+            return y(d['yVal']) + margin.top + margin.bottom;
+        });
+
+    const svg = d3.select('._graphic-1')
+        .append('svg')
+        .attr('width', len + margin.left + margin.right)
+        .attr('height', hei + margin.top + margin.bottom)
+        .append('g');
+
+
+
+    svg.append('path') // Add the valueline path.
+        .datum(data)
+        .attr('d', valueline(data));
+
+    svg.append('g') // Add the X Axis
+        .attr('class', 'x axis')
+        .attr('transform', 'translate(0,' + hei + ')')
+        .call(xAxis);
+
+    svg.append('g') // Add the Y Axis
+        .attr('class', 'y axis')
+        .attr('transform', 'translate(' + margin.left + ',' + (margin.top + margin.bottom) + ')')
+        .call(yAxis);
+
+  }
+
+  transformData(data) {
+    const num = Math.floor(Math.random() * 50) + 1;
+    data.map((elements, index) => {
+      if (index === 0) {
+        elements['yVal'] = num;
+      } else {
+        elements['yVal'] = Math.floor((Math.random() * 50) + 1);
+      }
+    });
+    return data;
   }
 }

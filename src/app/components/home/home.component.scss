@@ -56,12 +56,12 @@
   justify-self: center;
 }
 
-// ._visuals-list {
-//   background: url('../../../assets/DSC_0184.jpg');
-//    background-repeat: no-repeat;
-//   background-size: cover;
-//   padding: 3rem;
-// }
+._visuals-list {
+  color: #ddd;
+  a {
+    color: #ddd;
+  }
+}
 
 
 
@@ -214,3 +214,33 @@
   }
 }
 
+svg {
+  padding: 30px;
+}
+
+path {
+  fill: none;
+  stroke: #111;
+  stroke-width: 4;
+}
+
+.axis path, .axis line {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #111;
+  stroke-width: 1;
+}
+
+g.x.axis {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #111;
+  stroke-width: 1;
+}
+
+g.y.axis {
+  fill: none;
+  shape-rendering: crispEdges;
+  stroke: #111;
+  stroke-width: 1;
+}
