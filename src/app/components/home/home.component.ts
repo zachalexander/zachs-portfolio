@@ -69,12 +69,14 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     setInterval(() => {
       const newData = this.transformData(data);
-      this.drawLineChart(newData);
+      const scrnSz = window.innerWidth;
+      this.drawLineChart(newData, scrnSz);
     }, 1000);
-    this.drawLineChart(data);
+    const scrnSz = window.innerWidth;
+    this.drawLineChart(data, scrnSz);
   }
 
-  drawLineChart(data) {
+  drawLineChart(data, scrnSz) {
 
     d3.select('svg').remove();
 
@@ -85,6 +87,13 @@ export class HomeComponent implements OnInit {
 
     len = len - margin.left - margin.right,
     hei = hei - margin.top - margin.bottom;
+
+    if (scrnSz < 600) {
+      len = scrnSz - margin.right - margin.left;
+      hei = 400;
+      margin.top = margin.bottom / 2;
+      margin.bottom = margin.bottom / 2;
+    }
 
     const x = d3.scaleLinear().range([margin.left, len - margin.left]);
     const y = d3.scaleLinear().range([hei - margin.top - margin.bottom, 0]);
@@ -119,8 +128,6 @@ export class HomeComponent implements OnInit {
         .attr('width', len + margin.left + margin.right)
         .attr('height', hei + margin.top + margin.bottom)
         .append('g');
-
-
 
     svg.append('path') // Add the valueline path.
         .datum(data)
