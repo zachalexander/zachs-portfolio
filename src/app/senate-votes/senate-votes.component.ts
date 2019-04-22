@@ -4,7 +4,6 @@ import { CongressData } from './../shared/interfaces/congressdata';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { AngularResizedEventModule } from 'angular-resize-event';
 
 @Component({
   selector: 'app-root',

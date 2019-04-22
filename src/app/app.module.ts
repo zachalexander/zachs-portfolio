@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-import { AngularResizedEventModule } from 'angular-resize-event';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
@@ -39,8 +38,7 @@ import { SenateVotesComponent } from './senate-votes/senate-votes.component';
     RouterModule,
     AppRoutingModule,
     HomeModule,
-    Ng4LoadingSpinnerModule,
-    AngularResizedEventModule
+    Ng4LoadingSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
