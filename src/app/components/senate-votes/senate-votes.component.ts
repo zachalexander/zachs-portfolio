@@ -4,10 +4,10 @@ import { CongressData } from './../../shared/interfaces/congressdata';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import { ResizedEvent } from 'angular-resize-event/resized-event';
+// import { ResizedEvent } from 'angular-resize-event/resized-event';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-senate-votes',
   templateUrl: './senate-votes.component.html',
   styleUrls: ['./senate-votes.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -37,41 +37,41 @@ export class SenateVotesComponent {
     private spinnerService: Ng4LoadingSpinnerService
   ) {}
 
-  onResized(event: ResizedEvent): void {
+  // onResized(event: ResizedEvent): void {
 
-    if (this.width < 600) {
-      this.mobile = true;
-    }
+  //   if (this.width < 600) {
+  //     this.mobile = true;
+  //   }
 
-    if (this.width >= 600) {
-      this.mobile = false;
-    }
+  //   if (this.width >= 600) {
+  //     this.mobile = false;
+  //   }
 
-    this.width = event.newWidth;
-    if (this.width >= 1000 && this.democraticChart === true) {
-      const updatedWidth = 1000;
-      d3.select('svg').remove();
-      this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
-    }
+  //   this.width = event.newWidth;
+  //   if (this.width >= 1000 && this.democraticChart === true) {
+  //     const updatedWidth = 1000;
+  //     d3.select('svg').remove();
+  //     this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
+  //   }
 
-    if (this.width < 1000 && this.democraticChart === true) {
-      const updatedWidth = this.width;
-      d3.select('svg').remove();
-      this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
-    }
+  //   if (this.width < 1000 && this.democraticChart === true) {
+  //     const updatedWidth = this.width;
+  //     d3.select('svg').remove();
+  //     this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
+  //   }
 
-    if (this.width >= 1000 && this.democraticChart === false) {
-      const updatedWidth = 1000;
-      d3.select('svg').remove();
-      this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
-    }
+  //   if (this.width >= 1000 && this.democraticChart === false) {
+  //     const updatedWidth = 1000;
+  //     d3.select('svg').remove();
+  //     this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
+  //   }
 
-    if (this.width < 1000 && this.democraticChart === false) {
-      const updatedWidth = this.width;
-      d3.select('svg').remove();
-      this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
-    }
-  }
+  //   if (this.width < 1000 && this.democraticChart === false) {
+  //     const updatedWidth = this.width;
+  //     d3.select('svg').remove();
+  //     this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
+  //   }
+  // }
 
   returnPropubData(len, hei) {
     this.propubService.searchPropubData()

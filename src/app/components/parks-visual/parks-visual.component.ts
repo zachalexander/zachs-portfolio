@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import * as nyCounties from '../../../assets/nys-geo.json';
+// import * as nyCounties from '../../../assets/nys-geo.json';
 
 @Component({
   selector: 'app-parks-visual',
@@ -14,11 +14,11 @@ export class ParksVisualComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.printCounties();
+    // this.printCounties();
   }
 
-  printCounties() {
-    this.nyCounties = nyCounties;
-  }
+  // printCounties() {
+  //   this.nyCounties = nyCounties;
+  // }
 
 }

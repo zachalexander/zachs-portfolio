@@ -1,0 +1,322 @@
+<!-- Nucleo Icons Section -->
+
+<div class="section section-dark section-nucleo-icons">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <h2 class="title">Nucleo Icons</h2><br/>
+                <p class="description">
+                    Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
+                </p><br/>
+                <a [routerLink]="['/nucleoicons']" class="btn btn-danger btn-round">View Demo Icons</a>
+                <a href="https://nucleoapp.com/?ref=1712" class="btn btn-outline-danger btn-round" target="_blank">View All Icons</a>
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+                <div class="icons-container">
+                    <i class="nc-icon nc-time-alarm"></i>
+                    <i class="nc-icon nc-atom"></i>
+                    <i class="nc-icon nc-camera-compact"></i>
+                    <i class="nc-icon nc-watch-time"></i>
+                    <i class="nc-icon nc-key-25"></i>
+                    <i class="nc-icon nc-diamond"></i>
+                    <i class="nc-icon nc-user-run"></i>
+                    <i class="nc-icon nc-layout-11"></i>
+                    <i class="nc-icon nc-badge"></i>
+                    <i class="nc-icon nc-bulb-63"></i>
+                    <i class="nc-icon nc-favourite-28"></i>
+                    <i class="nc-icon nc-planet"></i>
+                    <i class="nc-icon nc-tie-bow"></i>
+                    <i class="nc-icon nc-zoom-split"></i>
+                    <i class="nc-icon nc-cloud-download-93"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button types -->
+<div class="col-md-8">
+    <button type="button" class="btn btn-danger">Default</button>
+    <button type="button" class="btn btn-danger btn-round">Round</button>
+    <button type="button" class="btn btn-danger btn-round"><i class="fa fa-heart"></i> With Icon</button>
+    <button type="button" class="btn btn-danger btn-just-icon"><i class="fa fa-heart"></i></button>
+    <button type="button" class="btn btn-danger btn-link">Simple</button>
+</div>
+
+<!-- Button sizes -->
+<div class="col-md-8">
+    <button type="button" class="btn btn-outline-danger btn-sm">Small</button>
+    <button type="button" class="btn btn-outline-danger">Regular</button>
+    <button type="button" class="btn btn-outline-danger btn-lg">Large</button>
+</div>
+
+
+<div class="tim-title">
+    <h3><small>Pick your color</small></h3>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <button type="button" class="btn btn-outline-default btn-round">Default</button><button type="button" class="btn btn-outline-primary btn-round">Primary</button>
+        <button type="button" class="btn btn-outline-info btn-round">Info</button>
+        <button type="button" class="btn btn-outline-success btn-round">Success</button>
+        <button type="button" class="btn btn-outline-warning btn-round">Warning</button>
+        <button type="button" class="btn btn-outline-danger btn-round">Danger</button>
+    </div>
+</div>
+<br/>
+<div class="row">
+    <div class="col-md-8">
+        <button type="button" class="btn btn-default btn-round">Default</button>
+        <button type="button" class="btn btn-primary btn-round">Primary</button>
+        <button type="button" class="btn btn-info btn-round">Info</button>
+        <button type="button" class="btn btn-success btn-round">Success</button>
+        <button type="button" class="btn btn-warning btn-round">Warning</button>
+        <button type="button" class="btn btn-danger btn-round">Danger</button>
+    </div>
+</div>
+</div>
+<br/>
+<div class="tim-title">
+<h3>Links</h3>
+</div>
+<div class="row">
+<div class="col-md-8">
+    <a href="#0" class="btn btn-link btn-default">Default</a>
+    <a href="#0" class="btn btn-link btn-primary">Primary</a>
+    <a href="#0" class="btn btn-link btn-success">Success</a>
+    <a href="#0" class="btn btn-link btn-info">Info</a>
+    <a href="#0" class="btn btn-link btn-warning">Warning</a>
+    <a href="#0" class="btn btn-link btn-danger">Danger</a>
+    <a href="#0" class="btn btn-link btn-neutral">Neutral</a>
+</div>
+</div>
+<br/>
+<div class="tim-title">
+<h3>Inputs</h3>
+</div>
+<div class="row">
+<div class="col-sm-3">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Default">
+    </div>
+</div>
+<div class="col-sm-3">
+    <div class="form-group has-success">
+        <input type="text" class="form-control form-control-success" id="inputSuccess1" value="Success">
+    </div>
+</div>
+<div class="col-sm-3">
+    <div class="form-group has-danger">
+        <input type="text" class="form-control form-control-danger" id="inputDanger1" value="Error">
+        <div class="form-control-feedback">Sorry, that username's taken. Try another?</div>
+    </div>
+</div>
+<div class="col-sm-3">
+    <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+        <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon1"><i class="fa fa-group" aria-hidden="true"></i></span>
+        </div>
+    </div>
+</div>
+</div>
+<br/>
+<div class="row">
+<div class="col-sm-6 col-lg-3">
+    <div class="tim-title">
+        <h3>Checkboxes</h3>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" value="">
+        Unchecked
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" value="" checked="">
+        Checked
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check disabled">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" value="" disabled="">
+        Disabled unchecked
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check disabled">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" value="" checked="" disabled="">
+        Disabled checked
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+</div>
+<div class="col-sm-6 col-lg-3">
+    <div class="tim-title">
+        <h3>Radio Buttons</h3>
+    </div>
+    <div class="form-check-radio">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" >
+        Radio is off
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check-radio">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" checked="">
+        Radio is on
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check-radio disabled">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios3" value="option3" disabled="">
+        Disabled Radio is off
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+    <div class="form-check-radio disabled">
+      <label class="form-check-label">
+        <input class="form-check-input" type="radio" name="exampleRadios1" id="exampleRadios4" value="option3" checked disabled="">
+        Disabled Radio is on
+        <span class="form-check-sign"></span>
+      </label>
+    </div>
+</div>
+<div class="col-sm-6 col-lg-3">
+    <div class="tim-title">
+        <h3>Toggle Buttons</h3>
+    </div>
+    <bSwitch
+        [switch-on-color]="'primary'">
+    </bSwitch>
+    <bSwitch
+        [switch-on-color]="'primary'"
+        [(ngModel)]="state_default"> Toggle is off
+    </bSwitch>
+</div>
+<div class="col-sm-6 col-lg-3">
+    <div class="tim-title">
+        <h3>Sliders</h3>
+    </div>
+    <nouislider [connect]="false" [min]="0" [max]="100" [step]="1" [(ngModel)]="simpleSlider" [tooltips]="false" class="slider"></nouislider>
+    <br>
+    <nouislider class="slider slider-info" [connect]="true" [min]="0" [max]="100" [step]="1" [(ngModel)]="doubleSlider" [tooltips]="false"></nouislider>
+</div>
+</div>
+
+
+<!-- Example form -->
+<div class="section section-image section-login" style="background-image: url('assets/img/login-image.jpg');">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-12 ml-auto mr-auto">
+              <div class="card card-register">
+                  <h3 class="title">Welcome</h3>
+                  <div class="social-line text-center">
+                      <a href="#pablo" class="btn btn-neutral btn-facebook btn-just-icon">
+                          <i class="fa fa-facebook-square"></i>
+                      </a>
+                      <a href="#pablo" class="btn btn-neutral btn-google btn-just-icon">
+                          <i class="fa fa-google-plus"></i>
+                      </a>
+                      <a href="#pablo" class="btn btn-neutral btn-twitter btn-just-icon">
+                          <i class="fa fa-twitter"></i>
+                      </a>
+                  </div>
+                  <form class="register-form">
+                      <label>Email</label>
+                      <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="nc-icon nc-email-85"></i>
+                          </span>
+                        </div>
+
+                          <input type="text" class="form-control" placeholder="Email" (focus)="focus=true" (blur)="focus=false" >
+                      </div>
+
+                      <label>Password</label>
+                      <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                              <i class="nc-icon nc-key-25"></i>
+                          </span>
+                        </div>
+                          <input type="text" class="form-control" placeholder="Password" (focus)="focus1=true" (blur)="focus1=false" >
+                      </div>
+                      <button class="btn btn-danger btn-block btn-round">Register</button>
+                  </form>
+                  <div class="forgot">
+                      <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                  </div>
+              </div>
+              <div class="col text-center" routerLinkActive="active">
+                  <a [routerLink]="['/signup']" class="btn btn-outline-neutral btn-round btn-lg">View Register Page</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="section">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h2 class="title">Do you like what you see?</h2>
+                <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 download-area ml-auto mr-auto">
+                <a href="https://www.creative-tim.com/product/paper-kit-2" class="btn btn-warning btn-round">Download free HTML</a>
+                <a href="https://www.creative-tim.com/product/paper-kit-2-angular" class="btn btn-danger btn-round">Download free Angular</a>
+            </div>
+        </div>
+        <div class="row justify-content-md-center sharing-area text-center">
+            <div class="text-center col-md-12 col-lg-8">
+                <h3>Thank you for supporting us!</h3>
+            </div>
+            <div class="text-center col-md-12 col-lg-8">
+                <a href="#pablo" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">
+                    <i class="fa fa-twitter"></i> Twitter
+                </a>
+                <a href="#pablo" class="btn btn-google-bg linkedin-sharrre btn-round" rel="tooltip" title="Share!">
+                    <i class="fa fa-google-plus"></i> Google
+                </a>
+                <a href="#pablo" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
+                    <i class="fa fa-facebook-square"></i> Facebook
+                </a>
+                <a href="https://github.com/creativetimofficial/paper-kit" class="btn btn-github-bg btn-github sharrre btn-round" rel="tooltip" title="Star on Github">
+                    <i class="fa fa-github"></i> Star
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-dark">
+    <div class="container">
+        <div class="row example-page">
+            <div class="col-md-6 text-center" routerLinkActive="active">
+                <a [routerLink]="['/landing']">
+                    <img src="./assets/img/examples/landing-page.JPG" alt="Rounded Image" class="img-rounded img-responsive" style="width: 100%">
+                    <a [routerLink]="['/landing']" class="btn btn-outline-neutral btn-round">Landing Page</a>
+                </a>
+            </div>
+
+            <div class="col-md-6 text-center" routerLinkActive="active">
+                <a [routerLink]="['/user-profile']">
+                    <img src="./assets/img/examples/profile-page.JPG" alt="Rounded Image" class="img-rounded img-responsive" style="width: 100%">
+                    <a [routerLink]="['/user-profile']" class="btn btn-outline-neutral btn-round">Profile Page</a>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

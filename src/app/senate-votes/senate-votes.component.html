@@ -1,0 +1,93 @@
+<div (resized)="onResized($event)">
+      <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/capitol.jpg');">
+          <div class="filter"></div>
+      </div>
+      <div class="section profile-content">
+          <h3 class="col-md-6 mr-auto ml-auto summary-content text-center">115th United States Senate: Voting Records</h3>
+          <div class="container">
+                <div class="col-md-6 mr-auto ml-auto summary-content">
+                    <p>After two years of legislative activity, the 115th Senate may be most notably
+                        remembered for
+                        their sweeping overhaul of our tax system, or their failure to come to terms on a revised version of the
+                        Affordable Care Act.
+                        However, amidst all of the political banter, <strong>who really was most loyal to their party?</strong>
+                      </p>
+                  </div>
+
+                <div class="container">
+                  <div class="button-section">
+                    <div id="tooltip">
+                      <span id="value"></span>
+                    </div>
+                    <div class="button-interactive">
+                      <p>Voting Percentages By Political Party:</p>
+                      <button *ngIf="democraticChart" class="btn btn-outline-info" (click)="drawDemChart()">Democrats</button>
+                      <button *ngIf="!democraticChart" class="btn btn-outline-danger" (click)="drawRepChart()">Republicans</button>
+                    </div>
+                  </div>
+                </div>
+        
+          
+                <div class="chart-wrapper" *ngIf="!serverError"></div>
+          
+                <div *ngIf="serverError" class="error">
+                  <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
+                </div>
+
+                <div class="col-md-6 mr-auto ml-auto summary-content">
+                  <p class="paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the
+                    two-year period.
+                    As an ardent member of the Freedom caucus, he has been proud of his record to buck party trends.
+                  </p>
+                  <p class="paragraph-content">For democrats, Joe Manchin of West Virginia has historically voted moderately. Being in
+                    a state that has shifted
+                    red over the last few decades, he's been concious of his electorate.
+                  </p>
+                  <p class="paragraph-content">It's quite interesting to see that of the 51 Republicans in the Senate,
+                    all but three -- Rand Paul (KY), Mike Lee (UT), and Susan Collins (ME) -- voted with the party at least
+                    90 percent of the time. In an era of strong partisanship among the two parties, this is an indication that
+                    Senate Majority Leader, Mitch McConnell, and his party's agenda were kept close in hand.
+                  </p>
+                </div>
+
+              <hr>
+              <div class="section landing-section">
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-md-8 mr-auto ml-auto">
+                              <h2 class="text-center">Have feedback?</h2>
+                              <form class="contact-form">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <label>Name</label>
+                                          <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="Name" (focus)="focus=true" (blur)="focus=false" >
+                                          </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                          <label>Email</label>
+                                          <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                                              <div class="input-group-prepend">
+                                                <span class="input-group-text">  <i class="nc-icon nc-email-85"></i></span>
+                                              </div>
+                                              <input type="text" class="form-control" placeholder="Email" (focus)="focus1=true" (blur)="focus1=false" >
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <label>Message</label>
+                                  <textarea class="form-control" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
+                                  <div class="row">
+                                      <div class="col-md-4 mr-auto ml-auto">
+                                          <button class="btn btn-danger btn-lg btn-fill">Send Message</button>
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+          </div>
+      </div>
+</div>  

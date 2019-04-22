@@ -1,46 +1,48 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { AngularResizedEventModule } from 'angular-resize-event';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
-import { HomeComponent } from './components/home/home.component';
-import { SenateVotesComponent } from './components/senate-votes/senate-votes.component';
+import { AppComponent } from './app.component';
+import { SignupComponent } from './signup/signup.component';
+import { LandingComponent } from './landing/landing.component';
+import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
-import { PropubService } from './services/propub.service';
-import { BirdsService } from './services/birds.service';
-import { PoliticsMapComponent } from './components/politics-map/politics-map.component';
-import { NyStateElevationMapComponent } from './components/ny-state-elevation-map/ny-state-elevation-map.component';
-import { ParksVisualComponent } from './components/parks-visual/parks-visual.component';
-import { UiModule } from './ui/ui.module';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { HomeModule } from './home/home.module';
+import { SenateVotesComponent } from './senate-votes/senate-votes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SenateVotesComponent,
-    HomeComponent,
-    PoliticsMapComponent,
-    NyStateElevationMapComponent,
-    ParksVisualComponent
+    SignupComponent,
+    LandingComponent,
+    ProfileComponent,
+    NavbarComponent,
+    FooterComponent,
+    SenateVotesComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
-    Ng4LoadingSpinnerModule.forRoot(),
-    AngularResizedEventModule,
-    BrowserAnimationsModule,
-    UiModule,
-    NgbModule,
-    MDBBootstrapModule.forRoot()
-   ],
-  providers: [PropubService, BirdsService],
+    HttpModule,
+    BrowserModule,
+    NgbModule.forRoot(),
+    FormsModule,
+    RouterModule,
+    AppRoutingModule,
+    HomeModule,
+    Ng4LoadingSpinnerModule,
+    AngularResizedEventModule
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

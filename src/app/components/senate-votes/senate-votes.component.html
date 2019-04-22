@@ -1,6 +1,5 @@
-<div (resized)="onResized($event)">
+<!-- <div (resized)="onResized($event)"> -->
   <div class = "wrapper">
-
     <h3 class="chart-header">115th United States Senate: Voting Records</h3>
       <article class = "opening-paragraph">
         <p>After two years of legislative activity, the 115th Senate may be most notably
@@ -12,7 +11,7 @@
       </article>
       <section class="left-content"></section>
       <section class="right-content"></section>
-      <div *ngIf="!mobile" class="button-section">
+      <div class="button-section">
         <div></div>
         <div id="tooltip">
           <span id="value"></span>
@@ -26,7 +25,7 @@
         <div></div>
       </div>
 
-      <div *ngIf="mobile" class="button-section-mobile">
+      <!-- <div *ngIf="mobile" class="button-section-mobile">
         <p>Voting Percentages By Political Party:</p>
         <div class="button-interactive-mobile">
           <button *ngIf="democraticChart" class="btn-dem" (click)="drawDemChart()">Democrats</button>
@@ -35,7 +34,7 @@
         <div id="tooltip-mobile" *ngIf="!serverError">
           <span id="value"></span>
         </div>
-      </div>
+      </div> -->
 
       <div class="chart-wrapper" *ngIf="!serverError"></div>
 
@@ -66,7 +65,7 @@
         <path></path>
       </svg>
     </div>
-</div>
+<!-- </div> -->
 
 
 
