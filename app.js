@@ -1,6 +1,5 @@
-var express = require('express');
 var firebase = require('firebase');
-// var app = express();
+var firebaseui = require('firebaseui');
 const webServer = require('./services/web-server.js');
 const dbConfig = require('./config/database.js');
 const defaultThreadPoolSize = 4;
@@ -16,14 +15,6 @@ var config = {
 };
 
 firebase.initializeApp(config);
-
-// app.get('/', function (req, res) {
-//   res.send('Hello World!');
-// });
-
-// app.listen(3000, function () {
-//   console.log('Example app listening on port 3000!');
-// });
 
 async function startup() {
   console.log('Starting application');

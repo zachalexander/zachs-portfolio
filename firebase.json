@@ -13,7 +13,7 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "dist/zachs-portfolio",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",

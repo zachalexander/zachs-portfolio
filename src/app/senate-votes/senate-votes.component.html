@@ -1,5 +1,5 @@
-<div (resized)="onResized($event)">
-      <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/capitol.jpg');">
+<!-- <div (resized)="onResized($event)"> -->
+      <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('./assets/img/capitol-photo.jpg');">
           <div class="filter"></div>
       </div>
       <div class="section profile-content">
@@ -26,10 +26,10 @@
                     </div>
                   </div>
                 </div>
-        
-          
+
+
                 <div class="chart-wrapper" *ngIf="!serverError"></div>
-          
+
                 <div *ngIf="serverError" class="error">
                   <h5>We're sorry, but the ProPublica server is currently down at the moment. Please check back in momentarily.</h5>
                 </div>
@@ -38,16 +38,16 @@
                   <p class="paragraph-content">Not much of a surprise that Rand Paul voted least with the Republican party over the
                     two-year period.
                     As an ardent member of the Freedom caucus, he has been proud of his record to buck party trends.
-                  </p>
+                  </p><br>
                   <p class="paragraph-content">For democrats, Joe Manchin of West Virginia has historically voted moderately. Being in
                     a state that has shifted
                     red over the last few decades, he's been concious of his electorate.
-                  </p>
+                  </p><br>
                   <p class="paragraph-content">It's quite interesting to see that of the 51 Republicans in the Senate,
                     all but three -- Rand Paul (KY), Mike Lee (UT), and Susan Collins (ME) -- voted with the party at least
                     90 percent of the time. In an era of strong partisanship among the two parties, this is an indication that
                     Senate Majority Leader, Mitch McConnell, and his party's agenda were kept close in hand.
-                  </p>
+                  </p><br>
                 </div>
 
               <hr>
@@ -90,4 +90,4 @@
                   </div>
           </div>
       </div>
-</div>  
+<!-- </div>   -->

@@ -146,6 +146,7 @@ export class SenateVotesComponent {
     this.initSrnSize = window.innerWidth;
     const barColor = 'rgba(255, 39, 0, ';
     d3.select('svg').remove();
+    console.log(this.democraticSenators)
 
     if (this.width >= 1000) {
       const updatedWidth = 1000;
@@ -161,6 +162,7 @@ export class SenateVotesComponent {
     this.initSrnSize = window.innerWidth;
     const barColor = 'rgba(0, 143, 213, ';
     d3.select('svg').remove();
+    console.log(this.democraticSenators);
 
     if (this.width >= 1000) {
       const updatedWidth = 1000;
@@ -302,7 +304,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
   // create main svg
   const svg = d3.select('.chart-wrapper')
               .append('svg')
-              .attr('width', len + margin.left + margin.right)
+              .attr('width', len)
               .attr('height', hei + margin.top + margin.bottom)
               .append('g').classed('overall-div', true)
               .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
