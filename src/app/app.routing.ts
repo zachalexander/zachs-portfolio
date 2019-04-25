@@ -7,18 +7,14 @@ import { HttpModule } from '@angular/http';
 
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SignupComponent } from './signup/signup.component';
-import { LandingComponent } from './landing/landing.component';
 import { SenateVotesComponent } from './senate-votes/senate-votes.component'
 
 
 const routes: Routes = [
-    { path: 'home',             component: HomeComponent },
+    { path: '',             component: HomeComponent },
     { path: 'user-profile',     component: ProfileComponent },
-    { path: 'signup',           component: SignupComponent, },
-    { path: 'landing',          component: LandingComponent },
     { path: 'senate-votes',     component: SenateVotesComponent },
-    { path: '', redirectTo: 'signup', pathMatch: 'full' }
+    { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

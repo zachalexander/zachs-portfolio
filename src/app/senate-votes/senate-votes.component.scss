@@ -54,6 +54,7 @@ img {
     justify-items: center;
     grid-template-columns: 1fr 1fr;
     z-index: 100;
+    padding: 50px;
 }
 
 .button-section-mobile {
@@ -134,16 +135,16 @@ display: grid;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 50%;
+  height: 75%;
 }
 
-#tooltip h4 {
+#tooltip h5 {
  margin: 0;
  line-height: 20px;
  text-align: center;
  }
 
- #tooltip-mobile h4 {
+ #tooltip-mobile h5 {
  margin: 0;
 
  line-height: 20px;
@@ -257,6 +258,7 @@ img {
     grid-template-columns: 1fr;
     z-index: 100;
     margin: 30px;
+    padding: 30px;
   }
 
 

@@ -3,6 +3,7 @@ import { PropubService } from './../services/propub.service';
 import { CongressData } from './../shared/interfaces/congressdata';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
+import { ResizedEvent } from 'angular-resize-event/resized-event';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
@@ -36,41 +37,41 @@ export class SenateVotesComponent {
     private spinnerService: Ng4LoadingSpinnerService
   ) {}
 
-  // onResized(event: ResizedEvent): void {
+  onResized(event: ResizedEvent): void {
 
-  //   if (this.width < 600) {
-  //     this.mobile = true;
-  //   }
+    if (this.width < 600) {
+      this.mobile = true;
+    }
 
-  //   if (this.width >= 600) {
-  //     this.mobile = false;
-  //   }
+    if (this.width >= 600) {
+      this.mobile = false;
+    }
 
-  //   this.width = event.newWidth;
-  //   if (this.width >= 1000 && this.democraticChart === true) {
-  //     const updatedWidth = 1000;
-  //     d3.select('svg').remove();
-  //     this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
-  //   }
+    this.width = event.newWidth;
+    if (this.width >= 1000 && this.democraticChart === true) {
+      const updatedWidth = 1000;
+      d3.select('svg').remove();
+      this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
+    }
 
-  //   if (this.width < 1000 && this.democraticChart === true) {
-  //     const updatedWidth = this.width;
-  //     d3.select('svg').remove();
-  //     this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
-  //   }
+    if (this.width < 1000 && this.democraticChart === true) {
+      const updatedWidth = this.width;
+      d3.select('svg').remove();
+      this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
+    }
 
-  //   if (this.width >= 1000 && this.democraticChart === false) {
-  //     const updatedWidth = 1000;
-  //     d3.select('svg').remove();
-  //     this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
-  //   }
+    if (this.width >= 1000 && this.democraticChart === false) {
+      const updatedWidth = 1000;
+      d3.select('svg').remove();
+      this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
+    }
 
-  //   if (this.width < 1000 && this.democraticChart === false) {
-  //     const updatedWidth = this.width;
-  //     d3.select('svg').remove();
-  //     this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
-  //   }
-  // }
+    if (this.width < 1000 && this.democraticChart === false) {
+      const updatedWidth = this.width;
+      d3.select('svg').remove();
+      this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
+    }
+  }
 
   returnPropubData(len, hei) {
     this.propubService.searchPropubData()
@@ -146,7 +147,6 @@ export class SenateVotesComponent {
     this.initSrnSize = window.innerWidth;
     const barColor = 'rgba(255, 39, 0, ';
     d3.select('svg').remove();
-    console.log(this.democraticSenators)
 
     if (this.width >= 1000) {
       const updatedWidth = 1000;
@@ -162,7 +162,6 @@ export class SenateVotesComponent {
     this.initSrnSize = window.innerWidth;
     const barColor = 'rgba(0, 143, 213, ';
     d3.select('svg').remove();
-    console.log(this.democraticSenators);
 
     if (this.width >= 1000) {
       const updatedWidth = 1000;
@@ -304,7 +303,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
   // create main svg
   const svg = d3.select('.chart-wrapper')
               .append('svg')
-              .attr('width', len)
+              .attr('width', len + margin.left + margin.right)
               .attr('height', hei + margin.top + margin.bottom)
               .append('g').classed('overall-div', true)
               .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -362,7 +361,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h4>' + '<hr>'
+                    .html('<h5 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h5>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
@@ -376,7 +375,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h4>' + '<hr>'
+                    .html('<h5 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h5>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
@@ -402,7 +401,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h4>' + '<hr>'
+                    .html('<h5 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h5>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + d['votes_w_prty_pct'].toFixed(1) + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div class = ' + 'photo' + '>' + '<img src = ' + d['photo_url'] + '>'
@@ -419,7 +418,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h4>' + '<hr>'
+                    .html('<h5 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h5>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class ='
                       + 'vote-percent' + '>' + '<strong>'
                       + d['votes_w_prty_pct'].toFixed(1) + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
@@ -444,4 +443,3 @@ drawChart(dataset, len, hei, barColor, mobile) {
 
               }
             }
-

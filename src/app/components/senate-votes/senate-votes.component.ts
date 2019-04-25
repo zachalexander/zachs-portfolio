@@ -361,7 +361,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h4>' + '<hr>'
+                    .html('<h6 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h6>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
@@ -375,7 +375,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h4>' + '<hr>'
+                    .html('<h6 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h6>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
@@ -401,7 +401,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h4>' + '<hr>'
+                    .html('<h6 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h6>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
                       + '<strong>' + d['votes_w_prty_pct'].toFixed(1) + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
                       + '<div class = tooltip-wrapper>' + '<div class = ' + 'photo' + '>' + '<img src = ' + d['photo_url'] + '>'
@@ -418,7 +418,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
                     .style('left', 20 + 'px')
                     .style('top', 0 + 'px')
                     .select('#value')
-                    .html('<h4 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h4>' + '<hr>'
+                    .html('<h6 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h6>' + '<hr>'
                       + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class ='
                       + 'vote-percent' + '>' + '<strong>'
                       + d['votes_w_prty_pct'].toFixed(1) + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'

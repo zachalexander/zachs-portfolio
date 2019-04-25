@@ -12,6 +12,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
@@ -46,7 +47,8 @@ import { SenateVotesComponent } from './senate-votes/senate-votes.component';
     RouterModule,
     AppRoutingModule,
     HomeModule,
-    Ng4LoadingSpinnerModule
+    Ng4LoadingSpinnerModule,
+    AngularResizedEventModule
   ],
   providers: [],
   bootstrap: [AppComponent]
