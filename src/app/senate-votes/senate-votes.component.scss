@@ -116,7 +116,14 @@ img {
 
 .summary-content {
     grid-area: article;
-    padding: 50px 10px 50px 10px;
+    padding: 30px 10px 50px 10px;
+}
+
+.summary-content-small {
+  text-transform: unset;
+  font-weight: 400;
+  font-size: 0.85em;
+  margin-top: 10px;
 }
 
 .right-article {
