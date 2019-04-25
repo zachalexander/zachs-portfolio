@@ -31,6 +31,21 @@ export class SenateVotesComponent {
   mobile = false;
   errorMessage = '';
   congressdata: CongressData;
+  clickedValue;
+
+
+  defaultMobileData = [
+    {
+      key: 0,
+      senator_name: 'Perfectly Loyal Senator',
+      votes_w_prty_pct: 100
+    },
+    {
+      key: 1,
+      senator_name: 'Pick a Senator',
+      votes_w_prty_pct: 93.4
+    }
+  ];
 
   constructor(
     private propubService: PropubService,
@@ -54,7 +69,7 @@ export class SenateVotesComponent {
       this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
     }
 
-    if (this.width < 1000 && this.democraticChart === true) {
+    if (this.width < 1000 && this.width >= 600 && this.democraticChart === true) {
       const updatedWidth = this.width;
       d3.select('svg').remove();
       this.drawChart(this.democraticSenators, updatedWidth, 500, 'rgba(0, 143, 213, ', this.mobile);
@@ -66,7 +81,7 @@ export class SenateVotesComponent {
       this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
     }
 
-    if (this.width < 1000 && this.democraticChart === false) {
+    if (this.width < 1000 && this.width >= 600 && this.democraticChart === false) {
       const updatedWidth = this.width;
       d3.select('svg').remove();
       this.drawChart(this.republicanSenators, updatedWidth, 500, 'rgba(255, 39, 0, ', this.mobile);
@@ -78,6 +93,11 @@ export class SenateVotesComponent {
     .subscribe(
       (data) => {
         this.manipulateDataDrawChart(data, len, hei);
+
+        if (this.mobile) {
+          const barColor = 'rgba(255, 39, 0, ';
+          this.drawMobileChart(this.defaultMobileData, len, hei, barColor)
+        }
       },
       (error) => this.serverError = true,
     );
@@ -185,15 +205,18 @@ export class SenateVotesComponent {
         this.returnPropubData(updatedWidth, 500);
       }
 
-      if (initSrnSize < 1000) {
+      if (initSrnSize < 1000 && initSrnSize >= 600) {
         const updatedWidth = initSrnSize;
         d3.select('svg').remove();
         this.returnPropubData(updatedWidth, 500);
       }
 
       if (initSrnSize < 600) {
-        this.mobile = true;
+        const updatedWidth = initSrnSize;
+        d3.select('svg').remove();
+        this.returnPropubData(updatedWidth, 400);
       }
+
     }
 
 // =========== DATA MANIPULATION FUNCTIONS =========== //
@@ -207,10 +230,6 @@ manipulateData(originalData) {
   this.makeKey(democratSorted);
   this.republicanSenators = republicanSorted;
   this.democraticSenators = democratSorted;
-
-  console.log(this.republicanSenators);
-  console.log(this.democraticSenators);
-
   return [this.republicanSenators, this.democraticSenators];
 }
 
@@ -286,6 +305,78 @@ createSenatePhotoData(dataset) {
   return this.photoData;
 }
 
+drawMobileChart(dataset, len, hei, barColor) {
+  console.log(dataset);
+  console.log(hei);
+  console.log(len);
+  console.log(this.mobile);
+
+  // create main svg
+  d3.select('.chart-wrapper-mobile')
+    .append('svg')
+    .attr('width', len)
+    .attr('height', hei)
+    .append('g').classed('mobile-div', true)
+    .attr('transform', 'translate(0,0)');
+
+  // // create svgs for bar graph
+  // const senators = svg.append('g')
+  //                       .classed('senators', true)
+  //                       .attr('transform', 'translate(0,0)');
+
+  // // set scales for bars
+  // const XScale = d3.scaleBand().rangeRound([0, len]).padding(0.1);
+  // XScale.domain(d3.range(dataset.length).map((d) => d + ''));
+
+  // const YScale = d3.scaleLinear().range([0, hei]);
+  // YScale.domain([70, 100]);
+
+  // // create svgs for bar graph
+  // const senators = svgMobile.append('g')
+  // .classed('senators', true)
+  // .attr('transform', 'translate(0,0)');
+
+  // const XScaleBottom = d3.scaleBand().rangeRound([0, len]).padding(0.10);
+  // XScaleBottom.domain(dataset.map(function (d) {return d.senator_name; }));
+
+  // const YScaleLeft = d3.scaleLinear().range([hei, 0]);
+  // YScaleLeft.domain([70, 100]);
+
+  // const xAxis = d3.axisBottom(XScaleBottom).ticks(XScaleBottom).tickSizeOuter(0);
+
+  // const yAxis = d3.axisLeft(YScaleLeft).ticks(8).tickSizeOuter(1);
+
+  // senators.append('g')
+  //         .attr('transform', 'translate(0,' + hei + ')')
+  //         .call(xAxis)
+  //         .selectAll('text')
+  // // .attr('transform', 'rotate(-60)')
+  // // .attr('y', 5)
+  // // .attr('x', -8)
+  // // .attr('dy', '.35em')
+  // // .style('fill', 'rgb(124,124,124')
+  // // .style('text-anchor', 'end');
+
+  // senators.append('g')
+  // .attr('class', 'y-axis-rep')
+  // .attr('transform', 'translate(0,0)')
+  // .style('fill', 'rgb(124,124,124')
+  // .call(yAxis);
+
+  // // senators.selectAll('rect')
+  // // .data(dataset)
+  // // .enter()
+  // // .append('rect')
+  // // .attr('x', function(d, i) {
+  // //   const index = i.toString();
+  // //   return XScale(index);
+  // // })
+  // // .attr('y', function(d) {return hei - YScale(d['votes_w_prty_pct']); })
+  // // .attr('width', XScale.bandwidth())
+  // // .attr('height', function(d) {return YScale(d['votes_w_prty_pct']); })
+  // // // .attr('fill', function(d) {return barColor + (0.6 - (d['key'] / 100)) + ')'; })
+}
+
 drawChart(dataset, len, hei, barColor, mobile) {
 
   const margin = {top: 10, right: 20, bottom: 170, left: 20};
@@ -303,7 +394,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
   // create main svg
   const svg = d3.select('.chart-wrapper')
               .append('svg')
-              .attr('width', len + margin.left + margin.right)
+              .attr('width', len)
               .attr('height', hei + margin.top + margin.bottom)
               .append('g').classed('overall-div', true)
               .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -355,7 +446,6 @@ drawChart(dataset, len, hei, barColor, mobile) {
               .attr('height', function(d) {return YScale(d['votes_w_prty_pct']); })
               .attr('fill', function(d) {return barColor + (0.6 - (d['key'] / 100)) + ')'; })
               .call(function() {
-
                 if (!mobile) {
                   d3.select('#tooltip')
                     .style('left', 20 + 'px')
@@ -370,19 +460,6 @@ drawChart(dataset, len, hei, barColor, mobile) {
                       + '</strong>' + '</p>' + '</div>' + '</div>'
                     );
                 }
-                if (mobile) {
-                  d3.select('#tooltip-mobile')
-                    .style('left', 20 + 'px')
-                    .style('top', 0 + 'px')
-                    .select('#value')
-                    .html('<h5 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h5>' + '<hr>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
-                      + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
-                      + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
-                      + '<div>' + '<p class = ' + 'voting-info' + '>' + 'Total Votes: ' + '<strong>' + '---' + '</strong>' + '</p>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Missed Votes: ' + '<strong>' + '---' + '</strong>'
-                      + '</p>' + '</div>' + '</div>'
-                    );                    }
               })
               .on('mouseover', function(d) {
                 const xPosition = parseFloat(d3.select(this).attr('x')) + XScale.bandwidth();
@@ -413,25 +490,6 @@ drawChart(dataset, len, hei, barColor, mobile) {
                   // Show the tooltip
                   d3.select('#tooltip').classed('hidden', false);
                 }
-                if (mobile) {
-                  d3.select('#tooltip-mobile')
-                    .style('left', 20 + 'px')
-                    .style('top', 0 + 'px')
-                    .select('#value')
-                    .html('<h5 class =' + 'senator-name' + '>' + d['senator_name'] + ' ' + '(' + d['state'] + ')' + '</h5>' + '<hr>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class ='
-                      + 'vote-percent' + '>' + '<strong>'
-                      + d['votes_w_prty_pct'].toFixed(1) + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
-                      + '<div class = tooltip-wrapper>' + '<div class = ' + 'photo' + '>' + '<img src = ' + d['photo_url'] + '>'
-                      + '</div>' + '<div>' + '<p class = ' + 'voting-info' + '>' + 'Total Votes: ' + '<strong>' + d['total_votes']
-                      + '</strong>' + '</p>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Missed Votes: ' + '<strong>' + d['missed_votes']
-                      + '</strong>' + '</p>' + '</div>' + '</div>'
-                    );
-                    // Show the tooltip
-                  d3.select('#tooltip-mobile').classed('hidden', false);
-                }
-
                 })
                 .on('mouseout', function() {
                     d3.select('#tooltip');
@@ -441,5 +499,12 @@ drawChart(dataset, len, hei, barColor, mobile) {
                       .attr('fill', function(d, i) {return barColor + (0.6 - (d['key'] / 100)) + ')'; });
                 });
 
-              }
-            }
+  }
+
+    storeName(event) {
+      let value = event.srcElement.innerText;
+      value = value.substring(0, value.length - 5);
+      this.clickedValue = value;
+      console.log(this.clickedValue);
+    }
+  }

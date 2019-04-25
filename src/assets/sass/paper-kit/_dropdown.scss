@@ -8,6 +8,7 @@
         padding: 0px;
         position: absolute;
         visibility: hidden;
+        text-align: center;
 
         @include opacity(0);
         @include box-shadow($dropdown-shadow);
@@ -19,8 +20,11 @@
 
         .dropdown-header{
             color: $dark-gray;
-            font-size: $font-size-small;
             padding: $padding-dropdown-vertical $padding-dropdown-horizontal;
+            color: #e9ecef;
+            font-size: 17px;
+            background: #333;
+            font-weight: 800;
         }
 
         .no-notification{
@@ -41,6 +45,7 @@
             &:hover{
                 color: $white-color;
             }
+            background: #fff;
 
            img{
                margin-top: -3px;
