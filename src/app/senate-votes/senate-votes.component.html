@@ -80,7 +80,9 @@
                         </tr>
                         </tbody>
                       </table>
-                      <small><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 51 republican senators.</strong><br>{{text}} </small>
+                      <small *ngIf='!democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 51 republican senators.</strong><br>{{text}} </small>
+                      <small *ngIf='democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 49 democratic senators.</strong><br>{{text}}
+                      <br><br>*the total of 49 includes two Independent senators that caucus with the Democratic Party.</small>
                   </div>
                 </div>
 
