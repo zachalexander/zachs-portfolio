@@ -3,7 +3,7 @@ import { PropubService } from './../services/propub.service';
 import { CongressData } from './../shared/interfaces/congressdata';
 import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
-import { ResizedEvent } from 'angular-resize-event/resized-event';
+import { ResizedEvent } from 'angular-resize-event';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
