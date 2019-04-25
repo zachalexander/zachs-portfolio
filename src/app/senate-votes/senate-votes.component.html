@@ -44,21 +44,44 @@
                       <a class="btn btn-outline-danger" id="dropdownBasic1" ngbDropdownToggle>Pick a Senator</a>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
                          <a class="dropdown-header">Republican Senators</a>
-                         <a *ngFor="let senator of republicanSenators" class="dropdown-item" (click)="storeName($event)">{{senator.senator_name}} ({{senator.state}})</a>
+                         <a *ngFor="let senator of republicansDropdown" class="dropdown-item" (click)="storeName($event)">{{senator.senator_name}} ({{senator.state}})</a>
                       </div>
                     </div>
                     <div *ngIf="democraticChart" ngbDropdown class="d-inline-block dropdown">
                         <a class="btn btn-outline-info" id="dropdownBasic1" ngbDropdownToggle>Pick a Senator</a>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
                            <a class="dropdown-header">Democractic Senators</a>
-                           <a *ngFor="let senator of democraticSenators" class="dropdown-item" (click)="storeName($event)">{{senator.senator_name}} ({{senator.state}})</a>
+                           <a *ngFor="let senator of democratsDropdown" class="dropdown-item" (click)="storeName($event)">{{senator.senator_name}} ({{senator.state}})</a>
                         </div>
                     </div>
                   </div>
                 </div>
 
-                <div *ngIf="mobile" class="container">
-                  <div class="chart-wrapper-mobile" *ngIf="!serverError"></div>
+                <div *ngIf="mobile" id="senatorTable">
+                  <div class="chart-wrapper-mobile" *ngIf="!serverError">
+                    <h6 *ngIf="clicked" class="senatorTitle">{{clickedValue}} ({{state}})</h6>
+                    <h6 *ngIf="!clicked" class="senatorTitle">---</h6>
+                    <table class="table table">
+                        <thead>
+                        <tr>
+                          <th scope="col">Percent Voted With Party</th>
+                          <th scope="col">Missed Votes</th>
+                          <th scope="col">Total Votes</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td *ngIf="clicked">{{ percentParty}}%</td>
+                          <td *ngIf="!clicked">---</td>
+                          <td *ngIf="clicked">{{ missedVotes }}</td>
+                          <td *ngIf="!clicked">---</td>
+                          <td *ngIf="clicked">{{ totalVotes }}</td>
+                          <td *ngIf="!clicked">---</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                      <small><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 51 republican senators.</strong><br>{{text}} </small>
+                  </div>
                 </div>
 
                 <div *ngIf="serverError" class="error">

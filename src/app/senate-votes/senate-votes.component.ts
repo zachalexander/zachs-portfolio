@@ -32,6 +32,17 @@ export class SenateVotesComponent {
   errorMessage = '';
   congressdata: CongressData;
   clickedValue;
+  clicked = false;
+  democratsDropdown;
+  republicansDropdown;
+
+  percentParty;
+  loyaltyRank;
+  state;
+  party;
+  missedVotes;
+  totalVotes;
+  text;
 
 
   defaultMobileData = [
@@ -93,11 +104,6 @@ export class SenateVotesComponent {
     .subscribe(
       (data) => {
         this.manipulateDataDrawChart(data, len, hei);
-
-        if (this.mobile) {
-          const barColor = 'rgba(255, 39, 0, ';
-          this.drawMobileChart(this.defaultMobileData, len, hei, barColor)
-        }
       },
       (error) => this.serverError = true,
     );
@@ -152,6 +158,11 @@ export class SenateVotesComponent {
         });
 
         const dataToDraw = this.manipulateData(active_members);
+
+        if (this.mobile) {
+          this.democratsDropdown = this.democraticSenators.sort((a, b) => (a.state > b.state) ? 1 : -1)
+          this.republicansDropdown = this.republicanSenators.sort((a, b) => (a.state > b.state) ? 1 : -1)
+        }
 
         this.drawInitialChart(len, hei); {
           d3.select('svg').remove();
@@ -305,78 +316,6 @@ createSenatePhotoData(dataset) {
   return this.photoData;
 }
 
-drawMobileChart(dataset, len, hei, barColor) {
-  console.log(dataset);
-  console.log(hei);
-  console.log(len);
-  console.log(this.mobile);
-
-  // create main svg
-  d3.select('.chart-wrapper-mobile')
-    .append('svg')
-    .attr('width', len)
-    .attr('height', hei)
-    .append('g').classed('mobile-div', true)
-    .attr('transform', 'translate(0,0)');
-
-  // // create svgs for bar graph
-  // const senators = svg.append('g')
-  //                       .classed('senators', true)
-  //                       .attr('transform', 'translate(0,0)');
-
-  // // set scales for bars
-  // const XScale = d3.scaleBand().rangeRound([0, len]).padding(0.1);
-  // XScale.domain(d3.range(dataset.length).map((d) => d + ''));
-
-  // const YScale = d3.scaleLinear().range([0, hei]);
-  // YScale.domain([70, 100]);
-
-  // // create svgs for bar graph
-  // const senators = svgMobile.append('g')
-  // .classed('senators', true)
-  // .attr('transform', 'translate(0,0)');
-
-  // const XScaleBottom = d3.scaleBand().rangeRound([0, len]).padding(0.10);
-  // XScaleBottom.domain(dataset.map(function (d) {return d.senator_name; }));
-
-  // const YScaleLeft = d3.scaleLinear().range([hei, 0]);
-  // YScaleLeft.domain([70, 100]);
-
-  // const xAxis = d3.axisBottom(XScaleBottom).ticks(XScaleBottom).tickSizeOuter(0);
-
-  // const yAxis = d3.axisLeft(YScaleLeft).ticks(8).tickSizeOuter(1);
-
-  // senators.append('g')
-  //         .attr('transform', 'translate(0,' + hei + ')')
-  //         .call(xAxis)
-  //         .selectAll('text')
-  // // .attr('transform', 'rotate(-60)')
-  // // .attr('y', 5)
-  // // .attr('x', -8)
-  // // .attr('dy', '.35em')
-  // // .style('fill', 'rgb(124,124,124')
-  // // .style('text-anchor', 'end');
-
-  // senators.append('g')
-  // .attr('class', 'y-axis-rep')
-  // .attr('transform', 'translate(0,0)')
-  // .style('fill', 'rgb(124,124,124')
-  // .call(yAxis);
-
-  // // senators.selectAll('rect')
-  // // .data(dataset)
-  // // .enter()
-  // // .append('rect')
-  // // .attr('x', function(d, i) {
-  // //   const index = i.toString();
-  // //   return XScale(index);
-  // // })
-  // // .attr('y', function(d) {return hei - YScale(d['votes_w_prty_pct']); })
-  // // .attr('width', XScale.bandwidth())
-  // // .attr('height', function(d) {return YScale(d['votes_w_prty_pct']); })
-  // // // .attr('fill', function(d) {return barColor + (0.6 - (d['key'] / 100)) + ')'; })
-}
-
 drawChart(dataset, len, hei, barColor, mobile) {
 
   const margin = {top: 10, right: 20, bottom: 170, left: 20};
@@ -505,6 +444,51 @@ drawChart(dataset, len, hei, barColor, mobile) {
       let value = event.srcElement.innerText;
       value = value.substring(0, value.length - 5);
       this.clickedValue = value;
-      console.log(this.clickedValue);
+      this.clicked = true;
+
+      document.getElementById('senatorTable').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+
+      if (!this.democraticChart) {
+        this.republicanSenators.map(senators => {
+          if (senators.senator_name === this.clickedValue) {
+            this.percentParty = senators.votes_w_prty_pct;
+            this.loyaltyRank = senators.key + 1;
+            this.missedVotes = senators.missed_votes;
+            this.totalVotes = senators.total_votes;
+            this.state = senators.state;
+            this.party = 'Republican';
+          }
+        })
+      }
+
+      if (this.democraticChart) {
+        this.democraticSenators.map(senators => {
+          if (senators.senator_name === this.clickedValue) {
+            this.percentParty = senators.votes_w_prty_pct;
+            this.loyaltyRank = senators.key + 1;
+            this.missedVotes = senators.missed_votes;
+            this.totalVotes = senators.total_votes;
+            this.state = senators.state;
+            this.party = 'Democrat';
+          }
+        })
+      }
+
+      if (this.loyaltyRank < 10) {
+        this.text = 'This indicates that the Senator was very loyal to the party, and did not stray far from the party consensus on votes.'
+      }
+
+      if (this.loyaltyRank >= 10 && this.loyaltyRank < 35) {
+        this.text = 'This indicates that the Senator was quite loyal to their party, but would occassionally '
+        + 'stray from the party consensus on a vote.'
+      }
+
+      if (this.loyaltyRank >= 35 && this.loyaltyRank < 51) {
+        this.text = 'This indicates that the Senator went against party consensus more regularly than most.'
+      }
+
+      if (this.clickedValue === 'Rand Paul' || this.clickedValue === 'Joe Manchin') {
+        this.text = 'This Senator was the least loyal to their party.'
+      }
     }
   }

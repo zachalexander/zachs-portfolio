@@ -3,6 +3,18 @@ text {
   font-weight: 800;
 }
 
+td {
+  font-weight: 800;
+}
+
+.senatorTitle {
+  text-transform: capitalize;
+  background-color: #333;
+  font-size: 1.2em;
+  color: #fff;
+  padding: 12px;
+}
+
 .filter {
   color: #fff;
 }
@@ -27,6 +39,11 @@ img {
 .voting-segment-mobile {
   font-size: 0.95em;
   font-weight: 800;
+}
+
+.chart-wrapper-mobile {
+  margin-top: 40px;
+  text-align: center;
 }
 
 .dropdown-wrapper {
@@ -300,35 +317,4 @@ img {
   text-anchor: middle;
 }
 
-.x-axis-dem path,
-.x-axis-dem line {
-  display: none !important;
-}
-.x-axis-dem text {
-  display: none !important;
-}
-
-.y-axis-dem path,
-.y-axis-dem line {
-  display: none !important;
-}
-.y-axis-dem text {
-  display: none !important;
-}
-
-.y-axis-rep path,
-.y-axis-rep line {
-  display: none !important;
-}
-.y-axis-rep text {
-  display: none !important;
-}
-
-.x-axis-rep path,
-.x-axis-rep line {
-  display: none !important;
-}
-.x-axis-rep text {
-  display: none !important;
-}
 }
