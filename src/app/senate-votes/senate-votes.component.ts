@@ -533,7 +533,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
         XScale.domain(d3.range(this.defaultMobileData.length).map((d) => d + ''));
 
         const YScale = d3.scaleLinear().range([0, hei]);
-        YScale.domain([75, 100]);
+        YScale.domain([72, 100]);
 
 
         // create svgs for bar graph
@@ -543,13 +543,17 @@ drawChart(dataset, len, hei, barColor, mobile) {
 
         const XScaleBottom = d3.scaleBand().rangeRound([margin.right, len - margin.right]).padding(0.2);
         XScaleBottom.domain(this.defaultMobileData.map(function (d) {
-          if (d['key'] !== '') {
-            return 'Ranked #' + d['key'];
+          if (d['key'] !== '' && d['party'] === 'Democrat') {
+            return 'Ranked #' + (+d['key']);
+          }
+
+          if (d['key'] !== '' && d['party'] === 'Republican') {
+            return 'Ranked #' + (+d['key']);
           }
         }));
 
         const YScaleLeft = d3.scaleLinear().range([hei, 0]);
-        YScaleLeft.domain([75, 100]);
+        YScaleLeft.domain([72, 100]);
 
         const xAxis = d3.axisBottom(XScaleBottom).ticks(0).tickSizeOuter(0);
 
