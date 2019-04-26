@@ -88,6 +88,7 @@ img {
     grid-template-columns: 1fr 1fr;
     z-index: 100;
     padding: 50px;
+    min-height: 400px;
 }
 
 .button-section-mobile {
@@ -121,8 +122,8 @@ img {
 
 .summary-content-small {
   text-transform: unset;
-  font-weight: 400;
-  font-size: 0.85em;
+  font-weight: 600;
+  font-size: 0.95em;
   margin-top: 10px;
 }
 
@@ -165,7 +166,7 @@ rect:hover {
 
 #tooltip {
 display: grid;
- min-width: 200px;
+ min-width: 225px;
  height: auto;
  padding: 10px;
  background-color: rgba(255, 255, 255, 1);
@@ -180,7 +181,7 @@ display: grid;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 75%;
+  min-height: 100px;
 }
 
 
@@ -237,6 +238,8 @@ img {
    border: 1px solid #ddd;
    color: #333;
    padding: 4px;
+   font-weight: 600;
+   font-size: .85em;
  }
 
  svg text.bar-labels {

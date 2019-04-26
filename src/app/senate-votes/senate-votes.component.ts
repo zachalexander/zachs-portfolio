@@ -126,21 +126,14 @@ export class SenateVotesComponent {
         this.democraticSenators = [];
         const senPhotos = this.createSenatePhotoData(this.senatorPhotosData);
 
-        // merge two datasets
-        senPhotos.map((photos) => {
-          this.members.map((element) => {
-            if (element.last_name === 'Kyl') {
-              element.photo_url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/' +
-              '6/61/Jon_Kyl%2C_official_109th_Congress_photo.jpg/480px-Jon_Kyl%2C_official_109th_Congress_photo.jpg';
-            }
-            if (element.last_name === 'Hyde-Smith') {
-              element.photo_url = 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Cindy_Hyde-Smith_official_photo.jpg';
-            }
-            if (element.votesmart_id === photos.votesmart_id) {
-              element.photo_url = photos.photo_url;
-            }
-          });
-        });
+        // // merge two datasets
+        // senPhotos.map((photos) => {
+        //   this.members.map((element) => {
+        //     if (element.votesmart_id === photos.votesmart_id) {
+        //       element.photo_url = photos.photo_url;
+        //     }
+        //   });
+        // });
 
         this.members.map(members => {
           if (members.in_office === false && (members.last_name !== 'Cochran' && members.last_name !== 'McCain'
@@ -152,10 +145,18 @@ export class SenateVotesComponent {
               'votes_w_prty_pct': members.votes_with_party_pct,
               'total_votes': members.total_votes,
               'missed_votes': members.missed_votes,
-              'photo_url': members.photo_url
+              'photo_url': '../../../../assets/img/senate-headshots/' + members.first_name.toLocaleLowerCase() + '-' + members.last_name.toLocaleLowerCase() + '.jpg'
             });
           }
         });
+
+        if (active_members['senator_name'] === 'Catherine Cortez Masto') {
+          active_members['photo_url'] = '../../../../assets/img/senate-headshots/catherine-cortez.jpg'
+        }
+
+        if (active_members['senator_name'] === 'Chris Van Hollen') {
+          active_members['photo_url'] = '../../../../assets/img/senate-headshots/chris-van.jpg'
+        }
 
         const dataToDraw = this.manipulateData(active_members);
 
@@ -384,21 +385,19 @@ drawChart(dataset, len, hei, barColor, mobile) {
               .attr('width', XScale.bandwidth())
               .attr('height', function(d) {return YScale(d['votes_w_prty_pct']); })
               .attr('fill', function(d) {return barColor + (0.6 - (d['key'] / 100)) + ')'; })
-              .call(function() {
-                if (!mobile) {
-                  d3.select('#tooltip')
-                    .style('left', 20 + 'px')
-                    .style('top', 0 + 'px')
-                    .select('#value')
-                    .html('<h5 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h5>' + '<hr>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
-                      + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
-                      + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
-                      + '<div>' + '<p class = ' + 'voting-info' + '>' + 'Total Votes: ' + '<strong>' + '---' + '</strong>' + '</p>'
-                      + '<p class = ' + 'voting-info' + '>' + 'Missed Votes: ' + '<strong>' + '---'
-                      + '</strong>' + '</p>' + '</div>' + '</div>'
-                    );
-                }
+              .call(function(){
+                d3.select('#tooltip')
+                .style('left', 20 + 'px')
+                .style('top', 0 + 'px')
+                .select('#value')
+                .html('<h5 class =' + 'senator-name' + '>' + '---' + ' ' + '(' + '---' + ')' + '</h5>' + '<hr>'
+                  + '<p class = ' + 'voting-info' + '>' + 'Percent Vote With Party: ' + '<span class =' + 'vote-percent' + '>'
+                  + '<strong>' + '---' + '%' + '<strong>' + '</span>' + '</p>' + '<hr>'
+                  + '<div class = tooltip-wrapper>' + '<div>' + '<p>' + '---' + '</p>' + '</div>'
+                  + '<div>' + '<p class = ' + 'voting-info' + '>' + 'Total Votes: ' + '<strong>' + '---' + '</strong>' + '</p>'
+                  + '<p class = ' + 'voting-info' + '>' + 'Missed Votes: ' + '<strong>' + '---'
+                  + '</strong>' + '</p>' + '</div>' + '</div>'
+                )
               })
               .on('mouseover', function(d) {
                 const xPosition = parseFloat(d3.select(this).attr('x')) + XScale.bandwidth();
