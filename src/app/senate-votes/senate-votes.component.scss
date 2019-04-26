@@ -15,6 +15,25 @@ td {
   padding: 12px;
 }
 
+.senator-photo {
+  padding: 40px;
+}
+
+.side-view {
+  display: flex;
+  flex-flow: nowrap;
+}
+
+.senator-photo img {
+  max-height: 100px !important;
+  max-width: 100px !important;
+}
+
+.border-wrapper {
+  padding: 5px;
+  border: 1px solid #ddd;
+}
+
 .filter {
   color: #fff;
 }
@@ -256,6 +275,17 @@ img {
 .x-axis-dem text {
  font-weight: 800;
  font-size: 1.3em;
+}
+
+.x-axis.small path,
+.x-axis.small line {
+  stroke: none !important;
+  fill: none !important;
+}
+
+g.tick line {
+  stroke: none;
+  fill: none;
 }
 
 .y-axis-dem path,

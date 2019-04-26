@@ -62,30 +62,42 @@
 
                 <div *ngIf="mobile" id="senatorTable">
                   <div class="chart-wrapper-mobile" *ngIf="!serverError">
-                    <h6 *ngIf="clicked" class="senatorTitle">{{clickedValue}} ({{state}})</h6>
-                    <h6 *ngIf="!clicked" class="senatorTitle">---</h6>
-                    <table class="table table">
-                        <thead>
-                        <tr>
-                          <th scope="col">Percent Voted With Party</th>
-                          <th scope="col">Missed Votes</th>
-                          <th scope="col">Total Votes</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                          <td *ngIf="clicked">{{ percentParty}}%</td>
-                          <td *ngIf="!clicked">---</td>
-                          <td *ngIf="clicked">{{ missedVotes }}</td>
-                          <td *ngIf="!clicked">---</td>
-                          <td *ngIf="clicked">{{ totalVotes }}</td>
-                          <td *ngIf="!clicked">---</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                      <small *ngIf='!democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 51 republican senators.</strong><br>{{text}} </small>
-                      <small *ngIf='democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 49 democratic senators.</strong><br>{{text}}
-                      <br><br>*the total of 49 includes two Independent senators that caucus with the Democratic Party.</small>
+                    <div class="border-wrapper">
+                      <h6 *ngIf="clicked" class="senatorTitle">{{clickedValue}} ({{state}})</h6>
+                      <h6 *ngIf="!clicked" class="senatorTitle">---</h6>
+                      <div class="side-view">
+                        <div *ngIf="clicked" class="senator-photo">
+                            <img src= "{{photo}}" class="rounded"/>
+                        </div>
+                        <div class="small-chart"></div>
+                      </div>
+                      <table class="table table">
+                          <thead>
+                          <tr>
+                            <th scope="col">Percent Voted With Party</th>
+                            <th scope="col">Missed Votes</th>
+                            <th scope="col">Total Votes</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                            <td *ngIf="clicked">{{ percentParty}}%</td>
+                            <td *ngIf="!clicked">---</td>
+                            <td *ngIf="clicked">{{ missedVotes }}</td>
+                            <td *ngIf="!clicked">---</td>
+                            <td *ngIf="clicked">{{ totalVotes }}</td>
+                            <td *ngIf="!clicked">---</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                        <div *ngIf="clicked">
+                          <small *ngIf='!democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 51 republican senators.</strong><br>{{text}} </small>
+                          <small *ngIf='democraticChart'><strong>{{clickedValue}} ranked #{{loyaltyRank}} out of 49 democratic senators.</strong><br>{{text}}</small>
+                        </div>
+                      </div>
+                        <div *ngIf="clicked">
+                          <small *ngIf='democraticChart'>*the total of 49 includes two Independent senators that caucus with the Democratic Party.</small>
+                        </div>
                   </div>
                 </div>
 

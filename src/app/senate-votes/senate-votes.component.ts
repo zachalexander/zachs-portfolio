@@ -5,6 +5,7 @@ import * as d3 from 'd3';
 import 'rxjs/add/operator/filter';
 import { ResizedEvent } from 'angular-resize-event';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { DebugRenderer2 } from '@angular/core/src/view/services';
 
 @Component({
   selector: 'app-root',
@@ -43,11 +44,12 @@ export class SenateVotesComponent {
   missedVotes;
   totalVotes;
   text;
+  photo;
 
 
   defaultMobileData = [
     {
-      key: 0,
+      key: '',
       senator_name: 'Perfectly Loyal Senator',
       votes_w_prty_pct: 100
     },
@@ -145,18 +147,21 @@ export class SenateVotesComponent {
               'votes_w_prty_pct': members.votes_with_party_pct,
               'total_votes': members.total_votes,
               'missed_votes': members.missed_votes,
-              'photo_url': '../../../../assets/img/senate-headshots/' + members.first_name.toLocaleLowerCase() + '-' + members.last_name.toLocaleLowerCase() + '.jpg'
+              'photo_url': '../../../../assets/img/senate-headshots/' + members.first_name.toLocaleLowerCase() + '-'
+              + members.last_name.toLocaleLowerCase() + '.jpg'
             });
           }
         });
 
-        if (active_members['senator_name'] === 'Catherine Cortez Masto') {
-          active_members['photo_url'] = '../../../../assets/img/senate-headshots/catherine-cortez.jpg'
-        }
+        active_members.map(sen => {
+          if (sen['senator_name'] === 'Catherine Cortez Masto') {
+            sen['photo_url'] = '../../../../assets/img/senate-headshots/catherine-cortez.jpg'
+          }
 
-        if (active_members['senator_name'] === 'Chris Van Hollen') {
-          active_members['photo_url'] = '../../../../assets/img/senate-headshots/chris-van.jpg'
-        }
+          if (sen['senator_name'] === 'Chris Van Hollen') {
+            sen['photo_url'] = '../../../../assets/img/senate-headshots/chris-van.jpg'
+          }
+        })
 
         const dataToDraw = this.manipulateData(active_members);
 
@@ -444,6 +449,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
       value = value.substring(0, value.length - 5);
       this.clickedValue = value;
       this.clicked = true;
+      d3.select('svg').remove();
 
       document.getElementById('senatorTable').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
 
@@ -456,6 +462,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
             this.totalVotes = senators.total_votes;
             this.state = senators.state;
             this.party = 'Republican';
+            this.photo = senators.photo_url;
           }
         })
       }
@@ -469,6 +476,7 @@ drawChart(dataset, len, hei, barColor, mobile) {
             this.totalVotes = senators.total_votes;
             this.state = senators.state;
             this.party = 'Democrat';
+            this.photo = senators.photo_url;
           }
         })
       }
@@ -489,5 +497,114 @@ drawChart(dataset, len, hei, barColor, mobile) {
       if (this.clickedValue === 'Rand Paul' || this.clickedValue === 'Joe Manchin') {
         this.text = 'This Senator was the least loyal to their party.'
       }
-    }
+
+      if (this.democraticChart) {
+        this.defaultMobileData[1]['key'] = this.loyaltyRank;
+        this.defaultMobileData[1]['senator_name'] = this.clickedValue;
+        this.defaultMobileData[1]['votes_w_prty_pct'] = this.percentParty;
+        this.defaultMobileData[1]['party'] = this.party;
+        this.defaultMobileData[0]['party'] = 'Democrat'
+      }
+
+      if (!this.democraticChart) {
+        this.defaultMobileData[1]['key'] = this.loyaltyRank;
+        this.defaultMobileData[1]['senator_name'] = this.clickedValue;
+        this.defaultMobileData[1]['votes_w_prty_pct'] = this.percentParty;
+        this.defaultMobileData[1]['party'] = this.party;
+        this.defaultMobileData[0]['party'] = 'Republican'
+      }
+
+      const margin = {top: 40, right: 10, bottom: 70, left: 30};
+
+      const len = 120 - margin.left - margin.right;
+      const hei = 200 - margin.top - margin.bottom;
+
+      // d3 chart
+      const svg = d3.select('.small-chart')
+                    .append('svg')
+                    .attr('width', 120)
+                    .attr('height', 200)
+                    .append('g').classed('small-chart-div', true)
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+
+        // set scales for bars
+        const XScale = d3.scaleBand().rangeRound([margin.right, len - margin.right]).padding(0.2);
+        XScale.domain(d3.range(this.defaultMobileData.length).map((d) => d + ''));
+
+        const YScale = d3.scaleLinear().range([0, hei]);
+        YScale.domain([75, 100]);
+
+
+        // create svgs for bar graph
+        const senators = svg.append('g')
+                              .classed('senators', true)
+                              .attr('transform', 'translate(0,0)');
+
+        const XScaleBottom = d3.scaleBand().rangeRound([margin.right, len - margin.right]).padding(0.2);
+        XScaleBottom.domain(this.defaultMobileData.map(function (d) {
+          if (d['key'] !== '') {
+            return 'Ranked #' + d['key'];
+          }
+        }));
+
+        const YScaleLeft = d3.scaleLinear().range([hei, 0]);
+        YScaleLeft.domain([75, 100]);
+
+        const xAxis = d3.axisBottom(XScaleBottom).ticks(0).tickSizeOuter(0);
+
+        svg.append('g')
+        .attr('class', 'x-axis-small')
+        .attr('transform', 'translate(0,' + hei + ')')
+        .call(xAxis)
+        .append('text')
+        .attr('transform', 'rotate(-90)')
+        .attr('y', 5)
+        .attr('x', -30)
+        .attr('dy', '.85em')
+        .style('text-anchor', 'end');
+
+      senators.selectAll('rect')
+        .data(this.defaultMobileData)
+        .enter()
+        .append('rect')
+        .attr('x', function(d, i) {
+          const index = i.toString();
+          return XScale(index);
+        })
+        .attr('y', function(d) {return hei - YScale(d['votes_w_prty_pct']); })
+        .attr('width', XScale.bandwidth())
+        .attr('height', function(d) {return YScale(d['votes_w_prty_pct']); })
+        .attr('fill', function(d) {
+          if (d['party'] === 'Democrat' && d['votes_w_prty_pct'] === 100) {
+            return 'rgba(0, 143, 213, 1)';
+          }
+          if (d['party'] === 'Democrat' && d['votes_w_prty_pct'] < 100) {
+            return 'rgba(0, 143, 213, ' + (0.6 - (d['key'] / 100)) + ')';
+          }
+          if (d['party'] === 'Republican' && d['votes_w_prty_pct'] === 100) {
+            return 'rgba(255, 39, 0, 1)';
+          }
+          if (d['party'] === 'Republican' && d['votes_w_prty_pct'] < 100) {
+            return 'rgba(255, 39, 0, ' + (0.6 - (d['key'] / 100)) + ')';
+          }
+        })
+        .attr('stroke', '#333')
+
+        // now add the text to the g
+        senators.selectAll('text')
+                .data(this.defaultMobileData)
+                .enter()
+                .append('text')
+                .text(function(d){
+                  return Math.round(d['votes_w_prty_pct']) + '%';
+                })
+                .attr('x', function(d, i) { return XScale(i) + (XScale.bandwidth() / 2); })
+                .attr('y', function(d) {
+                    return hei - (YScale(d['votes_w_prty_pct']) + 8);
+                })
+                .style('text-anchor', 'middle')
+                .style('font-size', '0.65em')
+                // .attr('transform', 'rotate(90)');
+        }
   }
