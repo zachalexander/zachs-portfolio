@@ -25,7 +25,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { HomeModule } from './home/home.module';
 import { SenateVotesComponent } from './senate-votes/senate-votes.component';
-import { UsMapComponent } from './us-map/us-map.component';
+// import { UsMapComponent } from './us-map/us-map.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { UsMapComponent } from './us-map/us-map.component';
     NavbarComponent,
     FooterComponent,
     SenateVotesComponent,
-    UsMapComponent
+    // UsMapComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
