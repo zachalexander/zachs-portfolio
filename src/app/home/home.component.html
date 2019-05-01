@@ -4,9 +4,12 @@
         <div class="content-center">
             <div class="container">
                 <div class="title-brand">
-                    <h2 class="presentation-title">Hello;</h2>
+                  <h2 class="presentation-title">Hello</h2>
+                  <div (click)='scrollToDescript()' class="continue-box">
+                    <a (click)='scrollToDescript()'><small>View Content <i class="fa fa-arrow-down bounce"></i></small></a>
+                  </div>
                     <div class="fog-low">
-                        <img src="assets/img/fog-low.png" alt="">
+                      <img src="assets/img/fog-low.png" alt="">
                     </div>
                     <div class="fog-low right">
                         <img src="assets/img/fog-low.png" alt="">
@@ -16,8 +19,20 @@
         </div>
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
     </div>
+    <div class="section section-gray">
+      <div id="explainer">
+        <div class="col-md-6 ml-auto mr-auto text-center">
+          <h2 class="title">Specifications</h2>
+          <p class="frameworks-description">
+            Most of my work uses the <a href="https://d3js.org/" target="_blank"><strong>D3.js javascript library.</strong></a><br>
+            My visuals are run with a front-end Angular 5+ framework.
+          </p>
+          <button class="btn btn-outline-default btn-round" (click)='scrollToList()'>View my work</button>
+        </div>
+        <div class="chart-wrapper"></div>
+      </div>
+    </div>
     <div class="main">
-        <app-components></app-components>
         <div class="section section-dark">
             <div class="container">
                 <div class="row">
@@ -28,12 +43,15 @@
                     </div>
                 </div>
             </div>
+            <div id="viz-list">
               <div class="section visuals-list col-md-8 ml-auto mr-auto text-center">
                   <ul>
                     <li>01.15.2019 | <a routerLink='/senate-votes'>Senate Vote Percentage</a></li>
-                    <!-- <li>01.17.2019 | <a routerLink='/politics-map'>Gun Mortality Map</a></li>
-                    <li>04.01.2019 | <a routerLink='/parks-visual'>Parks Visual</a></li> -->
+                    <li>04.17.2019 | <a routerLink='/us-map'>Gun Mortality Map</a></li>
+                    <!-- <li>04.01.2019 | <a routerLink='/parks-visual'>Parks Visual</a></li> -->
                   </ul>
               </div>
             </div>
+        </div>
+        <app-components></app-components>
     </div>

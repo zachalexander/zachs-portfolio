@@ -13,6 +13,12 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 })
 export class AppComponent implements OnInit {
     private _router: Subscription;
+
+    toState = 'state1';
+    changeState(state: any) {
+      this.toState = state;
+    }
+
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
     constructor( private renderer : Renderer, private router: Router, @Inject(DOCUMENT,) private document: any, private element : ElementRef, public location: Location) {}

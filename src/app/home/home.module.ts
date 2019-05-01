@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
-
 import { ComponentsModule } from '../components/components.module';
 
 @NgModule({

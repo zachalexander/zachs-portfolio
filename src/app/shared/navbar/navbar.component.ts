@@ -64,4 +64,7 @@ export class NavbarComponent implements OnInit {
             return false;
         }
     }
+    scrollToList() {
+      document.getElementById('viz-list').scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+    }
 }

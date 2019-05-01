@@ -126,17 +126,6 @@ export class SenateVotesComponent {
         const active_members = [];
         this.republicanSenators = [];
         this.democraticSenators = [];
-        const senPhotos = this.createSenatePhotoData(this.senatorPhotosData);
-
-        // // merge two datasets
-        // senPhotos.map((photos) => {
-        //   this.members.map((element) => {
-        //     if (element.votesmart_id === photos.votesmart_id) {
-        //       element.photo_url = photos.photo_url;
-        //     }
-        //   });
-        // });
-
         this.members.map(members => {
           if (members.in_office === false && (members.last_name !== 'Cochran' && members.last_name !== 'McCain'
           && members.last_name !== 'Franken' && members.last_name !== 'Strange' && members.last_name !== 'Sessions')) {

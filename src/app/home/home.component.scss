@@ -5,6 +5,10 @@ li {
  font-weight: 400;
 }
 
+.chart-wrapper {
+  text-align: center;
+}
+
 ul {
   padding: 0;
 }
@@ -12,6 +16,87 @@ ul {
   background: inherit;
 }
 
-// .presentation-title {
-//   font-size: 0.85em;
-// }
+.section.section-gray.add-bottom-padding {
+  padding: 70px 0px 70px 0px !important;
+}
+
+.continue-box{
+  padding: 10px;
+  border: 2px solid #fff;
+  z-index: -1;
+}
+.continue-box:hover{
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2)
+}
+
+.add-margin-top {
+  margin: 30px auto;
+  align-content: center;
+}
+
+.frameworks-description {
+  margin-bottom: 50px;
+}
+
+
+// animate arrow
+
+.bounce {
+  display: inline-block;
+  position: relative;
+  -moz-animation: bounce 0.5s infinite linear;
+  -o-animation: bounce 0.5s infinite linear;
+  -webkit-animation: bounce 0.5s infinite linear;
+  animation: bounce 0.5s infinite linear;
+  color:000;
+}
+
+@-webkit-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-moz-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-o-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@-ms-keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+@keyframes bounce {
+    0% { top: 0; }
+    50% { top: -0.2em; }
+    70% { top: -0.3em; }
+    100% { top: 0; }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  #explainer {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+/* Larger than phone (phones, 600px and down) */
+@media only screen and (min-width: 600px) {
+  #explainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+}
